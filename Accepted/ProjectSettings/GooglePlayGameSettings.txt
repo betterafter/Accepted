@@ -1,0 +1,9 @@
+lastUpgrade=00964
+proj.pluginVersion=0.9.64
+proj.AppId=994484244486
+and.BundleId=com.keykat.accepted
+proj.classDir=Assets
+proj.ConstantsClassName=GPGSIds
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0a%3c%21--%0aGoogle+Play+game+services+IDs.%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0a--%3e%0a%3cresources%3e%0a++%3c%21--+app_id+--%3e%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e994484244486%3c%2fstring%3e%0a++%3c%21--+package_name+--%3e%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3ecom.keykat.accepted%3c%2fstring%3e%0a++%3c%21--+achievement+..+--%3e%0a++%3cstring+name%3d%22achievement_..%22+translatable%3d%22false%22%3eCgkIhqCF3_gcEAIQBA%3c%2fstring%3e%0a++%3c%21--+leaderboard+accepted+--%3e%0a++%3cstring+name%3d%22leaderboard_accepted%22+translatable%3d%22false%22%3eCgkIhqCF3_gcEAIQAQ%3c%2fstring%3e%0a++%3c%21--+leaderboard+2+--%3e%0a++%3cstring+name%3d%22leaderboard_2%22+translatable%3d%22false%22%3eCgkIhqCF3_gcEAIQAw%3c%2fstring%3e%0a%3c%2fresources%3e%0a
+and.ClientId=994484244486-70sdlmmqitlqrog78oo8turkbr1k5fv1.apps.googleusercontent.com
+android.SetupDone=true
