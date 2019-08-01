@@ -7,6 +7,7 @@ public class sceneManager : MonoBehaviour
 {
 
     public string stageName;
+    public int stageLevel;
     public bool IsRestart;
     public Stack<UndoItem> stack = new Stack<UndoItem>();
 

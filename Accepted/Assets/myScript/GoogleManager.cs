@@ -15,14 +15,12 @@ using System;
 public class GoogleManager : MonoBehaviour
 {
     private const string FILE_NAME = "saveFile";
-
     private Action<bool> SignInCallBack;
 
     public StageData stageData;
-    //public Text username, STATUS;
+    public GameObject LoadingObj;
 
-    private bool isSaving;
-    public bool saving, loading;
+    
 
 
 
@@ -64,6 +62,8 @@ public class GoogleManager : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
         }
+
+        LoadFromCloud();
     }
 
     //로그아웃기능은 사실상 필요없는 기능 
@@ -162,11 +162,11 @@ public class GoogleManager : MonoBehaviour
 
     #region Load
 
+    //클라우드에 저장한 데이터 불러오기 
     public void LoadFromCloud()
     {
         if (!Social.localUser.authenticated)
         {
-            //STATUS.text = "LoadFromCloud fail";
             LogIn();
             return;
         }
@@ -177,19 +177,17 @@ public class GoogleManager : MonoBehaviour
     {
         if(status == SavedGameRequestStatus.Success)
         {
-           // STATUS.text = "파일열기 성공2";
+           //클라우드 파일 열기 성공 
             LoadGame(game);
         }
         else
         {
-            //파일 열기 실패 
-           // STATUS.text = "파일열기 실패2";
+            //클라우드 파일 열기 실패 
         }
     }
 
     private void LoadGame(ISavedGameMetadata game)
     {
-       // STATUS.text = "LoadGame Phase";
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
         savedGameClient.ReadBinaryData(game, DataRead);
     }
@@ -203,11 +201,7 @@ public class GoogleManager : MonoBehaviour
 
                 TextAsset jsonString = Resources.Load("saveFile") as TextAsset;
                 string LocalDataString = jsonString.text;
-
-                //STATUS.text = LocalDataString;
-
                 stageData = JsonUtility.FromJson<StageData>(LocalDataString);
-                //JsonUtility.FromJsonOverwrite(LocalDataString, stageData);
             }
             else
             {
@@ -216,12 +210,11 @@ public class GoogleManager : MonoBehaviour
             }
 
             //데이타 읽기 성공 
-          //  STATUS.text = "데이터 읽기 성공";
+            LoadingObj.SetActive(false);
         }
         else
         {
             //데이타 읽기 실패 
-          //  STATUS.text = "데이터 읽기 실패";
         }
     }
 
@@ -230,20 +223,9 @@ public class GoogleManager : MonoBehaviour
 
     private void Start()
     {
-
         stageData = new StageData();
-
         StartCoroutine("LogIn");
-        Invoke("TEST2", 5f);
 
-
-    }
-
-
-    public void TEST2()
-    {
-        //SaveToCloud();
-        LoadFromCloud();
     }
 }
 

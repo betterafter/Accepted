@@ -53,7 +53,7 @@ public class Map_Editor : MonoBehaviour
         GameObject.Find("chaptertext").SetActive(false);
         GameObject.Find("title").SetActive(false);
 
-        //게임이 시작하면 retry 버튼 활성화
+        //게임이 시작하면 UI 버튼 활성화
         gamebutton.transform.Find("retry").gameObject.SetActive(true);
         Button btn = GameObject.Find("retry").GetComponent<Button>();
         btn.onClick.AddListener(delegate () { GameObject.Find("GameManager").GetComponent<sceneManager>().RestartClick(); });
@@ -77,6 +77,8 @@ public class Map_Editor : MonoBehaviour
         gamebutton.transform.Find("right").gameObject.SetActive(true);
         Button btn6 = GameObject.Find("right").GetComponent<Button>();
         btn6.onClick.AddListener(delegate () { GameObject.FindWithTag("player").GetComponent<PlayerController>().Move(btn6); });
+
+        gamebutton.transform.Find("backStage").gameObject.SetActive(true);
 
         find();
 

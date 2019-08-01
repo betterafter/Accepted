@@ -118,7 +118,7 @@ public class Stage : MonoBehaviour
         googleManager.SaveToCloud();
 
         //게임을 클리어하면 스테이지 선택창으로 넘어가게 됨.
-        SceneManager.LoadScene("stageSelect");
+        SceneManager.LoadScene(s.stageLevel.ToString());
     }
 
 
