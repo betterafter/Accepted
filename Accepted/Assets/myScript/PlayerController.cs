@@ -9,12 +9,13 @@ public class PlayerController : MonoBehaviour
 {
     private Vector3 CurrPos, NextPos, CurrOtherPos, OtherNextPos, scale;
 
-    private float time = 0.03f, lerpTime = 0.5f, dist1, dist2;
+    public float time = 0.02f, lerpTime = 0.5f, dist1, dist2;
     public int dir, last;
 
-    private Stage s;
+    //private Stage s;
     private CollisionManager cm;
     private sceneManager sm;
+    private Map_Editor ME;
 
     private GameObject[] colObj = new GameObject[4];
     private GameObject gm;
@@ -25,15 +26,17 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        btnup = GameObject.FindWithTag("up").GetComponent<Button>();
-        btndown = GameObject.FindWithTag("down").GetComponent<Button>();
-        btnleft = GameObject.FindWithTag("left").GetComponent<Button>();
-        btnright = GameObject.FindWithTag("right").GetComponent<Button>();
+        ME = Camera.main.GetComponent<Map_Editor>();
 
-        s = Camera.main.GetComponent<Stage>();
+        btnup = ME.gamebutton.transform.Find("up").GetComponent<Button>();
+        btndown = ME.gamebutton.transform.Find("down").GetComponent<Button>();
+        btnleft = ME.gamebutton.transform.Find("left").GetComponent<Button>();
+        btnright = ME.gamebutton.transform.Find("right").GetComponent<Button>();
+
+
+        //s = Camera.main.GetComponent<Stage>();
         gm = GameObject.Find("GameManager");
         sm = gm.GetComponent<sceneManager>();
-        //undo = gm.GetComponent<UndoItem>();
 
         anime = GetComponent<Animator>();
         last = 0;
@@ -146,10 +149,15 @@ public class PlayerController : MonoBehaviour
             transform.localScale = scale;
             PlayerMove(dir, dist1, dist2);
         }
+
+        btnup.enabled = true;
+        btndown.enabled = true;
+        btnleft.enabled = true;
+        btnright.enabled = true;
     }
 
 
-
+    //버튼 연속 입력을 막기 위한 함수 
     private void ButtonCoolDown(Button btn)
     {
         if (btn == btnup)
@@ -185,7 +193,6 @@ public class PlayerController : MonoBehaviour
 
     public void Move(Button btn)
     {
-        //Debug.Log(btn.tag);
         ButtonCoolDown(btn);
         //new를 통한 생성과 같은 기능을 수행함.
         UndoItem undo = gameObject.AddComponent<UndoItem>();
@@ -230,7 +237,7 @@ public class PlayerController : MonoBehaviour
 
             if (colObj[1] == null && transform.position.y > -4) dir = 2;
             else if (colObj[1] != null && colObj[1].transform.position.y > -4) dir = 2;
-            else Invoke("StopMove", time); 
+            else Invoke("StopMove", time);
         }
         else if (btn.tag == btnleft.tag)
         {
@@ -252,7 +259,7 @@ public class PlayerController : MonoBehaviour
 
             if (colObj[2] == null && transform.position.x > -4) dir = 3;
             else if (colObj[2] != null && colObj[2].transform.position.x > -4) dir = 3;
-            else Invoke("StopMove", time); 
+            else Invoke("StopMove", time);
         }
         else if (btn.tag == btnright.tag)
         {
@@ -284,8 +291,7 @@ public class PlayerController : MonoBehaviour
     private void StopMove()
     {
 
-
-        if(anime.GetBool("IsWalk") == true)
+        if (anime.GetBool("IsWalk") == true)
         {
             anime.SetBool("IsWalk", false);
             anime.SetBool("IsIdle", true);
@@ -302,10 +308,6 @@ public class PlayerController : MonoBehaviour
         }
 
         dir = 0;
-        btnup.enabled = true;
-        btndown.enabled = true;
-        btnleft.enabled = true;
-        btnright.enabled = true;
     }
 
 

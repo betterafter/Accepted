@@ -21,7 +21,7 @@ public class StageSelect : MonoBehaviour
         s = GameObject.Find("GameManager").GetComponent<sceneManager>();
 
         int idx = (s.stageLevel - 1) * 17, EndIdx = idx + 16;
-        while (idx < EndIdx)
+        while (idx <= EndIdx)
         {
             if (this.gameObject.name == stageDataToSelect.StageInnerData[idx].stage)
             {

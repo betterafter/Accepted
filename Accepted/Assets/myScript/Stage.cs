@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class Stage : MonoBehaviour
 {
     public int stepCnt, currStepCnt;
+    public int IsLeftActive, IsRightActive, IsUpActive, IsDownActive;
     public GameObject manager;
 
     private StageData EndStageData;

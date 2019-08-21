@@ -24,7 +24,6 @@ public class stageLevelSelect : MonoBehaviour
     public void BackToStageLevel()
     {
         s = GameObject.Find("GameManager").GetComponent<sceneManager>();
-
         SceneManager.LoadScene(s.stageLevel.ToString());
     }
 }

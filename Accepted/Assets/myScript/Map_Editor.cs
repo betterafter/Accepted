@@ -9,7 +9,12 @@ public class Map_Editor : MonoBehaviour
     List<List<string>> obj = new List<List<string>>();
     private Text chaptertxt, titletxt;
     private int stepCnt;
-    private GameObject gamebutton;
+    private Stage stage;
+    private bool Up, Down, Left, Right;
+
+    public GameObject gamebutton;
+    public Transform LeftBtntrans, RightBtntrans, UpBtntrans, DownBtntrans;
+    public Button Leftbtn, Rightbtn, Upbtn, Downbtn;
 
     static string LINEPARSE = @"\n";
     static string ATTRIBUTEPARSE = @",";
@@ -28,7 +33,11 @@ public class Map_Editor : MonoBehaviour
 
         csvParser(mapName);
 
+        //시작할 때 방향키 발판 및 블럭이 존재하는지 체크하기 위한 초기화 코드 
+        Up = false; Down = false; Left = false; Right = false;
 
+        //재시작 버튼을 눌렀는지 여부 확인
+        //재시작을 누른게 아닌 처음 시작이라면 : 인트로 화면 시작 후 오브젝트 배치 
         if (s.IsRestart == false)
         {
             chaptertxt = GameObject.Find("chaptertext").GetComponent<Text>();
@@ -43,17 +52,18 @@ public class Map_Editor : MonoBehaviour
             Invoke("set", 4f);
         }
 
-        else set();
-        //find();
+        //재시작을 누른거라면 : 그냥 오브젝트 재배치  
+        else if (s.IsRestart == true) set();
     }
 
+    // 인게임 내에서의 각종 UI 활성화 
     private void set()
     {
         //chapter 타이틀이 실행이 한번 되면 이제 다시 꺼지게 됨.
         GameObject.Find("chaptertext").SetActive(false);
         GameObject.Find("title").SetActive(false);
 
-        //게임이 시작하면 UI 버튼 활성화
+        //게임이 시작하면 UI 버튼 활성화 //////////////////////////////////////////////////////////////////////////////////////////////
         gamebutton.transform.Find("retry").gameObject.SetActive(true);
         Button btn = GameObject.Find("retry").GetComponent<Button>();
         btn.onClick.AddListener(delegate () { GameObject.Find("GameManager").GetComponent<sceneManager>().RestartClick(); });
@@ -62,33 +72,78 @@ public class Map_Editor : MonoBehaviour
         Button btn2 = GameObject.Find("undo").GetComponent<Button>();
         btn2.onClick.AddListener(delegate () { GameObject.Find("GameManager").GetComponent<sceneManager>().UndoClick(); });
 
-        gamebutton.transform.Find("up").gameObject.SetActive(true);
-        Button btn3 = GameObject.Find("up").GetComponent<Button>();
-        btn3.onClick.AddListener(delegate () { GameObject.FindWithTag("player").GetComponent<PlayerController>().Move(btn3); });
+        UpBtntrans = gamebutton.transform.Find("up");
+        UpBtntrans.gameObject.SetActive(true);
+        Upbtn = GameObject.Find("up").GetComponent<Button>();
+        Upbtn.onClick.AddListener(delegate () { GameObject.FindWithTag("player").GetComponent<PlayerController>().Move(Upbtn); });
 
-        gamebutton.transform.Find("down").gameObject.SetActive(true);
-        Button btn4 = GameObject.Find("down").GetComponent<Button>();
-        btn4.onClick.AddListener(delegate () { GameObject.FindWithTag("player").GetComponent<PlayerController>().Move(btn4); });
+        DownBtntrans = gamebutton.transform.Find("down");
+        DownBtntrans.gameObject.SetActive(true);
+        Downbtn = GameObject.Find("down").GetComponent<Button>();
+        Downbtn.onClick.AddListener(delegate () { GameObject.FindWithTag("player").GetComponent<PlayerController>().Move(Downbtn); });
 
-        gamebutton.transform.Find("left").gameObject.SetActive(true);
-        Button btn5 = GameObject.Find("left").GetComponent<Button>();
-        btn5.onClick.AddListener(delegate () { GameObject.FindWithTag("player").GetComponent<PlayerController>().Move(btn5); });
+        LeftBtntrans = gamebutton.transform.Find("left");
+        LeftBtntrans.gameObject.SetActive(true);
+        Leftbtn = GameObject.Find("left").GetComponent<Button>();
+        Leftbtn.onClick.AddListener(delegate () { GameObject.FindWithTag("player").GetComponent<PlayerController>().Move(Leftbtn); });
 
-        gamebutton.transform.Find("right").gameObject.SetActive(true);
-        Button btn6 = GameObject.Find("right").GetComponent<Button>();
-        btn6.onClick.AddListener(delegate () { GameObject.FindWithTag("player").GetComponent<PlayerController>().Move(btn6); });
+        RightBtntrans = gamebutton.transform.Find("right");
+        RightBtntrans.gameObject.SetActive(true);
+        Rightbtn = GameObject.Find("right").GetComponent<Button>();
+        Rightbtn.onClick.AddListener(delegate () { GameObject.FindWithTag("player").GetComponent<PlayerController>().Move(Rightbtn); });
 
         gamebutton.transform.Find("backStage").gameObject.SetActive(true);
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        //오브젝트 배치 함수 실행
         find();
 
         //발판 개수를 저장해줌. 게임 클리어 때 발판 개수랑 밟힌 개수랑 비교해서 클리어 여부를 판단. 
-        Stage s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
-        s.stepCnt = stepCnt;
+        stage = GameObject.FindWithTag("accepted").GetComponent<Stage>();
+
+        //방향키 활성화 여부 초기화 
+        stage.IsLeftActive = 0; stage.IsRightActive = 0; stage.IsUpActive = 0; stage.IsDownActive = 0;
+
+        //활성화된 발판 개수 초기화  
+        stage.stepCnt = stepCnt;
     }
 
 
+    private void Update()
+    {
+        //방향키 활성화 여부를 실시간으로 체크//////////////////////////////////////////////
+        if (stage != null)
+        {
+            if (!Up) UpBtntrans.gameObject.SetActive(true);
+            else if (Up)
+            {
+                if (stage.IsUpActive > 0) UpBtntrans.gameObject.SetActive(true);
+                else UpBtntrans.gameObject.SetActive(false);
+            }
 
+            if (!Down) DownBtntrans.gameObject.SetActive(true);
+            else if (Down)
+            {
+                if (stage.IsDownActive > 0) DownBtntrans.gameObject.SetActive(true);
+                else DownBtntrans.gameObject.SetActive(false);
+            }
+
+            if (!Left) LeftBtntrans.gameObject.SetActive(true);
+            else if (Left)
+            {
+                if (stage.IsLeftActive > 0) LeftBtntrans.gameObject.SetActive(true);
+                else LeftBtntrans.gameObject.SetActive(false);
+            }
+
+            if (!Right) RightBtntrans.gameObject.SetActive(true);
+            else if (Right)
+            {
+                if (stage.IsRightActive > 0) RightBtntrans.gameObject.SetActive(true);
+                else RightBtntrans.gameObject.SetActive(false);
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////
+    }
 
 
     IEnumerator Fadechapter()
@@ -171,14 +226,16 @@ public class Map_Editor : MonoBehaviour
             int y = System.Convert.ToInt32(obj[i][2]);
             string path = "Prefabs/obj/" + obj[i][0];
 
-            //Debug.Log(obj[i][0]);
-
             if (obj[i][0].Contains("step"))
             {
-                //Debug.Log("!!");
                 GameObject o = Resources.Load(path) as GameObject;
                 GameObject b = Instantiate(o, new Vector2(x, y), Quaternion.identity);
                 b.tag = obj[i][0];
+
+                if (obj[i][0].Contains("up")) Up = true;
+                else if (obj[i][0].Contains("down")) Down = true;
+                else if (obj[i][0].Contains("left")) Left = true;
+                else if (obj[i][0].Contains("right")) Right = true;
 
                 stepCnt++;
             }

@@ -1,0 +1,17 @@
+﻿player,0,5
+accepted,4,1
+leftobj,-2,6
+leftobj,0,6
+leftobj,3,1
+leftstep,0,7
+leftstep,0,6
+leftstep,3,1
+downobj,0,4
+downstep,0,4
+brick,-2,5
+brick,-1,5
+brick,-1,4
+brick,1,5
+brick,1,4
+brick,2,5
+chapter2-4,many left blocks.,

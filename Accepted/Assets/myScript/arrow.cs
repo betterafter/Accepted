@@ -6,60 +6,59 @@ using UnityEngine.UI;
 public class arrow : MonoBehaviour
 {
     private Stage s;
-    private Button upbtn, downbtn, leftbtn, rightbtn, btn;
-    private string btnname;
-    private bool IsBtnActive;
+    private Button btn;
+    private Transform btnObj;
+    private Map_Editor mapEditor;
+
+    private string btnname, dirname, dirbuttonName;
 
 
-    private void Start()
+
+    private void Awake()
     {
         btnname = gameObject.tag;
-        btnname = btnname.Replace("step", "");
-        IsBtnActive = false;
+        dirname = btnname.Replace("step", "obj");
+        dirbuttonName = btnname.Replace("step", "");
 
-        btn = GameObject.Find(btnname).GetComponent<Button>();
-
-        StartCoroutine("BtnIsActive");
+        mapEditor = Camera.main.GetComponent<Map_Editor>();
     }
 
 
-    IEnumerator BtnIsActive()
-    {
-        while (true)
-        {
-            if (IsBtnActive == false)
-            {
-                btn.gameObject.SetActive(false);
-            }
-            else if (IsBtnActive == true)
-            {
-                btn.gameObject.SetActive(true);
-            }
 
-            yield return null;
-        }
-    }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
 
-        if (collision.gameObject.tag.Contains(btnname))
+        if (dirname == collision.gameObject.tag)
         {
-            IsBtnActive = true;
             s.currStepCnt++;
+
+            if (gameObject.tag.Contains("left")) s.IsLeftActive++;
+            else if (gameObject.tag.Contains("right")) s.IsRightActive++;
+            else if (gameObject.tag.Contains("up")) s.IsUpActive++;
+            else s.IsDownActive++;
         }
     }
 
+
     private void OnTriggerExit2D(Collider2D collision)
     {
+
         s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
 
-        if (collision.gameObject.tag.Contains(btnname))
+        if (dirname == collision.gameObject.tag)
         {
-            IsBtnActive = false;
+            //btnObj.gameObject.SetActive(false);
+
             s.currStepCnt--;
+
+            if (gameObject.tag.Contains("left")) s.IsLeftActive--;
+            else if (gameObject.tag.Contains("right")) s.IsRightActive--;
+            else if (gameObject.tag.Contains("up")) s.IsUpActive--;
+            else s.IsDownActive--;
         }
     }
 }

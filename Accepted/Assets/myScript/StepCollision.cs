@@ -6,11 +6,14 @@ public class StepCollision : MonoBehaviour
 {
     private Stage s;
 
+    private void Start()
+    {
+        s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
-
         if (this.gameObject.tag.Contains(collision.gameObject.tag))
         {
             s.currStepCnt++;
@@ -19,8 +22,6 @@ public class StepCollision : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
-
         if (this.gameObject.tag.Contains(collision.gameObject.tag))
         {
             s.currStepCnt--;
