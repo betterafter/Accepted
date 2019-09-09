@@ -20,7 +20,8 @@ public class CollisionManager : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // 이 충돌체가 player, accepted, step과 충돌했을 경우는 충돌중인 물체 판정대상에서 제외해준다 
-        if (!collision.CompareTag("player") && !collision.CompareTag("accepted") && !collision.tag.Contains("step"))
+        if (!collision.CompareTag("player") && !collision.CompareTag("accepted") && !collision.tag.Contains("step") 
+            && !collision.CompareTag("robot"))
         {
 
             // 이 구간을 player, accepted, step이 아닐 경우만 연산을 해줘야 버벅거림이 없음.
@@ -69,7 +70,8 @@ public class CollisionManager : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!collision.CompareTag("player") && !collision.CompareTag("accepted") && !collision.tag.Contains("step"))
+        if (!collision.CompareTag("player") && !collision.CompareTag("accepted") && !collision.tag.Contains("step")
+            && !collision.CompareTag("robot"))
         {
             //Debug.Log(ColObj[0] + ", " + ColObj[1] + ", " + ColObj[2] + ", " + ColObj[3]);
             if (collision.gameObject == ColObj[0])

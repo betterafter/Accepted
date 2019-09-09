@@ -8,7 +8,7 @@ public class StepCollision : MonoBehaviour
 
     private void Start()
     {
-        s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
+     
     }
 
 
@@ -16,6 +16,7 @@ public class StepCollision : MonoBehaviour
     {
         if (this.gameObject.tag.Contains(collision.gameObject.tag))
         {
+            s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
             s.currStepCnt++;
         }
     }
@@ -24,6 +25,7 @@ public class StepCollision : MonoBehaviour
     {
         if (this.gameObject.tag.Contains(collision.gameObject.tag))
         {
+            s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
             s.currStepCnt--;
         }
     }

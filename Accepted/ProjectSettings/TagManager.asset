@@ -32,6 +32,9 @@ TagManager:
   - left
   - up
   - right
+  - rotate
+  - rotateobj
+  - rotatestep
   layers:
   - Default
   - TransparentFX

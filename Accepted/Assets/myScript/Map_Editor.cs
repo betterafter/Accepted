@@ -12,7 +12,7 @@ public class Map_Editor : MonoBehaviour
     private Stage stage;
     private bool Up, Down, Left, Right;
 
-    public GameObject gamebutton;
+    public GameObject gamebutton, gamebutton2;
     public Transform LeftBtntrans, RightBtntrans, UpBtntrans, DownBtntrans;
     public Button Leftbtn, Rightbtn, Upbtn, Downbtn;
 
@@ -22,6 +22,7 @@ public class Map_Editor : MonoBehaviour
     private void Awake()
     {
         gamebutton = GameObject.Find("gamebutton");
+        gamebutton2 = GameObject.Find("gamebutton2");
     }
 
 
@@ -64,11 +65,11 @@ public class Map_Editor : MonoBehaviour
         GameObject.Find("title").SetActive(false);
 
         //게임이 시작하면 UI 버튼 활성화 //////////////////////////////////////////////////////////////////////////////////////////////
-        gamebutton.transform.Find("retry").gameObject.SetActive(true);
+        gamebutton2.transform.Find("retry").gameObject.SetActive(true);
         Button btn = GameObject.Find("retry").GetComponent<Button>();
         btn.onClick.AddListener(delegate () { GameObject.Find("GameManager").GetComponent<sceneManager>().RestartClick(); });
 
-        gamebutton.transform.Find("undo").gameObject.SetActive(true);
+        gamebutton2.transform.Find("undo").gameObject.SetActive(true);
         Button btn2 = GameObject.Find("undo").GetComponent<Button>();
         btn2.onClick.AddListener(delegate () { GameObject.Find("GameManager").GetComponent<sceneManager>().UndoClick(); });
 
@@ -92,7 +93,7 @@ public class Map_Editor : MonoBehaviour
         Rightbtn = GameObject.Find("right").GetComponent<Button>();
         Rightbtn.onClick.AddListener(delegate () { GameObject.FindWithTag("player").GetComponent<PlayerController>().Move(Rightbtn); });
 
-        gamebutton.transform.Find("backStage").gameObject.SetActive(true);
+        gamebutton2.transform.Find("backStage").gameObject.SetActive(true);
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //오브젝트 배치 함수 실행
@@ -228,8 +229,9 @@ public class Map_Editor : MonoBehaviour
 
             if (obj[i][0].Contains("step"))
             {
+
                 GameObject o = Resources.Load(path) as GameObject;
-                GameObject b = Instantiate(o, new Vector2(x, y), Quaternion.identity);
+                GameObject b = Instantiate(o, new Vector3(x, y), Quaternion.identity);
                 b.tag = obj[i][0];
 
                 if (obj[i][0].Contains("up")) Up = true;
@@ -243,8 +245,14 @@ public class Map_Editor : MonoBehaviour
             else
             {
                 GameObject o = Resources.Load(path) as GameObject;
-                GameObject b = Instantiate(o, new Vector2(x, y), Quaternion.identity);
-                b.tag = obj[i][0];
+                GameObject b = Instantiate(o, new Vector3(x, y), Quaternion.identity);
+
+                if (obj[i][0] == "robot")
+                {
+                    b.GetComponent<PlayerController>().enabled = false;
+                    b.tag = obj[i][0];
+                }
+                else b.tag = obj[i][0];
             }
         }
     }
