@@ -35,6 +35,10 @@ TagManager:
   - rotate
   - rotateobj
   - rotatestep
+  - clonespawner
+  - clonespawn
+  - robotspawn
+  - robotspawner
   layers:
   - Default
   - TransparentFX

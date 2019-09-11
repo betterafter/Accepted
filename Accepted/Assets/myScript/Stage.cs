@@ -54,7 +54,7 @@ public class Stage : MonoBehaviour
             anime = finalobj.GetComponent<Animator>();
             scale = finalobj.transform.localScale;
 
-            if (anime.GetBool("IsIdle") == true) last = 1;
+            if (anime.GetBool("IsIdle") == true && finalobj.GetComponent<PlayerController>().IsClone == 0) last = 1;
             else last = 0;
 
             if ((int)scale.x == 1) lastscale = 1;

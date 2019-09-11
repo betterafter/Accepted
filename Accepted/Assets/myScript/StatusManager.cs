@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StatusManager : MonoBehaviour
 {
     public int RotateAngle;
+    public int CloneNum;
+    
 
     private void Start()
     {
@@ -37,4 +40,6 @@ public class StatusManager : MonoBehaviour
             RotateAngle = 0;
         }
     }
+
+   
 }

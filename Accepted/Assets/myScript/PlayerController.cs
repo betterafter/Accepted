@@ -25,12 +25,13 @@ public class PlayerController : MonoBehaviour
     private GameObject gm;
     private Animator anime;
     private Button btnup, btndown, btnleft, btnright;
+
     
 
 
     private void Start()
     {
-        IsClone = 0; IsCloneFirstMoved = 0; IsRobotFirstMoved = 0;
+        IsCloneFirstMoved = 0; IsRobotFirstMoved = 0;
 
         statusManager = Camera.main.GetComponent<StatusManager>();
         ME = Camera.main.GetComponent<Map_Editor>();
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+      
         if ((int)Camera.main.transform.eulerAngles.z != 0)
         {
             if ((int)(Camera.main.transform.eulerAngles.z % 270) == 0)
@@ -82,7 +84,8 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMove(int i, float d1, float d2)
     {
-        if (colObj[i - 1] != null && !colObj[i - 1].CompareTag("accepted") && !colObj[i - 1].tag.Contains("step"))
+        if (colObj[i - 1] != null && !colObj[i - 1].CompareTag("accepted") && !colObj[i - 1].tag.Contains("step")
+            && !colObj[i - 1].tag.Contains("spawn") && !colObj[i - 1].CompareTag("player"))
         {
 
             CurrOtherPos = colObj[i - 1].transform.position;
@@ -126,7 +129,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        else if (colObj[i - 1] == null)
+        else if (colObj[i - 1] == null || colObj[i - 1].CompareTag("player"))
         {
             NextPos = new Vector3(CurrPos.x + d1, CurrPos.y + d2, CurrPos.z);
             gameObject.transform.position = Vector3.Lerp(CurrPos, NextPos, lerpTime);
@@ -222,76 +225,71 @@ public class PlayerController : MonoBehaviour
         UndoItem undo = gameObject.AddComponent<UndoItem>();
 
         //undo를 수행하기 위한 이전 단계를 스택에 저장하기 위해 값들을 세팅해주는 과정.
-        undo.setPlayer(gameObject);
-        undo.setPlayerpos(gameObject.transform.position);
-
+        if (IsClone == 0)
+        {
+            undo.setPlayer(gameObject);
+            undo.setPlayerpos(gameObject.transform.position);
+        }
         if (btn.tag == btnup.tag)
         {
-            if (colObj[0] != null)
+            if (IsClone == 0)
             {
-                undo.setObj(colObj[0]);
-                undo.setObjpos(colObj[0].transform.position);
+                if (colObj[0] != null)
+                {
+                    undo.setObj(colObj[0]);
+                    undo.setObjpos(colObj[0].transform.position);
+                }
+
+                sm.stack.Push(undo);
             }
-
-            sm.stack.Push(undo);
-
             SetMoveAnime("up", statusManager.RotateAngle);
-
-            //if (colObj[0] == null && transform.position.y < 7) dir = 1;
-            //else if (colObj[0] != null && colObj[0].transform.position.y < 7) dir = 1;
             dir = 1;
-            //Invoke("StopMove", time); 
+
         }
         else if (btn.tag == btndown.tag)
         {
-            if (colObj[1] != null)
+            if (IsClone == 0)
             {
-                undo.setObj(colObj[1]);
-                undo.setObjpos(colObj[1].transform.position);
+                if (colObj[1] != null)
+                {
+                    undo.setObj(colObj[1]);
+                    undo.setObjpos(colObj[1].transform.position);
+                }
+
+                sm.stack.Push(undo);
             }
-
-            sm.stack.Push(undo);
-
             SetMoveAnime("down", statusManager.RotateAngle);
-
-            //if (colObj[1] == null && transform.position.y > -4) dir = 2;
-            //else if (colObj[1] != null && colObj[1].transform.position.y > -4) dir = 2;
             dir = 2;
-            //Invoke("StopMove", time);
         }
         else if (btn.tag == btnleft.tag)
         {
-            if (colObj[2] != null)
+            if (IsClone == 0)
             {
-                undo.setObj(colObj[2]);
-                undo.setObjpos(colObj[2].transform.position);
+                if (colObj[2] != null)
+                {
+                    undo.setObj(colObj[2]);
+                    undo.setObjpos(colObj[2].transform.position);
+                }
+
+                sm.stack.Push(undo);
             }
-
-            sm.stack.Push(undo);
-
             SetMoveAnime("left", statusManager.RotateAngle);
-
-            //if (colObj[2] == null && transform.position.x > -4) dir = 3;
-            //else if (colObj[2] != null && colObj[2].transform.position.x > -4) dir = 3;
             dir = 3;
-           //Invoke("StopMove", time);
         }
         else if (btn.tag == btnright.tag)
         {
-            if (colObj[3] != null)
+            if (IsClone == 0)
             {
-                undo.setObj(colObj[3]);
-                undo.setObjpos(colObj[3].transform.position);
+                if (colObj[3] != null)
+                {
+                    undo.setObj(colObj[3]);
+                    undo.setObjpos(colObj[3].transform.position);
+                }
+
+                sm.stack.Push(undo);
             }
-
-            sm.stack.Push(undo);
-
             SetMoveAnime("right", statusManager.RotateAngle);
-
-            //if (colObj[3] == null && transform.position.x < 4) dir = 4;
-            //else if (colObj[3] != null && colObj[3].transform.position.x < 4) dir = 4;
             dir = 4;
-            //Invoke("StopMove", time); 
         }
     }
 
@@ -434,7 +432,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
 
-        if (!other.CompareTag("accepted") && !other.tag.Contains("step"))
+        if (!other.CompareTag("accepted") && !other.tag.Contains("step") && !other.tag.Contains("spawn"))
         {
             //player의 위치와 충돌체의 위치 계산
             int ox = Mathf.RoundToInt(other.transform.position.x);
@@ -469,8 +467,6 @@ public class PlayerController : MonoBehaviour
                 colObj[3] = other.gameObject;
             }
         }
-
-
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -491,6 +487,16 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject == colObj[3])
         {
             colObj[3] = null;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.CompareTag("player") && collision.transform.position == this.gameObject.transform.position
+            && IsClone == 0)
+        {
+            collision.gameObject.SetActive(false);
+            Camera.main.GetComponent<StatusManager>().CloneNum = 0;
         }
     }
 }
