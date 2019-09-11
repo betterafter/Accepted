@@ -14,6 +14,7 @@ public class spawner : MonoBehaviour
     private Button Upbtn, Downbtn, Leftbtn, Rightbtn;
 
 
+
     void Start()
     {
         statusManager = Camera.main.GetComponent<StatusManager>();
@@ -22,13 +23,15 @@ public class spawner : MonoBehaviour
         Downbtn = GameObject.Find("down").GetComponent<Button>();
         Leftbtn = GameObject.Find("left").GetComponent<Button>();
         Rightbtn = GameObject.Find("right").GetComponent<Button>();
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //클론 생성 : spawner에 닿으면 spawn 스위치에서 클론이 생성됨 
-        if (this.gameObject.CompareTag("clonespawner") && collision.CompareTag("player") 
-            && collision.GetComponent<PlayerController>().IsClone == 0 && Camera.main.GetComponent<StatusManager>().CloneNum == 0)
+        if (this.gameObject.CompareTag("clonespawner") && collision.CompareTag("player") && statusManager.Spawnblocked == false
+            && collision.GetComponent<PlayerController>().IsClone == 0 && statusManager.CloneNum == 0)
         {
             Spawn = GameObject.FindWithTag("clonespawn");
             SpawnPosition = Spawn.transform.position;
@@ -46,7 +49,6 @@ public class spawner : MonoBehaviour
 
             Camera.main.GetComponent<StatusManager>().CloneNum = 1;
         }
-
 
         //로봇 생성 : spawner에 닿으면 spawn 위치에 있는 robot이 움직이고 player는 움직일 수 없음. (조종 컨셉)
         if(this.gameObject.CompareTag("robotspawner") && collision.CompareTag("player"))
@@ -72,6 +74,11 @@ public class spawner : MonoBehaviour
             Robot.GetComponent<PlayerController>().enabled = false;
             Player.GetComponent<PlayerController>().enabled = true;
         }
+
+        if(this.gameObject.CompareTag("clonespawn"))
+        {
+            statusManager.Spawnblocked = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -85,7 +92,11 @@ public class spawner : MonoBehaviour
         if(this.gameObject.CompareTag("robotspawn") && collision.CompareTag("robot"))
         {
             collision.GetComponent<PlayerController>().IsRobotFirstMoved = 1;
-        } 
+        }
 
+        if (this.gameObject.CompareTag("clonespawn"))
+        {
+            statusManager.Spawnblocked = false;
+        }
     }
 }

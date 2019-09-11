@@ -21,7 +21,7 @@ public class CollisionManager : MonoBehaviour
     {
         // 이 충돌체가 player, accepted, step과 충돌했을 경우는 충돌중인 물체 판정대상에서 제외해준다 
         if (!collision.CompareTag("player") && !collision.CompareTag("accepted") && !collision.tag.Contains("step") 
-            && !collision.CompareTag("robot"))
+            && !collision.CompareTag("robot") && !collision.tag.Contains("spawn"))
         {
 
             // 이 구간을 player, accepted, step이 아닐 경우만 연산을 해줘야 버벅거림이 없음.

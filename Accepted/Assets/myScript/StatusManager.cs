@@ -7,10 +7,12 @@ public class StatusManager : MonoBehaviour
 {
     public int RotateAngle;
     public int CloneNum;
+    public bool Spawnblocked;
     
 
     private void Start()
     {
+        Spawnblocked = false;
         RotateAngle = 0;
     }
 
