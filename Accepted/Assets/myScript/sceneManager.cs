@@ -9,22 +9,25 @@ public class sceneManager : MonoBehaviour
 
     public string stageName;
     public int stageLevel;
+    public int dir;
+
     public bool IsRestart;
-    public Stack<UndoItem> stack = new Stack<UndoItem>();
+    public bool IsUndo;
+    public bool IsLastClickedButton_Undo;
+    public bool IsLastClickButton_Move;
+    //public Stack<UndoItem> stack = new Stack<UndoItem>();
 
     private GameObject player, obj;
     private Vector3 playerpos, objpos;
 
 
-
-
-
+    private void Start()
+    {
+        IsUndo = false;
+    }
 
     void Awake()
     {
-        //Screen.SetResolution(Screen.width, (Screen.width * 9) / 16, true);
-        //Screen.SetResolution(720, 1280, true);
-
         //재시작 버튼 관련 
         IsRestart = false;
 
@@ -34,7 +37,6 @@ public class sceneManager : MonoBehaviour
 
         //멀티터치가 발생하면 벽돌을 뚫고 가는 현상이 있음 
         Input.multiTouchEnabled = false;
-
     }
 
     public void RestartClick()
@@ -45,26 +47,8 @@ public class sceneManager : MonoBehaviour
 
     public void UndoClick()
     {
-        if (stack.Count > 0)
-        {
-            player = stack.Peek().getPlayer();
-            playerpos = stack.Peek().getPlayerpos();
-
-            if (player != null)
-            {
-                player.transform.position = playerpos;
-            }
-
-            if (stack.Peek().getObj() != null)
-            {
-                obj = stack.Peek().getObj();
-                objpos = stack.Peek().getObjpos();
-
-                obj.transform.position = objpos;
-            }
-
-            stack.Pop();
-        }
+        IsUndo = true;
+        IsLastClickedButton_Undo = true;
     }
 
 

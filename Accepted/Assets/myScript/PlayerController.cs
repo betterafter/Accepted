@@ -10,10 +10,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 CurrPos, NextPos, CurrOtherPos, OtherNextPos, scale;
 
     public float time = 0.02f, lerpTime = 0.5f, dist1, dist2;
-    public int dir, last;
+    public int last;
     public int IsClone;
     public int IsCloneFirstMoved;
     public int IsRobotFirstMoved;
+    public int IsClickedButton_Move;
 
     //private Stage s;
     private CollisionManager cm;
@@ -26,7 +27,6 @@ public class PlayerController : MonoBehaviour
     private Animator anime;
     private Button btnup, btndown, btnleft, btnright;
 
-    
 
 
     private void Start()
@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
     private void PlayerMove(int i, float d1, float d2)
     {
         if (colObj[i - 1] != null && !colObj[i - 1].CompareTag("accepted") && !colObj[i - 1].tag.Contains("step")
-            && !colObj[i - 1].tag.Contains("spawn") && !colObj[i - 1].CompareTag("player"))
+            && !colObj[i - 1].tag.Contains("spawn") && !colObj[i - 1].tag.Contains("player"))
         {
 
             CurrOtherPos = colObj[i - 1].transform.position;
@@ -100,6 +100,11 @@ public class PlayerController : MonoBehaviour
                 {
                     MoveAndPush(i, d1, d2);
                 }
+                else if (cm.ColObj[i - 1].CompareTag("player") && (int)(CurrPos.x - CurrOtherPos.x) == 0 && CurrOtherPos.y > CurrPos.y)
+                {
+                    if(cm.ColObj[i - 1].GetComponent<PlayerController>().colObj[i - 1] == null)
+                    MoveAndPush(i, d1, d2);
+                }
             }
             else if (i == 2)
             {
@@ -107,6 +112,11 @@ public class PlayerController : MonoBehaviour
                 if (cm.ColObj[i - 1] == null && (int)(CurrPos.x - CurrOtherPos.x) == 0 && CurrOtherPos.y < CurrPos.y)
                 {
                     MoveAndPush(i, d1, d2);
+                }
+                else if (cm.ColObj[i - 1].CompareTag("player") && (int)(CurrPos.x - CurrOtherPos.x) == 0 && CurrOtherPos.y < CurrPos.y)
+                {
+                    if (cm.ColObj[i - 1].GetComponent<PlayerController>().colObj[i - 1] == null)
+                        MoveAndPush(i, d1, d2);
                 }
             }
             else if (i == 3)
@@ -116,6 +126,11 @@ public class PlayerController : MonoBehaviour
                 {
                     MoveAndPush(i, d1, d2);
                 }
+                else if (cm.ColObj[i - 1].CompareTag("player") && (int)(CurrPos.y - CurrOtherPos.y) == 0 && CurrOtherPos.x < CurrPos.x)
+                {
+                    if (cm.ColObj[i - 1].GetComponent<PlayerController>().colObj[i - 1] == null)
+                        MoveAndPush(i, d1, d2);
+                }
             }
             else if (i == 4)
             {
@@ -124,12 +139,18 @@ public class PlayerController : MonoBehaviour
                 {
                     MoveAndPush(i, d1, d2);
                 }
+                else if (cm.ColObj[i - 1].CompareTag("player") && (int)(CurrPos.y - CurrOtherPos.y) == 0 && CurrOtherPos.x > CurrPos.x)
+                {
+                    if (cm.ColObj[i - 1].GetComponent<PlayerController>().colObj[i - 1] == null)
+                        MoveAndPush(i, d1, d2);
+                }
             }
             
         }
 
+  
 
-        else if (colObj[i - 1] == null || colObj[i - 1].CompareTag("player"))
+        else if (colObj[i - 1] == null || colObj[i - 1].tag.Contains("player"))
         {
             NextPos = new Vector3(CurrPos.x + d1, CurrPos.y + d2, CurrPos.z);
             gameObject.transform.position = Vector3.Lerp(CurrPos, NextPos, lerpTime);
@@ -155,25 +176,25 @@ public class PlayerController : MonoBehaviour
         scale = transform.localScale;
 
 
-        if (dir == 1)
+        if (sm.dir == 1)
         {
             dist1 = 0; dist2 = 1;
-            PlayerMove(dir, dist1, dist2);
+            PlayerMove(sm.dir, dist1, dist2);
         }
-        else if (dir == 2)
+        else if (sm.dir == 2)
         {
             dist1 = 0; dist2 = -1;
-            PlayerMove(dir, dist1, dist2);
+            PlayerMove(sm.dir, dist1, dist2);
         }
-        else if (dir == 3)
+        else if (sm.dir == 3)
         {
             dist1 = -1; dist2 = 0;
-            PlayerMove(dir, dist1, dist2);
+            PlayerMove(sm.dir, dist1, dist2);
         }
-        else if (dir == 4)
+        else if (sm.dir == 4)
         {
             dist1 = 1; dist2 = 0;
-            PlayerMove(dir, dist1, dist2);
+            PlayerMove(sm.dir, dist1, dist2);
         }
 
         //버튼 연속 입력을 막기 위한 세팅 
@@ -219,77 +240,31 @@ public class PlayerController : MonoBehaviour
 
     public void Move(Button btn)
     {
+        sm.IsLastClickedButton_Undo = false;
+        sm.IsLastClickButton_Move = true;
+        
         anime.SetBool("IsIdle", false);
         ButtonCoolDown(btn);
-        //new를 통한 생성과 같은 기능을 수행함.
-        UndoItem undo = gameObject.AddComponent<UndoItem>();
 
-        //undo를 수행하기 위한 이전 단계를 스택에 저장하기 위해 값들을 세팅해주는 과정.
-        if (IsClone == 0)
-        {
-            undo.setPlayer(gameObject);
-            undo.setPlayerpos(gameObject.transform.position);
-        }
         if (btn.tag == btnup.tag)
         {
-            if (IsClone == 0)
-            {
-                if (colObj[0] != null)
-                {
-                    undo.setObj(colObj[0]);
-                    undo.setObjpos(colObj[0].transform.position);
-                }
-
-                sm.stack.Push(undo);
-            }
             SetMoveAnime("up", statusManager.RotateAngle);
-            dir = 1;
-
+            sm.dir = 1;
         }
         else if (btn.tag == btndown.tag)
         {
-            if (IsClone == 0)
-            {
-                if (colObj[1] != null)
-                {
-                    undo.setObj(colObj[1]);
-                    undo.setObjpos(colObj[1].transform.position);
-                }
-
-                sm.stack.Push(undo);
-            }
             SetMoveAnime("down", statusManager.RotateAngle);
-            dir = 2;
+            sm.dir = 2;
         }
         else if (btn.tag == btnleft.tag)
         {
-            if (IsClone == 0)
-            {
-                if (colObj[2] != null)
-                {
-                    undo.setObj(colObj[2]);
-                    undo.setObjpos(colObj[2].transform.position);
-                }
-
-                sm.stack.Push(undo);
-            }
             SetMoveAnime("left", statusManager.RotateAngle);
-            dir = 3;
+            sm.dir = 3;
         }
         else if (btn.tag == btnright.tag)
         {
-            if (IsClone == 0)
-            {
-                if (colObj[3] != null)
-                {
-                    undo.setObj(colObj[3]);
-                    undo.setObjpos(colObj[3].transform.position);
-                }
-
-                sm.stack.Push(undo);
-            }
             SetMoveAnime("right", statusManager.RotateAngle);
-            dir = 4;
+            sm.dir = 4;
         }
     }
 
@@ -424,7 +399,8 @@ public class PlayerController : MonoBehaviour
             anime.SetBool("IsBackIdle", true);
         }
 
-        dir = 0;
+        sm.IsLastClickButton_Move = false;
+        sm.dir = 0;
     }
 
     #endregion
@@ -492,11 +468,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.CompareTag("player") && collision.transform.position == this.gameObject.transform.position
-            && IsClone == 0)
+        if (collision.CompareTag("player") && collision.gameObject.GetComponent<PlayerController>().IsClone == 1 &&
+            gameObject.transform.position == collision.gameObject.transform.position)
         {
             collision.gameObject.SetActive(false);
-            Camera.main.GetComponent<StatusManager>().CloneNum = 0;
+            statusManager.CloneNum = 0;
         }
     }
 }

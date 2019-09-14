@@ -39,6 +39,7 @@ TagManager:
   - clonespawn
   - robotspawn
   - robotspawner
+  - robot
   layers:
   - Default
   - TransparentFX

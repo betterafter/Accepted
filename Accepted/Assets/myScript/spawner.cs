@@ -10,7 +10,10 @@ public class spawner : MonoBehaviour
     private GameObject Player;
 
     private Vector3 SpawnPosition;
+
     private StatusManager statusManager;
+    private sceneManager sceneManager;
+
     private Button Upbtn, Downbtn, Leftbtn, Rightbtn;
 
 
@@ -18,6 +21,7 @@ public class spawner : MonoBehaviour
     void Start()
     {
         statusManager = Camera.main.GetComponent<StatusManager>();
+        sceneManager = GameObject.Find("GameManager").GetComponent<sceneManager>();
 
         Upbtn = GameObject.Find("up").GetComponent<Button>();
         Downbtn = GameObject.Find("down").GetComponent<Button>();
@@ -41,6 +45,7 @@ public class spawner : MonoBehaviour
             b.GetComponent<SpriteRenderer>().color = new Color(178/ 255f, 178 / 255f, 178 / 255f);
             b.tag = "player";
             b.GetComponent<PlayerController>().IsClone = 1;
+            b.GetComponent<PlayerController>().enabled = false;
 
             Upbtn.onClick.AddListener(delegate () { b.GetComponent<PlayerController>().Move(Upbtn); });
             Downbtn.onClick.AddListener(delegate () { b.GetComponent<PlayerController>().Move(Downbtn); });
@@ -83,12 +88,6 @@ public class spawner : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        //클론이 맨 처음 생성될 때 바로 파괴되면 안되므로 최소 한번은 움직일 수 있도록 함
-        if(this.gameObject.CompareTag("clonespawn") && collision.GetComponent<PlayerController>().IsCloneFirstMoved == 0)
-        {
-            collision.GetComponent<PlayerController>().IsCloneFirstMoved = 1;
-        }
-
         if(this.gameObject.CompareTag("robotspawn") && collision.CompareTag("robot"))
         {
             collision.GetComponent<PlayerController>().IsRobotFirstMoved = 1;
