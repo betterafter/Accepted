@@ -472,7 +472,7 @@ public class PlayerController : MonoBehaviour
             gameObject.transform.position == collision.gameObject.transform.position)
         {
             collision.gameObject.SetActive(false);
-            statusManager.CloneNum = 0;
+            //statusManager.CloneNum--;
         }
     }
 }

@@ -598,7 +598,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageName: 
   stageLevel: 0
+  dir: 0
   IsRestart: 0
+  IsUndo: 0
+  IsLastClickedButton_Undo: 0
+  IsLastClickButton_Move: 0
 --- !u!114 &500130360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1252,6 +1256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RotateAngle: 0
   CloneNum: 0
+  ReadyToCloneSpawn: 0
 --- !u!1 &1440432745
 GameObject:
   m_ObjectHideFlags: 0
