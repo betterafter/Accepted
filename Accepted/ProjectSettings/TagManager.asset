@@ -15,7 +15,6 @@ TagManager:
   - downstep
   - leftstep
   - rightstep
-  - brick2
   - brick2step
   - retry
   - undo
@@ -37,9 +36,14 @@ TagManager:
   - rotatestep
   - clonespawner
   - clonespawn
-  - robotspawn
   - robotspawner
-  - robot
+  - robotplayer
+  - block
+  - brick2
+  - maker
+  - position
+  - eraser
+  - CreatedObject
   layers:
   - Default
   - TransparentFX

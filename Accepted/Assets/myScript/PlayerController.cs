@@ -16,13 +16,15 @@ public class PlayerController : MonoBehaviour
     public int IsRobotFirstMoved;
     public int IsClickedButton_Move;
 
+
     //private Stage s;
-    private CollisionManager cm;
+    private CollisionManager collisionManager;
     private sceneManager sm;
     private Map_Editor ME;
     private StatusManager statusManager;
 
     private GameObject[] colObj = new GameObject[4];
+    public bool[] IsPlayerMoved = new bool[4];
     private GameObject gm;
     private Animator anime;
     private Button btnup, btndown, btnleft, btnright;
@@ -32,6 +34,14 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         IsCloneFirstMoved = 0; IsRobotFirstMoved = 0;
+        //colObj = new GameObject[4];
+        //IsPlayerMoved = new bool[4];
+
+        for (int i = 0; i < 4; i++)
+        {
+            IsPlayerMoved[i] = true;
+            colObj[i] = null;
+        }
 
         statusManager = Camera.main.GetComponent<StatusManager>();
         ME = Camera.main.GetComponent<Map_Editor>();
@@ -41,12 +51,11 @@ public class PlayerController : MonoBehaviour
         btnleft = ME.gamebutton.transform.Find("left").GetComponent<Button>();
         btnright = ME.gamebutton.transform.Find("right").GetComponent<Button>();
 
-
         //s = Camera.main.GetComponent<Stage>();
         gm = GameObject.Find("GameManager");
         sm = gm.GetComponent<sceneManager>();
 
-        anime = GetComponent<Animator>();
+        anime = this.gameObject.GetComponent<Animator>();
         last = 0;
     }
 
@@ -84,88 +93,40 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMove(int i, float d1, float d2)
     {
-        if (colObj[i - 1] != null && !colObj[i - 1].CompareTag("accepted") && !colObj[i - 1].tag.Contains("step")
-            && !colObj[i - 1].tag.Contains("spawn") && !colObj[i - 1].tag.Contains("player"))
-        {
-
-            CurrOtherPos = colObj[i - 1].transform.position;
-            cm = colObj[i - 1].GetComponent<CollisionManager>();
-
-            //Debug.Log(cm.ColObj[i - 1]);
-
-            if (i == 1)
+            if (colObj[i - 1] != null && (colObj[i - 1].tag.Contains("brick") || colObj[i - 1].tag.Contains("obj")))
             {
-                // up
-                if (cm.ColObj[i - 1] == null && (int)(CurrPos.x - CurrOtherPos.x) == 0 && CurrOtherPos.y > CurrPos.y)
+
+                if (IsPlayerMoved[i - 1] == true)
                 {
-                    MoveAndPush(i, d1, d2);
-                }
-                else if (cm.ColObj[i - 1].CompareTag("player") && (int)(CurrPos.x - CurrOtherPos.x) == 0 && CurrOtherPos.y > CurrPos.y)
-                {
-                    if(cm.ColObj[i - 1].GetComponent<PlayerController>().colObj[i - 1] == null)
-                    MoveAndPush(i, d1, d2);
+                    CurrOtherPos = colObj[i - 1].transform.position;
+                    OtherNextPos = new Vector3(CurrOtherPos.x + d1, CurrOtherPos.y + d2, CurrOtherPos.z);
+                    colObj[i - 1].transform.position = Vector3.Lerp(CurrOtherPos, OtherNextPos, lerpTime);
+
+                    NextPos = new Vector3(CurrPos.x + d1, CurrPos.y + d2, CurrPos.z);
+                    gameObject.transform.position = Vector3.Lerp(CurrPos, NextPos, lerpTime);
                 }
             }
-            else if (i == 2)
-            {
-                // down
-                if (cm.ColObj[i - 1] == null && (int)(CurrPos.x - CurrOtherPos.x) == 0 && CurrOtherPos.y < CurrPos.y)
-                {
-                    MoveAndPush(i, d1, d2);
-                }
-                else if (cm.ColObj[i - 1].CompareTag("player") && (int)(CurrPos.x - CurrOtherPos.x) == 0 && CurrOtherPos.y < CurrPos.y)
-                {
-                    if (cm.ColObj[i - 1].GetComponent<PlayerController>().colObj[i - 1] == null)
-                        MoveAndPush(i, d1, d2);
-                }
-            }
-            else if (i == 3)
-            {
-                // left
-                if (cm.ColObj[i - 1] == null && (int)(CurrPos.y - CurrOtherPos.y) == 0 && CurrOtherPos.x < CurrPos.x)
-                {
-                    MoveAndPush(i, d1, d2);
-                }
-                else if (cm.ColObj[i - 1].CompareTag("player") && (int)(CurrPos.y - CurrOtherPos.y) == 0 && CurrOtherPos.x < CurrPos.x)
-                {
-                    if (cm.ColObj[i - 1].GetComponent<PlayerController>().colObj[i - 1] == null)
-                        MoveAndPush(i, d1, d2);
-                }
-            }
-            else if (i == 4)
-            {
-                //right
-                if (cm.ColObj[i - 1] == null && (int)(CurrPos.y - CurrOtherPos.y) == 0 && CurrOtherPos.x > CurrPos.x)
-                {
-                    MoveAndPush(i, d1, d2);
-                }
-                else if (cm.ColObj[i - 1].CompareTag("player") && (int)(CurrPos.y - CurrOtherPos.y) == 0 && CurrOtherPos.x > CurrPos.x)
-                {
-                    if (cm.ColObj[i - 1].GetComponent<PlayerController>().colObj[i - 1] == null)
-                        MoveAndPush(i, d1, d2);
-                }
-            }
-            
-        }
 
-  
+            else if (colObj[i - 1] != null && colObj[i - 1].tag.Contains("player"))
+            {
+                if (IsPlayerMoved[i - 1] == true)
+                {
+                    NextPos = new Vector3(CurrPos.x + d1, CurrPos.y + d2, CurrPos.z);
+                    gameObject.transform.position = Vector3.Lerp(CurrPos, NextPos, lerpTime);
+                }
+            }
 
-        else if (colObj[i - 1] == null || colObj[i - 1].tag.Contains("player"))
-        {
-            NextPos = new Vector3(CurrPos.x + d1, CurrPos.y + d2, CurrPos.z);
-            gameObject.transform.position = Vector3.Lerp(CurrPos, NextPos, lerpTime);
-        }
+            else if (colObj[i - 1] == null)
+            {
+                if (IsPlayerMoved[i - 1] == true)
+                {
+                    NextPos = new Vector3(CurrPos.x + d1, CurrPos.y + d2, CurrPos.z);
+                    gameObject.transform.position = Vector3.Lerp(CurrPos, NextPos, lerpTime);
+                }
+            }
+        
 
         Invoke("StopMove", time);
-    }
-
-    private void MoveAndPush(int i, float d1, float d2)
-    {
-        OtherNextPos = new Vector3(CurrOtherPos.x + d1, CurrOtherPos.y + d2, CurrOtherPos.z);
-        colObj[i - 1].transform.position = Vector3.Lerp(CurrOtherPos, OtherNextPos, lerpTime);
-
-        NextPos = new Vector3(CurrPos.x + d1, CurrPos.y + d2, CurrPos.z);
-        gameObject.transform.position = Vector3.Lerp(CurrPos, NextPos, lerpTime);
     }
 
     #endregion
@@ -240,31 +201,34 @@ public class PlayerController : MonoBehaviour
 
     public void Move(Button btn)
     {
-        sm.IsLastClickedButton_Undo = false;
-        sm.IsLastClickButton_Move = true;
-        
-        anime.SetBool("IsIdle", false);
-        ButtonCoolDown(btn);
+        if (this.enabled)
+        {
+            sm.IsLastClickedButton_Undo = false;
+            sm.IsLastClickButton_Move = true;
 
-        if (btn.tag == btnup.tag)
-        {
-            SetMoveAnime("up", statusManager.RotateAngle);
-            sm.dir = 1;
-        }
-        else if (btn.tag == btndown.tag)
-        {
-            SetMoveAnime("down", statusManager.RotateAngle);
-            sm.dir = 2;
-        }
-        else if (btn.tag == btnleft.tag)
-        {
-            SetMoveAnime("left", statusManager.RotateAngle);
-            sm.dir = 3;
-        }
-        else if (btn.tag == btnright.tag)
-        {
-            SetMoveAnime("right", statusManager.RotateAngle);
-            sm.dir = 4;
+            anime.SetBool("IsIdle", false);
+            ButtonCoolDown(btn);
+
+            if (btn.tag == btnup.tag)
+            {
+                SetMoveAnime("up", statusManager.RotateAngle);
+                sm.dir = 1;
+            }
+            else if (btn.tag == btndown.tag)
+            {
+                SetMoveAnime("down", statusManager.RotateAngle);
+                sm.dir = 2;
+            }
+            else if (btn.tag == btnleft.tag)
+            {
+                SetMoveAnime("left", statusManager.RotateAngle);
+                sm.dir = 3;
+            }
+            else if (btn.tag == btnright.tag)
+            {
+                SetMoveAnime("right", statusManager.RotateAngle);
+                sm.dir = 4;
+            }
         }
     }
 
@@ -405,74 +369,132 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
-
-        if (!other.CompareTag("accepted") && !other.tag.Contains("step") && !other.tag.Contains("spawn"))
-        {
+       if (!other.CompareTag("accepted") && !other.tag.Contains("step") && !other.tag.Contains("spawn"))
+       {
             //player의 위치와 충돌체의 위치 계산
             int ox = Mathf.RoundToInt(other.transform.position.x);
             int oy = Mathf.RoundToInt(other.transform.position.y);
 
-            other.transform.position = new Vector2(ox, oy);
+            //other.transform.position = new Vector2(ox, oy);
 
             int tx = Mathf.RoundToInt(gameObject.transform.position.x);
             int ty = Mathf.RoundToInt(gameObject.transform.position.y);
 
-            gameObject.transform.position = new Vector2(tx, ty);
+            //gameObject.transform.position = new Vector2(tx, ty);
 
             //Debug.Log(other.tag);
             if (ox - tx == 0 && oy > ty)
             {
                 //Debug.Log("0");
                 colObj[0] = other.gameObject;
+                if (!colObj[0].tag.Contains("player") && !colObj[0].tag.Contains("block"))
+                {
+                    if (colObj[0].GetComponent<CollisionManager>().IsPushed[0] == true) IsPlayerMoved[0] = true;
+                    else IsPlayerMoved[0] = false;
+                }
+
+                else if (colObj[0].tag.Contains("block"))
+                {
+                    IsPlayerMoved[0] = false;
+                }
+
+                else if (colObj[0].tag.Contains("player"))
+                {
+                    if (colObj[0].GetComponent<PlayerController>().IsPlayerMoved[0] == true) IsPlayerMoved[0] = true;
+                    else IsPlayerMoved[0] = false;
+                }
             }
             else if (ox - tx == 0 && oy < ty)
             {
                 //Debug.Log("1");
                 colObj[1] = other.gameObject;
+                if (!colObj[1].tag.Contains("player") && !colObj[1].tag.Contains("block"))
+                {
+                    if (colObj[1].GetComponent<CollisionManager>().IsPushed[1] == true) IsPlayerMoved[1] = true;
+                    else IsPlayerMoved[1] = false;
+                }
+
+                else if (colObj[1].tag.Contains("block"))
+                {
+                    IsPlayerMoved[1] = false;
+                }
+
+                else if (colObj[1].tag.Contains("player"))
+                {
+                    if (colObj[1].GetComponent<PlayerController>().IsPlayerMoved[1] == true) IsPlayerMoved[1] = true;
+                    else IsPlayerMoved[1] = false;
+                }
             }
             else if (oy - ty == 0 && ox < tx)
             {
                 //Debug.Log("2");
-                colObj[2] = other.gameObject;
+                if(colObj[2] == null) colObj[2] = other.gameObject;
+                if (!colObj[2].tag.Contains("player") && !colObj[2].tag.Contains("block"))
+                {
+                    if (colObj[2].GetComponent<CollisionManager>().IsPushed[2] == true) IsPlayerMoved[2] = true;
+                    else IsPlayerMoved[2] = false;
+                }
+
+                else if (colObj[2].tag.Contains("block"))
+                {
+                    IsPlayerMoved[2] = false;
+                }
+
+                else if (colObj[2].tag.Contains("player"))
+                {
+                    if (colObj[2].GetComponent<PlayerController>().IsPlayerMoved[2] == true) IsPlayerMoved[2] = true;
+                    else IsPlayerMoved[2] = false;
+                }
             }
             else if (oy - ty == 0 && ox > tx)
             {
                 //Debug.Log("3");
                 colObj[3] = other.gameObject;
+                if (!colObj[3].tag.Contains("player") && !colObj[3].tag.Contains("block"))
+                {
+                    if (colObj[3].GetComponent<CollisionManager>().IsPushed[3] == true) IsPlayerMoved[3] = true;
+                    else IsPlayerMoved[3] = false;
+                }
+
+                else if (colObj[3].tag.Contains("block"))
+                {
+                    IsPlayerMoved[3] = false;
+                }
+
+                else if (colObj[3].tag.Contains("player"))
+                {
+                    if (colObj[3].GetComponent<PlayerController>().IsPlayerMoved[3] == true) IsPlayerMoved[3] = true;
+                    else IsPlayerMoved[3] = false;
+                }
             }
-        }
+      }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
 
-        if (other.gameObject == colObj[0])
-        {
-            colObj[0] = null;
+            if (other.gameObject == colObj[0])
+            {
+                colObj[0] = null;
+                IsPlayerMoved[0] = true;
+            }
+            else if (other.gameObject == colObj[1])
+            {
+                colObj[1] = null;
+                IsPlayerMoved[1] = true;
+            }
+            else if (other.gameObject == colObj[2])
+            {
+                colObj[2] = null;
+                IsPlayerMoved[2] = true;
+            }
+            else if (other.gameObject == colObj[3])
+            {
+                colObj[3] = null;
+                IsPlayerMoved[3] = true;
+            }
         }
-        else if (other.gameObject == colObj[1])
-        {
-            colObj[1] = null;
-        }
-        else if (other.gameObject == colObj[2])
-        {
-            colObj[2] = null;
-        }
-        else if (other.gameObject == colObj[3])
-        {
-            colObj[3] = null;
-        }
-    }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.CompareTag("player") && collision.gameObject.GetComponent<PlayerController>().IsClone == 1 &&
-            gameObject.transform.position == collision.gameObject.transform.position)
-        {
-            collision.gameObject.SetActive(false);
-            //statusManager.CloneNum--;
-        }
-    }
 }

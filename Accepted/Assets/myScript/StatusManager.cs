@@ -9,10 +9,12 @@ public class StatusManager : MonoBehaviour
     public int CloneNum;
 
     public bool ReadyToCloneSpawn;
-    
+    public bool ReadyToRobotOperation;
+
 
     private void Start()
     {
+        ReadyToRobotOperation = false;
         ReadyToCloneSpawn = false;
         RotateAngle = 0;
     }

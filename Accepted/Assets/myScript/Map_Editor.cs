@@ -76,22 +76,18 @@ public class Map_Editor : MonoBehaviour
         UpBtntrans = gamebutton.transform.Find("up");
         UpBtntrans.gameObject.SetActive(true);
         Upbtn = GameObject.Find("up").GetComponent<Button>();
-        Upbtn.onClick.AddListener(delegate () { GameObject.FindWithTag("player").GetComponent<PlayerController>().Move(Upbtn); });
 
         DownBtntrans = gamebutton.transform.Find("down");
         DownBtntrans.gameObject.SetActive(true);
         Downbtn = GameObject.Find("down").GetComponent<Button>();
-        Downbtn.onClick.AddListener(delegate () { GameObject.FindWithTag("player").GetComponent<PlayerController>().Move(Downbtn); });
 
         LeftBtntrans = gamebutton.transform.Find("left");
         LeftBtntrans.gameObject.SetActive(true);
         Leftbtn = GameObject.Find("left").GetComponent<Button>();
-        Leftbtn.onClick.AddListener(delegate () { GameObject.FindWithTag("player").GetComponent<PlayerController>().Move(Leftbtn); });
 
         RightBtntrans = gamebutton.transform.Find("right");
         RightBtntrans.gameObject.SetActive(true);
         Rightbtn = GameObject.Find("right").GetComponent<Button>();
-        Rightbtn.onClick.AddListener(delegate () { GameObject.FindWithTag("player").GetComponent<PlayerController>().Move(Rightbtn); });
 
         gamebutton2.transform.Find("backStage").gameObject.SetActive(true);
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
