@@ -9,7 +9,7 @@ public class mapMakerplugin : MonoBehaviour
     private Vector3 MousePosition;
     private bool IsErase;
     private bool IsMake;
-    private string[ , ] map = new string[20, 15];
+    private List<string>[ , ] map = new List<string>[20 , 15];
     private string CurrObject;
     public InputField StageName;
     public InputField chapterTitle;
@@ -22,7 +22,12 @@ public class mapMakerplugin : MonoBehaviour
         {
             for(int x = 0; x < 15; x++)
             {
-                map[y, x] = "x";
+                List<string> list = new List<string>();
+                map[y, x] = list; 
+                for(int z = 0; z < 2; z++)
+                {
+                    map[y, x].Add("x");
+                }
             }
         }
     }
@@ -65,28 +70,43 @@ public class mapMakerplugin : MonoBehaviour
                                 int x = (int)hit.collider.gameObject.transform.position.x;
                                 int y = (int)hit.collider.gameObject.transform.position.y;
 
-
                                 GameObject o = Resources.Load(path) as GameObject;
                                 GameObject obj = Instantiate(o, new Vector3(x, y, 0), Quaternion.identity);
-
-                                Debug.Log(x + ", " + y + ", " + CurrObject);
                                 obj.tag = CurrObject;
-                                map[y + 5, x + 7] = CurrObject;
 
+                                map[y + 5, x + 7][0] = CurrObject;
                             }
                         }
 
                         else
                         {
+                            if(IsMake && !IsErase)
+                            {
+                                if(hit.collider.gameObject.tag != CurrObject)
+                                {
+                                    string path = "Prefabs/mapIcon/" + CurrObject;
+
+                                    int x = (int)hit.collider.gameObject.transform.position.x;
+                                    int y = (int)hit.collider.gameObject.transform.position.y;
+
+
+                                    GameObject o = Resources.Load(path) as GameObject;
+                                    GameObject obj = Instantiate(o, new Vector3(x, y, 0), Quaternion.identity);
+
+                                    obj.tag = CurrObject;
+
+                                    if (map[y + 5, x + 7][1] == "x") map[y + 5, x + 7][1] = CurrObject;
+                                }
+                            }
+
                             if(!IsMake && IsErase)
                             {
-                                Debug.Log(hit.collider.gameObject);
-
                                 int x = (int)hit.collider.gameObject.transform.position.x;
                                 int y = (int)hit.collider.gameObject.transform.position.y;
-                                map[y + 5, x + 7] = "x";
 
-                                Debug.Log(x + ", " + y + ", " + map[y + 5, x + 7]);
+                                if (map[y + 5, x + 7][0] == hit.collider.gameObject.tag) map[y + 5, x + 7][0] = "x";
+                                else map[y + 5, x + 7][1] = "x";
+
                                 Destroy(hit.collider.gameObject);
 
                             }
@@ -110,12 +130,15 @@ public class mapMakerplugin : MonoBehaviour
                 for(int x = 0; x < 15; x++)
                 {
                     Debug.Log(x + ", " + y + ", " + map[y, x]);
-                    if(map[y, x] != "x")
+                    for(int z = 0; z < 2; z++)
                     {
-                        int trueX = x - 7;
-                        int trueY = y - 5;
-                        sw.Write(map[y, x] + "," + trueX + "," + trueY);
-                        sw.Write("\n");
+                        if (map[y, x][z] != "x")
+                        {
+                            int trueX = x - 7;
+                            int trueY = y - 5;
+                            sw.Write(map[y, x][z] + "," + trueX + "," + trueY);
+                            sw.Write("\n");
+                        }
                     }
                 }
             }

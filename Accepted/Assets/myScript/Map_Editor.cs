@@ -13,6 +13,7 @@ public class Map_Editor : MonoBehaviour
     private bool Up, Down, Left, Right;
 
     public GameObject gamebutton, gamebutton2;
+    public GameObject Wall;
     public Transform LeftBtntrans, RightBtntrans, UpBtntrans, DownBtntrans;
     public Button Leftbtn, Rightbtn, Upbtn, Downbtn;
 
@@ -30,6 +31,7 @@ public class Map_Editor : MonoBehaviour
     {
         stepCnt = 0;
         sceneManager s = GameObject.Find("GameManager").GetComponent<sceneManager>();
+        Wall = GameObject.Find("wall");
         string mapName = "map/stage" + s.stageName;
 
         csvParser(mapName);
@@ -63,6 +65,7 @@ public class Map_Editor : MonoBehaviour
         //chapter 타이틀이 실행이 한번 되면 이제 다시 꺼지게 됨.
         GameObject.Find("chaptertext").SetActive(false);
         GameObject.Find("title").SetActive(false);
+        Wall.transform.Find("wall").gameObject.SetActive(true);
 
         //게임이 시작하면 UI 버튼 활성화 //////////////////////////////////////////////////////////////////////////////////////////////
         gamebutton2.transform.Find("retry").gameObject.SetActive(true);

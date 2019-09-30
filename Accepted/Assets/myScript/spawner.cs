@@ -10,8 +10,8 @@ public class spawner : MonoBehaviour
     private GameObject Player;
 
     private bool SpawnBlocked;
- 
 
+    private Vector3 MousePosition;
     private Vector3 SpawnPosition;
 
     private StatusManager statusManager;
@@ -25,36 +25,94 @@ public class spawner : MonoBehaviour
         sceneManager = GameObject.Find("GameManager").GetComponent<sceneManager>();
         map_Editor = Camera.main.GetComponent<Map_Editor>();
 
-        StartCoroutine("CloneSpawn");
+        StartCoroutine("TouchToCopy");
     }
 
-    private void FixedUpdate()
-    {
-        statusManager.ReadyToCloneSpawn = false;
-    }
 
-    private IEnumerator CloneSpawn()
+
+
+    private IEnumerator TouchToCopy()
     {
         while (true)
         {
-            if(gameObject.CompareTag("clonespawn") && statusManager.ReadyToCloneSpawn)
+            if (Application.platform != RuntimePlatform.Android)
             {
-                SpawnPosition = gameObject.transform.position;
-                if (SpawnBlocked == false)
+                if (Input.GetMouseButtonDown(0))
+
                 {
-                    GameObject o = Resources.Load("Prefabs/obj/player") as GameObject;
-                    GameObject b = Instantiate(o, SpawnPosition, Quaternion.identity);
-                    b.GetComponent<SpriteRenderer>().color = new Color(178 / 255f, 178 / 255f, 178 / 255f);
-                    b.tag = "player";
-                    b.GetComponent<PlayerController>().IsClone = 1;
-                    b.GetComponent<PlayerController>().enabled = false;
+                    MousePosition = Input.mousePosition;
+                    MousePosition = Camera.main.ScreenToWorldPoint(MousePosition);
+
+                    RaycastHit2D hit = Physics2D.Raycast(MousePosition, transform.forward, 15f);
+
+                    if (hit)
+                    {
+                        if (hit.collider != null)
+
+                        {
+                            GameObject touchObject = hit.collider.gameObject;
+                            Debug.Log(touchObject);
+                            Debug.Log(statusManager.ReadyToCloneSpawn);
+                            if (touchObject.CompareTag("clonespawn") && statusManager.ReadyToCloneSpawn)
+                            {
+                                Debug.Log("!");
+                                SpawnPosition = touchObject.transform.position;
+                                if (SpawnBlocked == false)
+                                {
+                                    GameObject o = Resources.Load("Prefabs/obj/player") as GameObject;
+                                    GameObject b = Instantiate(o, SpawnPosition, Quaternion.identity);
+                                    b.GetComponent<SpriteRenderer>().color = new Color(178 / 255f, 178 / 255f, 178 / 255f);
+                                    b.tag = "player";
+                                    b.GetComponent<PlayerController>().IsClone = 1;
+                                    b.GetComponent<PlayerController>().enabled = false;
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
-            yield return new WaitForFixedUpdate();
+            else if (Application.platform == RuntimePlatform.Android)
+            {
+                if (Input.touchCount > 0)
+                {
+                    Touch touch = Input.GetTouch(0);
+                    if (touch.phase == TouchPhase.Began)
+                    {
+                        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(touch.position), Vector2.zero);
+                        if (hit)
+                        {
+                            if (hit.collider != null)
+
+                            {
+                                GameObject touchObject = hit.collider.gameObject;
+                                Debug.Log(touchObject);
+                                Debug.Log(statusManager.ReadyToCloneSpawn);
+                                if (touchObject.CompareTag("clonespawn") && statusManager.ReadyToCloneSpawn)
+                                {
+                                    Debug.Log("!");
+                                    SpawnPosition = touchObject.transform.position;
+                                    if (SpawnBlocked == false)
+                                    {
+                                        GameObject o = Resources.Load("Prefabs/obj/player") as GameObject;
+                                        GameObject b = Instantiate(o, SpawnPosition, Quaternion.identity);
+                                        b.GetComponent<SpriteRenderer>().color = new Color(178 / 255f, 178 / 255f, 178 / 255f);
+                                        b.tag = "player";
+                                        b.GetComponent<PlayerController>().IsClone = 1;
+                                        b.GetComponent<PlayerController>().enabled = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
+            yield return null;
         }
     }
-
 
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -68,8 +126,6 @@ public class spawner : MonoBehaviour
             if (this.gameObject.transform.position == Player.transform.position)
             {
                 statusManager.ReadyToRobotOperation = true;
-                //Robot.GetComponent<PlayerController>().enabled = true;
-                //collision.GetComponent<PlayerController>().enabled = false;
             }
         }
     }
@@ -87,16 +143,6 @@ public class spawner : MonoBehaviour
         {
             SpawnBlocked = true;
         }
-
-        //if (this.gameObject.CompareTag("clonespawn") && collision.CompareTag("player")
-        //    && collision.gameObject.GetComponent<PlayerController>().IsClone == 1) 
-        //{
-        //    if(collision.gameObject.GetComponent<ObjectStatus>().LeaveSpawner == true)
-        //    {
-        //        collision.gameObject.SetActive(false);
-        //    }
-            
-        //}
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -106,14 +152,16 @@ public class spawner : MonoBehaviour
             SpawnBlocked = false;
         }
 
+        if (this.gameObject.CompareTag("clonespawner") && collision.CompareTag("player")
+           && collision.GetComponent<PlayerController>().IsClone == 0 /*&& statusManager.CloneNum == 0*/)
+        {
+            statusManager.ReadyToCloneSpawn = false;
+        }
+
+
         if (this.gameObject.CompareTag("robotspawner") && collision.CompareTag("player"))
         {
             statusManager.ReadyToRobotOperation = false;
         }
-
-        //if(this.gameObject.CompareTag("clonespawn") && collision.CompareTag("player"))
-        //{
-        //    collision.gameObject.GetComponent<ObjectStatus>().LeaveSpawner = true;
-        //}
     }
 }

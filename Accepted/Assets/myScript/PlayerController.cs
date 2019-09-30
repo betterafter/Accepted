@@ -133,9 +133,13 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        IsCollide(0);
+        IsCollide(1);
+        IsCollide(2);
+        IsCollide(3);
+
         CurrPos = gameObject.transform.position;
         scale = transform.localScale;
-
 
         if (sm.dir == 1)
         {
@@ -384,90 +388,24 @@ public class PlayerController : MonoBehaviour
 
             //gameObject.transform.position = new Vector2(tx, ty);
 
-            //Debug.Log(other.tag);
             if (ox - tx == 0 && oy > ty)
             {
-                //Debug.Log("0");
                 colObj[0] = other.gameObject;
-                if (!colObj[0].tag.Contains("player") && !colObj[0].tag.Contains("block"))
-                {
-                    if (colObj[0].GetComponent<CollisionManager>().IsPushed[0] == true) IsPlayerMoved[0] = true;
-                    else IsPlayerMoved[0] = false;
-                }
-
-                else if (colObj[0].tag.Contains("block"))
-                {
-                    IsPlayerMoved[0] = false;
-                }
-
-                else if (colObj[0].tag.Contains("player"))
-                {
-                    if (colObj[0].GetComponent<PlayerController>().IsPlayerMoved[0] == true) IsPlayerMoved[0] = true;
-                    else IsPlayerMoved[0] = false;
-                }
             }
+
             else if (ox - tx == 0 && oy < ty)
             {
-                //Debug.Log("1");
                 colObj[1] = other.gameObject;
-                if (!colObj[1].tag.Contains("player") && !colObj[1].tag.Contains("block"))
-                {
-                    if (colObj[1].GetComponent<CollisionManager>().IsPushed[1] == true) IsPlayerMoved[1] = true;
-                    else IsPlayerMoved[1] = false;
-                }
-
-                else if (colObj[1].tag.Contains("block"))
-                {
-                    IsPlayerMoved[1] = false;
-                }
-
-                else if (colObj[1].tag.Contains("player"))
-                {
-                    if (colObj[1].GetComponent<PlayerController>().IsPlayerMoved[1] == true) IsPlayerMoved[1] = true;
-                    else IsPlayerMoved[1] = false;
-                }
             }
+
             else if (oy - ty == 0 && ox < tx)
             {
-                //Debug.Log("2");
-                if(colObj[2] == null) colObj[2] = other.gameObject;
-                if (!colObj[2].tag.Contains("player") && !colObj[2].tag.Contains("block"))
-                {
-                    if (colObj[2].GetComponent<CollisionManager>().IsPushed[2] == true) IsPlayerMoved[2] = true;
-                    else IsPlayerMoved[2] = false;
-                }
-
-                else if (colObj[2].tag.Contains("block"))
-                {
-                    IsPlayerMoved[2] = false;
-                }
-
-                else if (colObj[2].tag.Contains("player"))
-                {
-                    if (colObj[2].GetComponent<PlayerController>().IsPlayerMoved[2] == true) IsPlayerMoved[2] = true;
-                    else IsPlayerMoved[2] = false;
-                }
+                colObj[2] = other.gameObject;
             }
+
             else if (oy - ty == 0 && ox > tx)
             {
-                //Debug.Log("3");
                 colObj[3] = other.gameObject;
-                if (!colObj[3].tag.Contains("player") && !colObj[3].tag.Contains("block"))
-                {
-                    if (colObj[3].GetComponent<CollisionManager>().IsPushed[3] == true) IsPlayerMoved[3] = true;
-                    else IsPlayerMoved[3] = false;
-                }
-
-                else if (colObj[3].tag.Contains("block"))
-                {
-                    IsPlayerMoved[3] = false;
-                }
-
-                else if (colObj[3].tag.Contains("player"))
-                {
-                    if (colObj[3].GetComponent<PlayerController>().IsPlayerMoved[3] == true) IsPlayerMoved[3] = true;
-                    else IsPlayerMoved[3] = false;
-                }
             }
       }
     }
@@ -478,23 +416,43 @@ public class PlayerController : MonoBehaviour
             if (other.gameObject == colObj[0])
             {
                 colObj[0] = null;
-                IsPlayerMoved[0] = true;
             }
             else if (other.gameObject == colObj[1])
             {
                 colObj[1] = null;
-                IsPlayerMoved[1] = true;
             }
             else if (other.gameObject == colObj[2])
             {
                 colObj[2] = null;
-                IsPlayerMoved[2] = true;
             }
             else if (other.gameObject == colObj[3])
             {
                 colObj[3] = null;
-                IsPlayerMoved[3] = true;
             }
         }
 
+    private void IsCollide(int i)
+    {
+        if (colObj[i] != null)
+        {
+            if (!colObj[i].tag.Contains("player") && !colObj[i].tag.Contains("block"))
+            {
+                if (colObj[i].GetComponent<CollisionManager>().IsPushed[i] == true) IsPlayerMoved[i] = true;
+                else IsPlayerMoved[i] = false;
+            }
+
+            else if (colObj[i].tag.Contains("block"))
+            {
+                IsPlayerMoved[i] = false;
+            }
+
+            else if (colObj[i].tag.Contains("player"))
+            {
+                if (colObj[i].GetComponent<PlayerController>().IsPlayerMoved[i] == true) IsPlayerMoved[i] = true;
+                else IsPlayerMoved[i] = false;
+            }
+        }
+
+        else if (colObj[i] == null) IsPlayerMoved[i] = true;
+    }
 }
