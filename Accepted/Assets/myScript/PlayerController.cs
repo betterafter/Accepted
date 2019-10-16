@@ -116,7 +116,23 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            else if (colObj[i - 1] == null)
+        else if (colObj[i - 1] != null && colObj[i - 1].tag.Contains("block"))
+        {
+            if (gameObject.CompareTag("robotplayer"))
+            {
+                if (IsPlayerMoved[i - 1] == true)
+                {
+                    CurrOtherPos = colObj[i - 1].transform.position;
+                    OtherNextPos = new Vector3(CurrOtherPos.x + d1, CurrOtherPos.y + d2, CurrOtherPos.z);
+                    colObj[i - 1].transform.position = Vector3.Lerp(CurrOtherPos, OtherNextPos, lerpTime);
+
+                    NextPos = new Vector3(CurrPos.x + d1, CurrPos.y + d2, CurrPos.z);
+                    gameObject.transform.position = Vector3.Lerp(CurrPos, NextPos, lerpTime);
+                }
+            }
+        }
+
+        else if (colObj[i - 1] == null)
             {
                 if (IsPlayerMoved[i - 1] == true)
                 {
@@ -408,6 +424,14 @@ public class PlayerController : MonoBehaviour
                 colObj[3] = other.gameObject;
             }
       }
+
+        if (other.gameObject.CompareTag("player") && IsClone == 1)
+        { 
+            if (other.transform.position == this.gameObject.transform.position)
+            {
+                gameObject.SetActive(false);
+            }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -435,21 +459,41 @@ public class PlayerController : MonoBehaviour
     {
         if (colObj[i] != null)
         {
-            if (!colObj[i].tag.Contains("player") && !colObj[i].tag.Contains("block"))
+            if (gameObject.CompareTag("player"))
             {
-                if (colObj[i].GetComponent<CollisionManager>().IsPushed[i] == true) IsPlayerMoved[i] = true;
-                else IsPlayerMoved[i] = false;
+                if (!colObj[i].tag.Contains("player") && !colObj[i].tag.Contains("block"))
+                {
+                    if (colObj[i].GetComponent<CollisionManager>().IsPushed[i] == true) IsPlayerMoved[i] = true;
+                    else IsPlayerMoved[i] = false;
+                }
+
+                else if (colObj[i].tag.Contains("block"))
+                {
+                    IsPlayerMoved[i] = false;
+                }
+
+                else if (colObj[i].tag.Contains("player"))
+                {
+                    PlayerController playerController = colObj[i].GetComponent<PlayerController>();
+                    if (playerController.enabled && playerController.IsPlayerMoved[i] == true) IsPlayerMoved[i] = true;
+                    else IsPlayerMoved[i] = false;
+                }
             }
 
-            else if (colObj[i].tag.Contains("block"))
+            else if (gameObject.CompareTag("robotplayer"))
             {
-                IsPlayerMoved[i] = false;
-            }
+                if (!colObj[i].tag.Contains("player"))
+                {
+                    if (colObj[i].GetComponent<CollisionManager>().IsPushed[i] == true) IsPlayerMoved[i] = true;
+                    else IsPlayerMoved[i] = false;
+                }
 
-            else if (colObj[i].tag.Contains("player"))
-            {
-                if (colObj[i].GetComponent<PlayerController>().IsPlayerMoved[i] == true) IsPlayerMoved[i] = true;
-                else IsPlayerMoved[i] = false;
+                else if (colObj[i].tag.Contains("player"))
+                {
+                    PlayerController playerController = colObj[i].GetComponent<PlayerController>();
+                    if (playerController.enabled && playerController.IsPlayerMoved[i] == true) IsPlayerMoved[i] = true;
+                    else IsPlayerMoved[i] = false;
+                }
             }
         }
 

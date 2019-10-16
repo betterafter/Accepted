@@ -113,7 +113,7 @@ public class CollisionManager : MonoBehaviour
             else if (ColObj[i].tag.Contains("player"))
             {
                 PlayerController playerController = ColObj[i].GetComponent<PlayerController>();
-                if (playerController.IsPlayerMoved[i] == true) IsPushed[i] = true;
+                if (playerController.enabled && playerController.IsPlayerMoved[i] == true) IsPushed[i] = true;
                 else if (!playerController.enabled || playerController.IsPlayerMoved[i] == false) IsPushed[i] = false;
             }
         }

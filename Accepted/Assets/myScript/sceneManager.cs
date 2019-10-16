@@ -51,5 +51,36 @@ public class sceneManager : MonoBehaviour
         IsLastClickedButton_Undo = true;
     }
 
+    private void Update()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                Scene scene = SceneManager.GetActiveScene();
+                if(scene.buildIndex == 0)
+                {
+                    Application.Quit();
+                }
+                else if(scene.name == "MapCreater")
+                {
+                    SceneManager.LoadScene(0);
+                }
+                else if(scene.name == "game")
+                {
+                    SceneManager.LoadScene(stageLevel.ToString());
+                }
+                else if(scene.buildIndex > 1)
+                {
+                    SceneManager.LoadScene(1);
+                }
+                else if(scene.buildIndex == 1)
+                {
+                    SceneManager.LoadScene(scene.buildIndex - 1);
+                }
+            }
+
+        }
+    }
 
 }

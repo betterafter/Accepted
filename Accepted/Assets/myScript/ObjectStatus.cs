@@ -119,11 +119,6 @@ public class ObjectStatus : MonoBehaviour
     {
         sceneManager.IsUndo = false;
         sceneManager.IsLastClickedButton_Undo = false;
-
-        //int cx = Mathf.RoundToInt(this.gameObject.transform.position.x);
-        //int cy = Mathf.RoundToInt(this.gameObject.transform.position.y);
-
-        //this.gameObject.transform.position = new Vector2(cx, cy);
     }
 
     private IEnumerator PositionStack()

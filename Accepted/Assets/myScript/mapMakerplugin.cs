@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class mapMakerplugin : MonoBehaviour
 {
@@ -14,6 +15,20 @@ public class mapMakerplugin : MonoBehaviour
     public InputField StageName;
     public InputField chapterTitle;
 
+    private void Update()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+
+        {
+
+            if (Input.GetKey(KeyCode.Escape))
+
+            {
+                SceneManager.LoadScene("main");
+            }
+
+        }
+    }
 
     private void Start()
     {
@@ -32,90 +47,186 @@ public class mapMakerplugin : MonoBehaviour
         }
     }
 
+
+
     private IEnumerator Editor()
     {
-        while (true)
+        if (Application.platform != RuntimePlatform.Android)
         {
-            if (Input.GetMouseButtonDown(0))
-
+            while (true)
             {
-                MousePosition = Input.mousePosition;
-                MousePosition = Camera.main.ScreenToWorldPoint(MousePosition);
+                if (Input.GetMouseButtonDown(0))
 
-                RaycastHit2D hit = Physics2D.Raycast(MousePosition, transform.forward, 15f);
+                {
+                    MousePosition = Input.mousePosition;
+                    MousePosition = Camera.main.ScreenToWorldPoint(MousePosition);
 
-                if (hit) {
-                    if (hit.collider != null)
+                    RaycastHit2D hit = Physics2D.Raycast(MousePosition, transform.forward, 15f);
 
+                    if (hit)
                     {
-                        if (hit.collider.gameObject.CompareTag("eraser"))
-                        {
-                            IsMake = false;
-                            IsErase = true;
-                        }
+                        if (hit.collider != null)
 
-                        else if (hit.collider.gameObject.CompareTag("maker"))
                         {
-                            IsErase = false;
-                            IsMake = true;
-                            CurrObject = hit.collider.gameObject.name;
-                        }
-
-                        else if (hit.collider.gameObject.CompareTag("position"))
-                        {
-                            if (IsMake && !IsErase)
+                            if (hit.collider.gameObject.CompareTag("eraser"))
                             {
-                                string path = "Prefabs/mapIcon/" + CurrObject;
-
-                                int x = (int)hit.collider.gameObject.transform.position.x;
-                                int y = (int)hit.collider.gameObject.transform.position.y;
-
-                                GameObject o = Resources.Load(path) as GameObject;
-                                GameObject obj = Instantiate(o, new Vector3(x, y, 0), Quaternion.identity);
-                                obj.tag = CurrObject;
-
-                                map[y + 5, x + 7][0] = CurrObject;
+                                IsMake = false;
+                                IsErase = true;
                             }
-                        }
 
-                        else
-                        {
-                            if(IsMake && !IsErase)
+                            else if (hit.collider.gameObject.CompareTag("maker"))
                             {
-                                if(hit.collider.gameObject.tag != CurrObject)
+                                IsErase = false;
+                                IsMake = true;
+                                CurrObject = hit.collider.gameObject.name;
+                            }
+
+                            else if (hit.collider.gameObject.CompareTag("position"))
+                            {
+                                if (IsMake && !IsErase)
                                 {
                                     string path = "Prefabs/mapIcon/" + CurrObject;
 
                                     int x = (int)hit.collider.gameObject.transform.position.x;
                                     int y = (int)hit.collider.gameObject.transform.position.y;
 
-
                                     GameObject o = Resources.Load(path) as GameObject;
                                     GameObject obj = Instantiate(o, new Vector3(x, y, 0), Quaternion.identity);
-
                                     obj.tag = CurrObject;
 
-                                    if (map[y + 5, x + 7][1] == "x") map[y + 5, x + 7][1] = CurrObject;
+                                    map[y + 5, x + 7][0] = CurrObject;
                                 }
                             }
 
-                            if(!IsMake && IsErase)
+                            else
                             {
-                                int x = (int)hit.collider.gameObject.transform.position.x;
-                                int y = (int)hit.collider.gameObject.transform.position.y;
+                                if (IsMake && !IsErase)
+                                {
+                                    if (hit.collider.gameObject.tag != CurrObject)
+                                    {
+                                        string path = "Prefabs/mapIcon/" + CurrObject;
 
-                                if (map[y + 5, x + 7][0] == hit.collider.gameObject.tag) map[y + 5, x + 7][0] = "x";
-                                else map[y + 5, x + 7][1] = "x";
+                                        int x = (int)hit.collider.gameObject.transform.position.x;
+                                        int y = (int)hit.collider.gameObject.transform.position.y;
 
-                                Destroy(hit.collider.gameObject);
 
+                                        GameObject o = Resources.Load(path) as GameObject;
+                                        GameObject obj = Instantiate(o, new Vector3(x, y, 0), Quaternion.identity);
+
+                                        obj.tag = CurrObject;
+
+                                        if (map[y + 5, x + 7][1] == "x") map[y + 5, x + 7][1] = CurrObject;
+                                    }
+                                }
+
+                                if (!IsMake && IsErase)
+                                {
+                                    int x = (int)hit.collider.gameObject.transform.position.x;
+                                    int y = (int)hit.collider.gameObject.transform.position.y;
+
+                                    if (map[y + 5, x + 7][0] == hit.collider.gameObject.tag) map[y + 5, x + 7][0] = "x";
+                                    else map[y + 5, x + 7][1] = "x";
+
+                                    Destroy(hit.collider.gameObject);
+
+                                }
                             }
                         }
                     }
                 }
+                yield return null;
             }
-            yield return null;
         }
+
+        else if (Application.platform == RuntimePlatform.Android)
+        {
+            while (true) {
+                if (Input.touchCount > 0)
+                {
+                    Touch touch = Input.GetTouch(0);
+                    if (touch.phase == TouchPhase.Began)
+                    {
+                        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(touch.position), Vector2.zero);
+                        if (hit)
+                        {
+                            if (hit.collider != null)
+
+                            {
+                                if (hit.collider.gameObject.CompareTag("eraser"))
+                                {
+                                    Debug.Log("eraser");
+                                    IsMake = false;
+                                    IsErase = true;
+                                }
+
+                                else if (hit.collider.gameObject.CompareTag("maker"))
+                                {
+                                    Debug.Log("maker");
+                                    IsErase = false;
+                                    IsMake = true;
+                                    CurrObject = hit.collider.gameObject.name;
+                                }
+
+                                else if (hit.collider.gameObject.CompareTag("position"))
+                                {
+                                    Debug.Log("position");
+                                    if (IsMake && !IsErase)
+                                    {
+                                        string path = "Prefabs/mapIcon/" + CurrObject;
+
+                                        int x = (int)hit.collider.gameObject.transform.position.x;
+                                        int y = (int)hit.collider.gameObject.transform.position.y;
+
+                                        GameObject o = Resources.Load(path) as GameObject;
+                                        GameObject obj = Instantiate(o, new Vector3(x, y, 0), Quaternion.identity);
+                                        obj.tag = CurrObject;
+
+                                        map[y + 5, x + 7][0] = CurrObject;
+                                    }
+                                }
+
+                                else
+                                {
+                                    Debug.Log("others");
+                                    if (IsMake && !IsErase)
+                                    {
+                                        if (hit.collider.gameObject.tag != CurrObject)
+                                        {
+                                            string path = "Prefabs/mapIcon/" + CurrObject;
+
+                                            int x = (int)hit.collider.gameObject.transform.position.x;
+                                            int y = (int)hit.collider.gameObject.transform.position.y;
+
+
+                                            GameObject o = Resources.Load(path) as GameObject;
+                                            GameObject obj = Instantiate(o, new Vector3(x, y, 0), Quaternion.identity);
+
+                                            obj.tag = CurrObject;
+
+                                            if (map[y + 5, x + 7][1] == "x") map[y + 5, x + 7][1] = CurrObject;
+                                        }
+                                    }
+
+                                    if (!IsMake && IsErase)
+                                    {
+                                        int x = (int)hit.collider.gameObject.transform.position.x;
+                                        int y = (int)hit.collider.gameObject.transform.position.y;
+
+                                        if (map[y + 5, x + 7][0] == hit.collider.gameObject.tag) map[y + 5, x + 7][0] = "x";
+                                        else map[y + 5, x + 7][1] = "x";
+
+                                        Destroy(hit.collider.gameObject);
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                yield return null;
+            }
+        }
+
     }
 
     public void save()
@@ -123,7 +234,16 @@ public class mapMakerplugin : MonoBehaviour
 
         if(StageName.text != "" && chapterTitle.text != "")
         {
-            string path = "Assets/resources/map/";
+            string path;
+            if (Application.platform != RuntimePlatform.Android)
+            {
+                path = "Assets/resources/map/";
+            }
+            else
+            {
+                path = Application.persistentDataPath;
+            }
+
             StreamWriter sw = new StreamWriter(path + "stage" + StageName.text + ".txt");
             for(int y = 0; y < 20; y++)
             {
@@ -146,4 +266,5 @@ public class mapMakerplugin : MonoBehaviour
             sw.Close();
         }
     }
+
 }

@@ -11,6 +11,11 @@ public class gamemain : MonoBehaviour
         SceneManager.LoadScene("stageSelect");
     }
 
+    public void OnMapMakeClick()
+    {
+        SceneManager.LoadScene("MapCreater");
+    }
+
     public void OnQuitClick()
     {
         Application.Quit();
