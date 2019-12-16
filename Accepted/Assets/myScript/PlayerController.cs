@@ -29,10 +29,13 @@ public class PlayerController : MonoBehaviour
     private Animator anime;
     private Button btnup, btndown, btnleft, btnright;
 
+    AudioSource audioSource;
 
 
-    private void Start()
+    private void Awake()
     {
+        audioSource = this.gameObject.GetComponent<AudioSource>();
+
         IsCloneFirstMoved = 0; IsRobotFirstMoved = 0;
         //colObj = new GameObject[4];
         //IsPlayerMoved = new bool[4];
@@ -93,28 +96,28 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMove(int i, float d1, float d2)
     {
-            if (colObj[i - 1] != null && (colObj[i - 1].tag.Contains("brick") || colObj[i - 1].tag.Contains("obj")))
+        if (colObj[i - 1] != null && (colObj[i - 1].tag.Contains("brick") || colObj[i - 1].tag.Contains("obj")))
+        {
+
+            if (gameObject.GetComponent<PlayerController>().IsPlayerMoved[i - 1] == true)
             {
+                CurrOtherPos = colObj[i - 1].transform.position;
+                OtherNextPos = new Vector3(CurrOtherPos.x + d1, CurrOtherPos.y + d2, CurrOtherPos.z);
+                colObj[i - 1].transform.position = Vector3.Lerp(CurrOtherPos, OtherNextPos, lerpTime);
 
-                if (IsPlayerMoved[i - 1] == true)
-                {
-                    CurrOtherPos = colObj[i - 1].transform.position;
-                    OtherNextPos = new Vector3(CurrOtherPos.x + d1, CurrOtherPos.y + d2, CurrOtherPos.z);
-                    colObj[i - 1].transform.position = Vector3.Lerp(CurrOtherPos, OtherNextPos, lerpTime);
-
-                    NextPos = new Vector3(CurrPos.x + d1, CurrPos.y + d2, CurrPos.z);
-                    gameObject.transform.position = Vector3.Lerp(CurrPos, NextPos, lerpTime);
-                }
+                NextPos = new Vector3(CurrPos.x + d1, CurrPos.y + d2, CurrPos.z);
+                gameObject.transform.position = Vector3.Lerp(CurrPos, NextPos, lerpTime);
             }
+        }
 
-            else if (colObj[i - 1] != null && colObj[i - 1].tag.Contains("player"))
+        else if (colObj[i - 1] != null && colObj[i - 1].tag.Contains("player"))
+        {
+            if (IsPlayerMoved[i - 1] == true)
             {
-                if (IsPlayerMoved[i - 1] == true)
-                {
-                    NextPos = new Vector3(CurrPos.x + d1, CurrPos.y + d2, CurrPos.z);
-                    gameObject.transform.position = Vector3.Lerp(CurrPos, NextPos, lerpTime);
-                }
+                NextPos = new Vector3(CurrPos.x + d1, CurrPos.y + d2, CurrPos.z);
+                gameObject.transform.position = Vector3.Lerp(CurrPos, NextPos, lerpTime);
             }
+        }
 
         else if (colObj[i - 1] != null && colObj[i - 1].tag.Contains("block"))
         {
@@ -231,21 +234,25 @@ public class PlayerController : MonoBehaviour
 
             if (btn.tag == btnup.tag)
             {
+                this.audioSource.Play();
                 SetMoveAnime("up", statusManager.RotateAngle);
                 sm.dir = 1;
             }
             else if (btn.tag == btndown.tag)
             {
+                this.audioSource.Play();
                 SetMoveAnime("down", statusManager.RotateAngle);
                 sm.dir = 2;
             }
             else if (btn.tag == btnleft.tag)
             {
+                this.audioSource.Play();
                 SetMoveAnime("left", statusManager.RotateAngle);
                 sm.dir = 3;
             }
             else if (btn.tag == btnright.tag)
             {
+                this.audioSource.Play();
                 SetMoveAnime("right", statusManager.RotateAngle);
                 sm.dir = 4;
             }

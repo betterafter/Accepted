@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
+using System.Text.RegularExpressions;
 
 public class sceneManager : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class sceneManager : MonoBehaviour
     public string stageName;
     public int stageLevel;
     public int dir;
+    static int RestartButtonClickCnt = 0;
+
+    public int[,] objColor = new int[5, 3];
 
     public bool IsRestart;
     public bool IsUndo;
@@ -21,14 +26,45 @@ public class sceneManager : MonoBehaviour
     private Vector3 playerpos, objpos;
 
 
+    public void ShowAd()
+    {
+        if (Advertisement.IsReady())
+        {
+            Advertisement.Show("video");
+        }
+    }
+
+    private void colorSave()
+    {
+
+        string ColorPath = "map/mapColor";
+        TextAsset mapColor = Resources.Load(ColorPath) as TextAsset;
+
+        string[] txt = Regex.Split(mapColor.text, @"\n");
+        if (txt.Length < 1) return;
+        for(int i = 0; i < txt.Length; i++)
+        {
+            string[] lineTxt = Regex.Split(txt[i], @",");
+            for(int j = 0; j < lineTxt.Length; j++)
+            {
+                objColor[i + 1, j] = System.Convert.ToInt32(lineTxt[j]);
+            }
+        }
+    }
+
+
     private void Start()
     {
         IsUndo = false;
+        colorSave();
     }
 
     void Awake()
     {
-        //재시작 버튼 관련 
+
+        Advertisement.Initialize("3382566", false);
+
+        //재시작 버튼 관련. 처음엔 chapter 명이 나오는 텍스트가 나오고 재시작 버튼을 눌렀을 땐 이게 나오면 안되서 설정.
         IsRestart = false;
 
         //게임의 여러 기능 관리 
@@ -42,6 +78,12 @@ public class sceneManager : MonoBehaviour
     public void RestartClick()
     {
         SceneManager.LoadScene("game");
+        if (RestartButtonClickCnt < 4) RestartButtonClickCnt++;
+        else if(RestartButtonClickCnt == 4)
+        {
+            ShowAd();
+            RestartButtonClickCnt = 0;
+        }
         IsRestart = true;
     }
 
@@ -53,6 +95,7 @@ public class sceneManager : MonoBehaviour
 
     private void Update()
     {
+
         if (Application.platform == RuntimePlatform.Android)
         {
             if (Input.GetKey(KeyCode.Escape))
@@ -84,3 +127,5 @@ public class sceneManager : MonoBehaviour
     }
 
 }
+
+

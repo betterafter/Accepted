@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Map_Editor : MonoBehaviour
 {
     List<List<string>> obj = new List<List<string>>();
+
     private Text chaptertxt, titletxt;
     private int stepCnt;
     private Stage stage;
@@ -92,7 +93,6 @@ public class Map_Editor : MonoBehaviour
         RightBtntrans.gameObject.SetActive(true);
         Rightbtn = GameObject.Find("right").GetComponent<Button>();
 
-        gamebutton2.transform.Find("backStage").gameObject.SetActive(true);
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //오브젝트 배치 함수 실행
@@ -218,12 +218,19 @@ public class Map_Editor : MonoBehaviour
 
 
 
+
     public void find()
     {
+        sceneManager scenemanager = GameObject.Find("GameManager").GetComponent<sceneManager>();
         for(int i = 0; i < obj.Count - 1; i++)
         {
             int x = System.Convert.ToInt32(obj[i][1]);
             int y = System.Convert.ToInt32(obj[i][2]);
+
+            int R = scenemanager.objColor[scenemanager.stageLevel, 0];
+            int G = scenemanager.objColor[scenemanager.stageLevel, 1];
+            int B = scenemanager.objColor[scenemanager.stageLevel, 2];
+
             string path = "Prefabs/obj/" + obj[i][0];
 
             if (obj[i][0].Contains("step"))
@@ -231,6 +238,8 @@ public class Map_Editor : MonoBehaviour
 
                 GameObject o = Resources.Load(path) as GameObject;
                 GameObject b = Instantiate(o, new Vector3(x, y), Quaternion.identity);
+                b.GetComponent<SpriteRenderer>().color = new Color(R / 255f, G / 255f, B / 255f);
+
                 b.tag = obj[i][0];
 
                 if (obj[i][0].Contains("up")) Up = true;
@@ -245,6 +254,11 @@ public class Map_Editor : MonoBehaviour
             {
                 GameObject o = Resources.Load(path) as GameObject;
                 GameObject b = Instantiate(o, new Vector3(x, y), Quaternion.identity);
+
+                if(obj[i][0] != "robot" && obj[i][0] != "player")
+                {
+                    b.GetComponent<SpriteRenderer>().color = new Color(R / 255f, G / 255f, B / 255f);
+                }
 
                 if (obj[i][0] == "robot")
                 {

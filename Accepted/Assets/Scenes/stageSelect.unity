@@ -360,6 +360,7 @@ GameObject:
   - component: {fileID: 552645490}
   - component: {fileID: 552645489}
   - component: {fileID: 552645488}
+  - component: {fileID: 552645491}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -431,6 +432,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &552645491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552645487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf264c18540bb4302b66db196d3de1a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &635474634
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.10980392, g: 0.07058824, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.91764706, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1078,7 +1091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.10980392, g: 0.07058824, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.6745098, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
