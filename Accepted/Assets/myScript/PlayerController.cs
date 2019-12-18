@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    private Vector3 CurrPos, NextPos, CurrOtherPos, OtherNextPos, scale;
+    private Vector3 CurrPos, NextPos, CurrOtherPos, OtherNextPos, scale, PrevPlayerPosition;
 
     public float time = 0.02f, lerpTime = 0.5f, dist1, dist2;
     public int last;
@@ -90,7 +90,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    private void Start()
+    {
+        PrevPlayerPosition = this.gameObject.transform.position;
+    }
     //오브젝트를 밀고가는 움직임 연산
     #region MoveCalc
 
@@ -390,7 +393,12 @@ public class PlayerController : MonoBehaviour
             anime.SetBool("IsBackIdle", true);
         }
 
-        sm.IsLastClickButton_Move = false;
+        if(this.gameObject.transform.position != PrevPlayerPosition)
+        {
+            sm.IsLastClickButton_Move = false;
+            PrevPlayerPosition = this.gameObject.transform.position;
+        }
+
         sm.dir = 0;
     }
 

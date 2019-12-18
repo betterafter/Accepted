@@ -147,12 +147,8 @@ public class ObjectStatus : MonoBehaviour
 
             if (sceneManager.IsLastClickButton_Move == false && sceneManager.IsUndo == false && sceneManager.dir == 0)
             {
-                if (PrevGameObjectPosition != gameObject.transform.position)
-                {
-                    positionStack.Push(PrevGameObjectPosition);
-                    PrevGameObjectPosition = gameObject.transform.position;
-                }
-
+                positionStack.Push(PrevGameObjectPosition);
+                PrevGameObjectPosition = gameObject.transform.position;
                 //if (gameObject.tag == "player" && positionStack.Count > 0) Debug.Log(positionStack.Peek());
             }
 

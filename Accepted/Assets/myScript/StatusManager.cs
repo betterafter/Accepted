@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StatusManager : MonoBehaviour
 {
@@ -17,6 +18,19 @@ public class StatusManager : MonoBehaviour
         ReadyToRobotOperation = false;
         ReadyToCloneSpawn = false;
         RotateAngle = 0;
+    }
+
+    public void Click_yes()
+    {
+        sceneManager scene = GameObject.Find("GameManager").GetComponent<sceneManager>();
+        int stageLevel = scene.stageLevel;
+        SceneManager.LoadScene(stageLevel.ToString());
+    }
+
+    public void Click_no()
+    {
+        GameObject Quit = GameObject.Find("quit");
+        Quit.transform.Find("quitUI").gameObject.SetActive(false);
     }
 
     private void Update()
@@ -43,6 +57,16 @@ public class StatusManager : MonoBehaviour
         else
         {
             RotateAngle = 0;
+        }
+
+
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                GameObject Quit = GameObject.Find("quit");
+                Quit.transform.Find("quitUI").gameObject.SetActive(true);
+            }
         }
     }
 

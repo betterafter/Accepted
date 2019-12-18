@@ -12,6 +12,8 @@ public class StageSelect : MonoBehaviour
     public StageData stageDataToSelect;
     public sceneManager s;
 
+    AudioSource audioSource;
+
     private void Start()
     {
         Button btn = gameObject.GetComponent<Button>();
@@ -47,6 +49,9 @@ public class StageSelect : MonoBehaviour
     {
         s.stageName = this.gameObject.name;
         s.IsRestart = false;
+
+        audioSource = GameObject.Find("SoundManager").GetComponent<AudioSource>();
+        audioSource.Play();
 
         SceneManager.LoadScene("game");
         

@@ -25,6 +25,8 @@ public class sceneManager : MonoBehaviour
     private GameObject player, obj;
     private Vector3 playerpos, objpos;
 
+    private static GameObject gameManager, soundManager;
+
 
     public void ShowAd()
     {
@@ -68,8 +70,19 @@ public class sceneManager : MonoBehaviour
         IsRestart = false;
 
         //게임의 여러 기능 관리 
-        GameObject gamemanger = GameObject.Find("GameManager");
-        DontDestroyOnLoad(gamemanger);
+        if (gameManager == null) 
+        { 
+            gameManager = GameObject.Find("GameManager");
+            DontDestroyOnLoad(gameManager);
+            gameManager.GetComponent<AudioSource>().Play();
+        
+        }
+
+        if (soundManager == null) { soundManager = GameObject.Find("SoundManager"); DontDestroyOnLoad(soundManager); }
+
+       
+
+
 
         //멀티터치가 발생하면 벽돌을 뚫고 가는 현상이 있음 
         Input.multiTouchEnabled = false;
@@ -93,9 +106,11 @@ public class sceneManager : MonoBehaviour
         IsLastClickedButton_Undo = true;
     }
 
+
     private void Update()
     {
 
+        // 스마트폰 뒤로가기 버튼 클릭  
         if (Application.platform == RuntimePlatform.Android)
         {
             if (Input.GetKey(KeyCode.Escape))
@@ -109,11 +124,7 @@ public class sceneManager : MonoBehaviour
                 {
                     SceneManager.LoadScene(0);
                 }
-                else if(scene.name == "game")
-                {
-                    SceneManager.LoadScene(stageLevel.ToString());
-                }
-                else if(scene.buildIndex > 1)
+                else if(scene.name != "game" && scene.buildIndex > 1)
                 {
                     SceneManager.LoadScene(1);
                 }
@@ -122,9 +133,10 @@ public class sceneManager : MonoBehaviour
                     SceneManager.LoadScene(scene.buildIndex - 1);
                 }
             }
-
         }
     }
+
+
 
 }
 
