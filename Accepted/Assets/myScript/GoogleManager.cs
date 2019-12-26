@@ -20,7 +20,7 @@ public class GoogleManager : MonoBehaviour
     public StageData stageData;
     public GameObject LoadingObj;
 
-    
+    public int isReadyToLogIn;
 
 
 
@@ -52,35 +52,31 @@ public class GoogleManager : MonoBehaviour
         };
     }
 
+    // 로그인 
     public IEnumerator LogIn()
     {
+        Debug.Log(isReadyToLogIn);
+        // 로그인이 되지 않았으면 로그인하기 -> 버튼을 눌렀을 때 로그인 하는 걸로 바꿈 
         while (!Social.localUser.authenticated)
         {
-            //Debug용
-            //STATUS.text = "LOGIN";
             Social.localUser.Authenticate(SignInCallBack);
-
             yield return new WaitForSeconds(1f);
         }
 
         LoadFromCloud();
     }
 
-    //로그아웃기능은 사실상 필요없는 기능 
-    //public void LogOut()
-    //{
-    //    if (!Social.localUser.authenticated)
-    //    {
-    //        PlayGamesPlatform.Instance.SignOut();
-
-    //        //Debug용
-    //        //STATUS.text = "logout";
-    //    }
-    //}
+    //로그아웃
+    public void LogOut()
+    {
+        if (!Social.localUser.authenticated)
+        {
+            PlayGamesPlatform.Instance.SignOut();
+        }
+    }
 
     public void Open_SavedData(string file, bool Save) 
     {
-        //STATUS.text = "DEBUG TEST ON OPEN_SAVEDDATA";
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
 
         //저장 루틴 
@@ -223,6 +219,7 @@ public class GoogleManager : MonoBehaviour
 
     private void Start()
     {
+        isReadyToLogIn = 0;
         stageData = new StageData();
         StartCoroutine("LogIn");
 

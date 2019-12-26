@@ -24,6 +24,7 @@ public class StepCollision : MonoBehaviour
         if (this.gameObject.tag.Contains(collision.gameObject.tag))
         {
             s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
+            collision.GetComponent<CollisionManager>().isStepOn = true;
             this.audioSource.Play();
             this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOn;
             s.currStepCnt++;
@@ -57,6 +58,7 @@ public class StepCollision : MonoBehaviour
         {
             this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOff;
             s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
+            collision.GetComponent<CollisionManager>().isStepOn = false;
             s.currStepCnt--;
         }
         else if ((gameObject.tag.Contains("down") && collision.gameObject.tag.Contains("down")) ||
@@ -66,6 +68,5 @@ public class StepCollision : MonoBehaviour
         {
             this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOff;
         }
-        Debug.Log("???");
     }
 }

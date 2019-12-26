@@ -44,6 +44,11 @@ TagManager:
   - position
   - eraser
   - CreatedObject
+  - hobar
+  - verbar
+  - crossbar
+  - researcher
+  - CultureTube
   layers:
   - Default
   - TransparentFX

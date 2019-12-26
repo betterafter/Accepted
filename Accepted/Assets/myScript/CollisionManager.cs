@@ -6,9 +6,11 @@ using UnityEngine;
 public class CollisionManager : MonoBehaviour
 {
     private GameObject playerobj;
+    private Sprite bar;
 
     public GameObject[] ColObj;
-    public bool[] IsPushed;
+    public bool[] IsPushed, horizontalActive, VerticalActive, CrossActive;
+    public bool isStepOn, isConnected;
 
     private float px, py;
     private bool IsLinearUp, IsLinearDown, IsLinearLeft, IsLinearRight;
@@ -18,13 +20,44 @@ public class CollisionManager : MonoBehaviour
     private void Start()
     {
         ColObj = new GameObject[4];
-        IsPushed = new bool[4];
+        IsPushed = new bool[4]; horizontalActive = new bool[4]; VerticalActive = new bool[4]; CrossActive = new bool[4];
+        isStepOn = false; isConnected = false;
 
         for (int i = 0; i < 4; i++)
         {
             IsPushed[i] = true;
-            //ColObj[i] = null;
+            horizontalActive[i] = false; VerticalActive[i] = false; CrossActive[i] = false;
         }
+
+        if (this.gameObject.tag.Contains("bar"))
+        {
+            bar = gameObject.GetComponent<SpriteRenderer>().sprite;
+            //bar = Resources.Load<Sprite>("image/" + gameObject.tag);
+        }
+    }
+
+    private void BarActive(int i, bool active)
+    {
+        if (ColObj[i] != null && ColObj[i].CompareTag("brick") && ColObj[i].GetComponent<CollisionManager>().isStepOn == true)
+        {
+            if (!active)
+            {
+                if (this.gameObject.CompareTag("hobar")) horizontalActive[i] = true;
+                else if (this.gameObject.CompareTag("verbar")) VerticalActive[i] = true;
+                else if (this.gameObject.CompareTag("crossbar")) CrossActive[i] = true;
+                gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("image/" + gameObject.tag);
+                isConnected = true;
+                Debug.Log(i);
+            }
+        }
+        else
+        {
+            isConnected = false;
+            if (this.gameObject.CompareTag("hobar")) horizontalActive[i] = false;
+            else if (this.gameObject.CompareTag("verbar")) VerticalActive[i] = false;
+            else if (this.gameObject.CompareTag("crossbar")) CrossActive[i] = false;
+        }
+
     }
 
     private void FixedUpdate()
@@ -33,6 +66,30 @@ public class CollisionManager : MonoBehaviour
         IsCollide(1);
         IsCollide(2);
         IsCollide(3);
+    }
+
+    private void Update()
+    {
+        if (this.gameObject.CompareTag("hobar"))
+        {
+            BarActive(0, horizontalActive[0]);
+            BarActive(1, horizontalActive[1]);
+            if (!horizontalActive[0] && !horizontalActive[1]) gameObject.GetComponent<SpriteRenderer>().sprite = bar;
+        }
+        else if (this.gameObject.CompareTag("verbar"))
+        {
+            BarActive(2, VerticalActive[2]);
+            BarActive(3, VerticalActive[3]);
+            if (!VerticalActive[2] && !VerticalActive[3]) gameObject.GetComponent<SpriteRenderer>().sprite = bar;
+        }
+        else if (this.gameObject.CompareTag("crossbar"))
+        {
+            BarActive(0, CrossActive[0]);
+            BarActive(1, CrossActive[1]);
+            BarActive(2, CrossActive[2]);
+            BarActive(3, CrossActive[3]);
+            if (!CrossActive[0] && !CrossActive[1] && !CrossActive[2] && !CrossActive[3]) gameObject.GetComponent<SpriteRenderer>().sprite = bar;
+        }
     }
 
 
