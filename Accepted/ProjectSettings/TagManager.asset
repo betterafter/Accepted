@@ -49,6 +49,7 @@ TagManager:
   - crossbar
   - researcher
   - CultureTube
+  - detective
   layers:
   - Default
   - TransparentFX

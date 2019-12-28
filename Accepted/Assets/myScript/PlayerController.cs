@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMove(int i, float d1, float d2)
     {
-        if (colObj[i - 1] != null && (colObj[i - 1].tag.Contains("brick") || colObj[i - 1].tag.Contains("obj")))
+        if (colObj[i - 1] != null && (colObj[i - 1].tag.Contains("brick") || colObj[i - 1].tag.Contains("obj") || colObj[i - 1].tag.Contains("bar")))
         {
 
             if (gameObject.GetComponent<PlayerController>().IsPlayerMoved[i - 1] == true)
@@ -406,7 +406,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-       if (!other.CompareTag("accepted") && !other.tag.Contains("step") && !other.tag.Contains("spawn"))
+       if (!other.CompareTag("accepted") && !other.tag.Contains("step") && !other.tag.Contains("spawn") && !other.CompareTag("detective"))
        {
             //player의 위치와 충돌체의 위치 계산
             int ox = Mathf.RoundToInt(other.transform.position.x);

@@ -176,6 +176,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &11042313
 Rigidbody2D:
   serializedVersion: 4
@@ -378,6 +383,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &30220405
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,6 +452,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &30220409
 Rigidbody2D:
   serializedVersion: 4
@@ -575,6 +590,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &52295186
 Rigidbody2D:
   serializedVersion: 4
@@ -708,6 +728,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &71035878
 Rigidbody2D:
   serializedVersion: 4
@@ -910,6 +935,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &122692200
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,6 +1073,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &126759981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1176,6 +1211,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &152567177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,6 +1280,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &152567181
 Rigidbody2D:
   serializedVersion: 4
@@ -1452,6 +1497,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &159256264
 Rigidbody2D:
   serializedVersion: 4
@@ -1793,6 +1843,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &201335704
 Rigidbody2D:
   serializedVersion: 4
@@ -1995,6 +2050,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &209032409
 GameObject:
   m_ObjectHideFlags: 0
@@ -2128,6 +2188,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1001 &240092957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2328,6 +2393,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &241558528
 Rigidbody2D:
   serializedVersion: 4
@@ -2530,6 +2600,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &249336176
 GameObject:
   m_ObjectHideFlags: 0
@@ -2594,6 +2669,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &249336180
 Rigidbody2D:
   serializedVersion: 4
@@ -2727,6 +2807,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &254152746
 Rigidbody2D:
   serializedVersion: 4
@@ -2929,6 +3014,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &259829563
 GameObject:
   m_ObjectHideFlags: 0
@@ -2993,6 +3083,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &259829567
 Rigidbody2D:
   serializedVersion: 4
@@ -3195,6 +3290,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &264969824
 GameObject:
   m_ObjectHideFlags: 0
@@ -3328,6 +3428,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &266392295
 GameObject:
   m_ObjectHideFlags: 0
@@ -3461,6 +3566,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &277226599
 GameObject:
   m_ObjectHideFlags: 0
@@ -3594,6 +3704,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &278083590
 GameObject:
   m_ObjectHideFlags: 0
@@ -3658,6 +3773,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &278083594
 Rigidbody2D:
   serializedVersion: 4
@@ -3860,6 +3980,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &329419452
 GameObject:
   m_ObjectHideFlags: 0
@@ -4029,6 +4154,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &339233786
 GameObject:
   m_ObjectHideFlags: 0
@@ -4291,6 +4421,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &348853219
 GameObject:
   m_ObjectHideFlags: 0
@@ -4355,6 +4490,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &348853223
 Rigidbody2D:
   serializedVersion: 4
@@ -4488,6 +4628,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &362049049
 Rigidbody2D:
   serializedVersion: 4
@@ -4690,6 +4835,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &395075264
 GameObject:
   m_ObjectHideFlags: 0
@@ -4823,6 +4973,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &398331119
 GameObject:
   m_ObjectHideFlags: 0
@@ -4887,6 +5042,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &398331123
 Rigidbody2D:
   serializedVersion: 4
@@ -5020,6 +5180,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &422831392
 Rigidbody2D:
   serializedVersion: 4
@@ -5153,6 +5318,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &440933152
 Rigidbody2D:
   serializedVersion: 4
@@ -5355,6 +5525,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &451463269
 GameObject:
   m_ObjectHideFlags: 0
@@ -5488,6 +5663,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &454933471
 GameObject:
   m_ObjectHideFlags: 0
@@ -5662,6 +5842,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &465738547
 GameObject:
   m_ObjectHideFlags: 0
@@ -5726,6 +5911,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &465738551
 Rigidbody2D:
   serializedVersion: 4
@@ -5928,6 +6118,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &495673165
 GameObject:
   m_ObjectHideFlags: 0
@@ -6061,6 +6256,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &501602482
 GameObject:
   m_ObjectHideFlags: 0
@@ -6125,6 +6325,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &501602486
 Rigidbody2D:
   serializedVersion: 4
@@ -6407,6 +6612,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -6676,6 +6886,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &540796711
 GameObject:
   m_ObjectHideFlags: 0
@@ -6809,6 +7024,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &551235475
 GameObject:
   m_ObjectHideFlags: 0
@@ -6942,6 +7162,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &552783461
 GameObject:
   m_ObjectHideFlags: 0
@@ -7075,6 +7300,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &566257617
 GameObject:
   m_ObjectHideFlags: 0
@@ -7208,6 +7438,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &570318803
 GameObject:
   m_ObjectHideFlags: 0
@@ -7351,6 +7586,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &586790458
 Rigidbody2D:
   serializedVersion: 4
@@ -7553,6 +7793,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &608455110
 GameObject:
   m_ObjectHideFlags: 0
@@ -7686,6 +7931,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &610610833
 GameObject:
   m_ObjectHideFlags: 0
@@ -7750,6 +8000,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &610610837
 Rigidbody2D:
   serializedVersion: 4
@@ -7883,6 +8138,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &621975936
 Rigidbody2D:
   serializedVersion: 4
@@ -8085,6 +8345,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &641217457
 GameObject:
   m_ObjectHideFlags: 0
@@ -8218,6 +8483,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &642116086
 GameObject:
   m_ObjectHideFlags: 0
@@ -8282,6 +8552,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &642116090
 Rigidbody2D:
   serializedVersion: 4
@@ -8484,6 +8759,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &662719477
 GameObject:
   m_ObjectHideFlags: 0
@@ -8548,6 +8828,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &662719481
 Rigidbody2D:
   serializedVersion: 4
@@ -8750,6 +9035,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &698531139
 GameObject:
   m_ObjectHideFlags: 0
@@ -8814,6 +9104,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &698531143
 Rigidbody2D:
   serializedVersion: 4
@@ -9016,6 +9311,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &705534512
 GameObject:
   m_ObjectHideFlags: 0
@@ -9080,6 +9380,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &705534516
 Rigidbody2D:
   serializedVersion: 4
@@ -9213,6 +9518,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &712754100
 Rigidbody2D:
   serializedVersion: 4
@@ -9415,6 +9725,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &722796430
 GameObject:
   m_ObjectHideFlags: 0
@@ -9479,6 +9794,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &722796434
 Rigidbody2D:
   serializedVersion: 4
@@ -9612,6 +9932,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &723241481
 Rigidbody2D:
   serializedVersion: 4
@@ -9745,6 +10070,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &756849964
 Rigidbody2D:
   serializedVersion: 4
@@ -9878,6 +10208,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &774124969
 Rigidbody2D:
   serializedVersion: 4
@@ -10080,6 +10415,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &781405708
 GameObject:
   m_ObjectHideFlags: 0
@@ -10144,6 +10484,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &781405712
 Rigidbody2D:
   serializedVersion: 4
@@ -10351,6 +10696,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &807570651
 Rigidbody2D:
   serializedVersion: 4
@@ -10553,6 +10903,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &817049748
 GameObject:
   m_ObjectHideFlags: 0
@@ -10617,6 +10972,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &817049752
 Rigidbody2D:
   serializedVersion: 4
@@ -10750,6 +11110,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &825155877
 Rigidbody2D:
   serializedVersion: 4
@@ -10952,6 +11317,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &834888531
 GameObject:
   m_ObjectHideFlags: 0
@@ -11016,6 +11386,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &834888535
 Rigidbody2D:
   serializedVersion: 4
@@ -11218,6 +11593,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &871071827
 GameObject:
   m_ObjectHideFlags: 0
@@ -11509,6 +11889,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &921018637
 GameObject:
   m_ObjectHideFlags: 0
@@ -11642,6 +12027,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &928682066
 GameObject:
   m_ObjectHideFlags: 0
@@ -11706,6 +12096,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &928682070
 Rigidbody2D:
   serializedVersion: 4
@@ -11839,6 +12234,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &973634760
 Rigidbody2D:
   serializedVersion: 4
@@ -12041,6 +12441,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &995860842
 GameObject:
   m_ObjectHideFlags: 0
@@ -12105,6 +12510,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &995860846
 Rigidbody2D:
   serializedVersion: 4
@@ -12238,6 +12648,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1018383502
 Rigidbody2D:
   serializedVersion: 4
@@ -12440,6 +12855,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1024930254
 GameObject:
   m_ObjectHideFlags: 0
@@ -12611,6 +13031,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1026499494
 GameObject:
   m_ObjectHideFlags: 0
@@ -12744,6 +13169,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1034623065
 GameObject:
   m_ObjectHideFlags: 0
@@ -12877,6 +13307,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1036010929
 GameObject:
   m_ObjectHideFlags: 0
@@ -13084,6 +13519,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1077741799
 GameObject:
   m_ObjectHideFlags: 0
@@ -13148,6 +13588,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1077741803
 Rigidbody2D:
   serializedVersion: 4
@@ -13350,6 +13795,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1109534993
 GameObject:
   m_ObjectHideFlags: 0
@@ -13414,6 +13864,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1109534997
 Rigidbody2D:
   serializedVersion: 4
@@ -13626,6 +14081,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1129431521
 Rigidbody2D:
   serializedVersion: 4
@@ -13828,6 +14288,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1136542570
 GameObject:
   m_ObjectHideFlags: 0
@@ -13892,6 +14357,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1136542574
 Rigidbody2D:
   serializedVersion: 4
@@ -14025,6 +14495,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1167456895
 Rigidbody2D:
   serializedVersion: 4
@@ -14227,6 +14702,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1001 &1177196116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14496,6 +14976,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1189100535
 GameObject:
   m_ObjectHideFlags: 0
@@ -14629,6 +15114,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1223580529
 GameObject:
   m_ObjectHideFlags: 0
@@ -14693,6 +15183,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1223580533
 Rigidbody2D:
   serializedVersion: 4
@@ -14895,6 +15390,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1238321241
 GameObject:
   m_ObjectHideFlags: 0
@@ -15063,6 +15563,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1245329099
 Rigidbody2D:
   serializedVersion: 4
@@ -15265,6 +15770,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1251521876
 GameObject:
   m_ObjectHideFlags: 0
@@ -15398,6 +15908,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1255280506
 GameObject:
   m_ObjectHideFlags: 0
@@ -15462,6 +15977,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1255280510
 Rigidbody2D:
   serializedVersion: 4
@@ -15595,6 +16115,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1262530279
 Rigidbody2D:
   serializedVersion: 4
@@ -15930,6 +16455,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1277866954
 Rigidbody2D:
   serializedVersion: 4
@@ -16129,6 +16659,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1292382266
 Rigidbody2D:
   serializedVersion: 4
@@ -16331,6 +16866,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1295876757
 GameObject:
   m_ObjectHideFlags: 0
@@ -16543,6 +17083,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1306375318
 GameObject:
   m_ObjectHideFlags: 0
@@ -16607,6 +17152,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1306375322
 Rigidbody2D:
   serializedVersion: 4
@@ -16740,6 +17290,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1312989216
 Rigidbody2D:
   serializedVersion: 4
@@ -16942,6 +17497,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1340350284
 GameObject:
   m_ObjectHideFlags: 0
@@ -17075,6 +17635,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1351679363
 GameObject:
   m_ObjectHideFlags: 0
@@ -17208,6 +17773,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1363264057
 GameObject:
   m_ObjectHideFlags: 0
@@ -17272,6 +17842,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1363264061
 Rigidbody2D:
   serializedVersion: 4
@@ -17511,6 +18086,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1396474693
 GameObject:
   m_ObjectHideFlags: 0
@@ -17644,6 +18224,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1418738750
 GameObject:
   m_ObjectHideFlags: 0
@@ -17708,6 +18293,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1418738754
 Rigidbody2D:
   serializedVersion: 4
@@ -17910,6 +18500,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1431087191
 GameObject:
   m_ObjectHideFlags: 0
@@ -18092,6 +18687,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1433385679
 Rigidbody2D:
   serializedVersion: 4
@@ -18294,6 +18894,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1454984309
 GameObject:
   m_ObjectHideFlags: 0
@@ -18427,6 +19032,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1461714764
 GameObject:
   m_ObjectHideFlags: 0
@@ -18560,6 +19170,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1467628178
 GameObject:
   m_ObjectHideFlags: 0
@@ -18624,6 +19239,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1467628182
 Rigidbody2D:
   serializedVersion: 4
@@ -18826,6 +19446,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1503867584
 GameObject:
   m_ObjectHideFlags: 0
@@ -18890,6 +19515,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1503867588
 Rigidbody2D:
   serializedVersion: 4
@@ -19023,6 +19653,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1516115826
 Rigidbody2D:
   serializedVersion: 4
@@ -19225,6 +19860,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1533148065
 GameObject:
   m_ObjectHideFlags: 0
@@ -19358,6 +19998,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1559260881
 GameObject:
   m_ObjectHideFlags: 0
@@ -19422,6 +20067,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1559260885
 Rigidbody2D:
   serializedVersion: 4
@@ -19624,6 +20274,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1577377390
 GameObject:
   m_ObjectHideFlags: 0
@@ -19757,6 +20412,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1578366565
 GameObject:
   m_ObjectHideFlags: 0
@@ -19900,6 +20560,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1588363235
 Rigidbody2D:
   serializedVersion: 4
@@ -20033,6 +20698,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1590075409
 Rigidbody2D:
   serializedVersion: 4
@@ -20166,6 +20836,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1592540838
 Rigidbody2D:
   serializedVersion: 4
@@ -20299,6 +20974,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1595066113
 Rigidbody2D:
   serializedVersion: 4
@@ -20501,6 +21181,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1603597915
 GameObject:
   m_ObjectHideFlags: 0
@@ -20634,6 +21319,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1607371126
 GameObject:
   m_ObjectHideFlags: 0
@@ -20767,6 +21457,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1625205630
 GameObject:
   m_ObjectHideFlags: 0
@@ -20900,6 +21595,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1637565328
 GameObject:
   m_ObjectHideFlags: 0
@@ -20964,6 +21664,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1637565332
 Rigidbody2D:
   serializedVersion: 4
@@ -21166,6 +21871,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1659494530
 GameObject:
   m_ObjectHideFlags: 0
@@ -21299,6 +22009,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1668661822
 GameObject:
   m_ObjectHideFlags: 0
@@ -21432,6 +22147,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1673171176
 GameObject:
   m_ObjectHideFlags: 0
@@ -21496,6 +22216,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1673171180
 Rigidbody2D:
   serializedVersion: 4
@@ -21629,6 +22354,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1677122512
 Rigidbody2D:
   serializedVersion: 4
@@ -21831,6 +22561,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1726138897
 GameObject:
   m_ObjectHideFlags: 0
@@ -21895,6 +22630,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1726138901
 Rigidbody2D:
   serializedVersion: 4
@@ -22097,6 +22837,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1764652166
 GameObject:
   m_ObjectHideFlags: 0
@@ -22355,6 +23100,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1765375759
 Rigidbody2D:
   serializedVersion: 4
@@ -22527,6 +23277,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1788188975
 Rigidbody2D:
   serializedVersion: 4
@@ -22660,6 +23415,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1818232956
 Rigidbody2D:
   serializedVersion: 4
@@ -22893,6 +23653,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1856486602
 GameObject:
   m_ObjectHideFlags: 0
@@ -23026,6 +23791,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1901110911
 GameObject:
   m_ObjectHideFlags: 0
@@ -23090,6 +23860,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1901110915
 Rigidbody2D:
   serializedVersion: 4
@@ -23223,6 +23998,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &1914807468
 Rigidbody2D:
   serializedVersion: 4
@@ -23425,6 +24205,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1968700638
 GameObject:
   m_ObjectHideFlags: 0
@@ -23558,6 +24343,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1974678801
 GameObject:
   m_ObjectHideFlags: 0
@@ -23691,6 +24481,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &1988758260
 GameObject:
   m_ObjectHideFlags: 0
@@ -24039,6 +24834,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &2017338342
 GameObject:
   m_ObjectHideFlags: 0
@@ -24172,6 +24972,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!1 &2040580070
 GameObject:
   m_ObjectHideFlags: 0
@@ -24236,6 +25041,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &2040580074
 Rigidbody2D:
   serializedVersion: 4
@@ -24443,6 +25253,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &2134189880
 Rigidbody2D:
   serializedVersion: 4
@@ -24806,6 +25621,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColObj: []
   IsPushed: 
+  horizontalActive: 
+  VerticalActive: 
+  CrossActive: 
+  isStepOn: 0
+  isConnected: 0
 --- !u!50 &2144822362
 Rigidbody2D:
   serializedVersion: 4

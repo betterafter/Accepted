@@ -17,7 +17,7 @@ public class CollisionManager : MonoBehaviour
 
 
 
-    private void Start()
+    public virtual void Start()
     {
         ColObj = new GameObject[4];
         IsPushed = new bool[4]; horizontalActive = new bool[4]; VerticalActive = new bool[4]; CrossActive = new bool[4];
@@ -38,21 +38,66 @@ public class CollisionManager : MonoBehaviour
 
     private void BarActive(int i, bool active)
     {
-        if (ColObj[i] != null && ColObj[i].CompareTag("brick") && ColObj[i].GetComponent<CollisionManager>().isStepOn == true)
+        if (ColObj[i] != null && 
+            ((ColObj[i].CompareTag("brick") && ColObj[i].GetComponent<CollisionManager>().isStepOn == true)
+            || ((ColObj[i].CompareTag(this.gameObject.tag) || ColObj[i].CompareTag("crossbar")) && ColObj[i].GetComponent<CollisionManager>().isConnected)))
         {
             if (!active)
             {
-                if (this.gameObject.CompareTag("hobar")) horizontalActive[i] = true;
-                else if (this.gameObject.CompareTag("verbar")) VerticalActive[i] = true;
-                else if (this.gameObject.CompareTag("crossbar")) CrossActive[i] = true;
-                gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("image/" + gameObject.tag);
+                if (this.gameObject.CompareTag("hobar")) 
+                { 
+                    horizontalActive[i] = true;
+                    gameObject.GetComponent<SpriteRenderer>().sprite = GameObject.Find("GameManager").GetComponent<sceneManager>().HorizontalBar;
+                }
+                else if (this.gameObject.CompareTag("verbar")) 
+                {
+                    VerticalActive[i] = true;
+                    gameObject.GetComponent<SpriteRenderer>().sprite = GameObject.Find("GameManager").GetComponent<sceneManager>().VerticalBar;
+                }
+                else if (this.gameObject.CompareTag("crossbar")) 
+                { 
+                    CrossActive[i] = true;
+                    gameObject.GetComponent<SpriteRenderer>().sprite = GameObject.Find("GameManager").GetComponent<sceneManager>().CrossBar;
+                }
                 isConnected = true;
-                Debug.Log(i);
             }
         }
+
+        else if(this.gameObject.CompareTag("crossbar"))
+        {
+            if(i == 0 || i == 1)
+            {
+                if(ColObj[i] != null && (ColObj[i].CompareTag(this.gameObject.tag) || ColObj[i].CompareTag("hobar")) &&
+                     ColObj[i].GetComponent<CollisionManager>().isConnected)
+                {
+                    if (!active)
+                    {
+                        CrossActive[i] = true;
+                        gameObject.GetComponent<SpriteRenderer>().sprite = GameObject.Find("GameManager").GetComponent<sceneManager>().CrossBar;
+                        isConnected = true;
+                    }
+                }
+            }
+            else if(i == 2 || i == 3)
+            {
+                if (ColObj[i] != null && (ColObj[i].CompareTag(this.gameObject.tag) || ColObj[i].CompareTag("verbar")) &&
+                    ColObj[i].GetComponent<CollisionManager>().isConnected)
+                {
+                    if (!active)
+                    {
+                        CrossActive[i] = true;
+                        gameObject.GetComponent<SpriteRenderer>().sprite = GameObject.Find("GameManager").GetComponent<sceneManager>().CrossBar;
+                        isConnected = true;
+                    }
+                }
+            }
+        }
+
+
+
         else
         {
-            isConnected = false;
+
             if (this.gameObject.CompareTag("hobar")) horizontalActive[i] = false;
             else if (this.gameObject.CompareTag("verbar")) VerticalActive[i] = false;
             else if (this.gameObject.CompareTag("crossbar")) CrossActive[i] = false;
@@ -68,19 +113,19 @@ public class CollisionManager : MonoBehaviour
         IsCollide(3);
     }
 
-    private void Update()
+    public virtual void Update()
     {
         if (this.gameObject.CompareTag("hobar"))
         {
             BarActive(0, horizontalActive[0]);
             BarActive(1, horizontalActive[1]);
-            if (!horizontalActive[0] && !horizontalActive[1]) gameObject.GetComponent<SpriteRenderer>().sprite = bar;
+            if (!horizontalActive[0] && !horizontalActive[1]) { gameObject.GetComponent<SpriteRenderer>().sprite = bar; isConnected = false; }
         }
         else if (this.gameObject.CompareTag("verbar"))
         {
             BarActive(2, VerticalActive[2]);
             BarActive(3, VerticalActive[3]);
-            if (!VerticalActive[2] && !VerticalActive[3]) gameObject.GetComponent<SpriteRenderer>().sprite = bar;
+            if (!VerticalActive[2] && !VerticalActive[3]) { gameObject.GetComponent<SpriteRenderer>().sprite = bar; isConnected = false; }
         }
         else if (this.gameObject.CompareTag("crossbar"))
         {
@@ -88,16 +133,16 @@ public class CollisionManager : MonoBehaviour
             BarActive(1, CrossActive[1]);
             BarActive(2, CrossActive[2]);
             BarActive(3, CrossActive[3]);
-            if (!CrossActive[0] && !CrossActive[1] && !CrossActive[2] && !CrossActive[3]) gameObject.GetComponent<SpriteRenderer>().sprite = bar;
+            if (!CrossActive[0] && !CrossActive[1] && !CrossActive[2] && !CrossActive[3]) { gameObject.GetComponent<SpriteRenderer>().sprite = bar; isConnected = false; }
         }
     }
 
 
-    private void OnTriggerStay2D(Collider2D collision)
+    public virtual void OnTriggerStay2D(Collider2D collision)
     {
         // 이 충돌체가 accepted, step과 충돌했을 경우는 충돌중인 물체 판정대상에서 제외해준다 
         if (!collision.CompareTag("accepted") && !collision.tag.Contains("step") 
-            && !collision.tag.Contains("spawn"))
+            && !collision.tag.Contains("spawn") && !collision.tag.Contains("detective"))
         {
 
             // 이 구간을 accepted, step이 아닐 경우만 연산을 해줘야 버벅거림이 없음.
@@ -137,10 +182,10 @@ public class CollisionManager : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public virtual void OnTriggerExit2D(Collider2D collision)
     {
         if (!collision.CompareTag("accepted") && !collision.tag.Contains("step")
-            && !collision.tag.Contains("spawn"))
+            && !collision.tag.Contains("spawn") && !collision.tag.Contains("detective"))
         {
             //Debug.Log(ColObj[0] + ", " + ColObj[1] + ", " + ColObj[2] + ", " + ColObj[3]);
             if (collision.gameObject == ColObj[0])

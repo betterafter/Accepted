@@ -18,9 +18,9 @@ public class Connection : MonoBehaviour
     {
         for(int i = 0; i < 4; i++)
         {
-            if (collisionManager.ColObj[i].tag.Contains("bar") && collisionManager.ColObj[i].GetComponent<CollisionManager>().isConnected)
+            if (collisionManager.ColObj[i] != null && collisionManager.ColObj[i].tag.Contains("bar"))
             {
-                isConnected = true; break;
+                if(collisionManager.ColObj[i].GetComponent<CollisionManager>().isConnected) isConnected = true; break;
             }
             isConnected = false;
         }

@@ -20,6 +20,7 @@ public class sceneManager : MonoBehaviour
     public bool IsUndo;
     public bool IsLastClickedButton_Undo;
     public bool IsLastClickButton_Move;
+    public Sprite VerticalBar, HorizontalBar, CrossBar;
     //public Stack<UndoItem> stack = new Stack<UndoItem>();
 
     private GameObject player, obj;

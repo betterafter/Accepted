@@ -962,6 +962,9 @@ MonoBehaviour:
   IsUndo: 0
   IsLastClickedButton_Undo: 0
   IsLastClickButton_Move: 0
+  VerticalBar: {fileID: 21300018, guid: 9a1ee20a5083c4681ae46fd942866d8b, type: 3}
+  HorizontalBar: {fileID: 21300016, guid: 9a1ee20a5083c4681ae46fd942866d8b, type: 3}
+  CrossBar: {fileID: 21300020, guid: 9a1ee20a5083c4681ae46fd942866d8b, type: 3}
 --- !u!114 &500130360
 MonoBehaviour:
   m_ObjectHideFlags: 0

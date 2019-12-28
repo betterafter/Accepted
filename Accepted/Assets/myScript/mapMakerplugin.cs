@@ -72,6 +72,7 @@ public class mapMakerplugin : MonoBehaviour
                             {
                                 IsMake = false;
                                 IsErase = true;
+                                Debug.Log("eraser");
                             }
 
                             else if (hit.collider.gameObject.CompareTag("maker"))
@@ -79,6 +80,7 @@ public class mapMakerplugin : MonoBehaviour
                                 IsErase = false;
                                 IsMake = true;
                                 CurrObject = hit.collider.gameObject.name;
+                                Debug.Log("maker");
                             }
 
                             else if (hit.collider.gameObject.CompareTag("position"))

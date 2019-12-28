@@ -255,7 +255,7 @@ public class Map_Editor : MonoBehaviour
                 GameObject o = Resources.Load(path) as GameObject;
                 GameObject b = Instantiate(o, new Vector3(x, y), Quaternion.identity);
 
-                if(obj[i][0] != "robot" && obj[i][0] != "player")
+                if(obj[i][0] != "robot" && obj[i][0] != "player" && obj[i][0] != "researcher" && obj[i][0] != "CultureTube")
                 {
                     b.GetComponent<SpriteRenderer>().color = new Color(R / 255f, G / 255f, B / 255f);
                 }
