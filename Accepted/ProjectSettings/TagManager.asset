@@ -50,6 +50,7 @@ TagManager:
   - researcher
   - CultureTube
   - detective
+  - stage
   layers:
   - Default
   - TransparentFX

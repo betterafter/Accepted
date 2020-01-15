@@ -9,16 +9,24 @@ using System.Text.RegularExpressions;
 public class sceneManager : MonoBehaviour
 {
 
+    // map
+    public GameObject[ , ] minimap = new GameObject[30, 20];
+    public bool[,] isUsed = new bool[30, 20];
+    int[,] Direction = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } };
+
     public string stageName;
     public int stageLevel;
     public int dir;
     static int RestartButtonClickCnt = 0;
 
+    public bool isBack = false, isChanged = false;
+    
+
     public int[,] objColor = new int[5, 3];
 
     public bool IsRestart;
     public bool IsUndo;
-    public bool IsLastClickedButton_Undo;
+    //public bool IsLastClickedButton_Undo;
     public bool IsLastClickButton_Move;
     public Sprite VerticalBar, HorizontalBar, CrossBar;
     //public Stack<UndoItem> stack = new Stack<UndoItem>();
@@ -27,7 +35,7 @@ public class sceneManager : MonoBehaviour
     private Vector3 playerpos, objpos;
 
     private static GameObject gameManager, soundManager;
-
+    public Sprite upSprite, DownSprite, LeftSprite, RightSprite, StepSprite;
 
     public void ShowAd()
     {
@@ -58,6 +66,14 @@ public class sceneManager : MonoBehaviour
 
     private void Start()
     {
+        for(int i = 0; i < 20; i++)
+        {
+            for(int j = 0; j < 15; j++)
+            {
+                minimap[i, j] = null; isUsed[i, j] = false;
+            }
+        }
+
         IsUndo = false;
         colorSave();
     }
@@ -104,7 +120,7 @@ public class sceneManager : MonoBehaviour
     public void UndoClick()
     {
         IsUndo = true;
-        IsLastClickedButton_Undo = true;
+        //IsLastClickedButton_Undo = true;
     }
 
 
@@ -116,6 +132,7 @@ public class sceneManager : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Escape))
             {
+                isBack = true;
                 Scene scene = SceneManager.GetActiveScene();
                 if(scene.buildIndex == 0)
                 {
@@ -135,8 +152,131 @@ public class sceneManager : MonoBehaviour
                 }
             }
         }
+
+        if(IsUndo)
+        {
+            for (int i = 0; i <= 20; i++)
+            {
+                for (int j = 0; j <= 15; j++)
+                {
+                    minimap[i, j] = null;
+                }
+            }
+        }
+
+
+
+
+
+        BarDisconnection();
+        BarConnection();
     }
 
+
+    private void BarDisconnection()
+    {
+        for (int i = 0; i <= 20; i++)
+        {
+            for (int j = 0; j <= 15; j++)
+            {
+                if(minimap[i, j] != null && minimap[i, j].tag.Contains("bar"))
+                {
+                    minimap[i, j].GetComponent<CollisionManager>().isConnected = false;
+                }
+            }
+        }
+    }
+
+    private void BarConnection()
+    {
+        // 연결 여부 일단 확인 
+        for(int i = 0; i <= 20; i++)
+        {
+            for(int j = 0; j <= 15; j++)
+            {
+                if(minimap[i, j] != null && minimap[i, j].CompareTag("brick") && minimap[i, j].GetComponent<CollisionManager>().isStepOn)
+                {
+                    for(int yy = 0; yy <= 20; yy++)
+                    {
+                        for(int xx = 0; xx <= 15; xx++)
+                        {
+                            isUsed[yy, xx] = false;
+                        }
+                    }
+
+                    Queue<KeyValuePair<int, int>> q = new Queue<KeyValuePair<int, int>>();
+                    q.Enqueue(new KeyValuePair<int, int>(i, j)); isUsed[i, j] = true;
+
+                    while (q.Count != 0)
+                    {
+                        int first = q.Peek().Key, second = q.Peek().Value; q.Dequeue();
+
+                        for (int k = 0; k < 4; k++)
+                        {
+                            int x = second + Direction[k, 0], y = first + Direction[k, 1];
+
+                            if (x >= 0 && x <= 15 && y >= 0 && y <= 20 && !isUsed[y, x] && minimap[y, x] != null)
+                            {
+                                GameObject o = minimap[first, second], oo = minimap[y, x];
+
+                                if ((k == 0 || k == 1) && (o.CompareTag("brick") || o.CompareTag("hobar") || o.CompareTag("crossbar")))
+                                {
+                                    if (oo != null && (oo.CompareTag("hobar") || oo.CompareTag("crossbar")))
+                                    {
+                                        oo.GetComponent<CollisionManager>().isConnected = true;
+                                        isUsed[y, x] = true; q.Enqueue(new KeyValuePair<int, int>(y, x));
+                                    }
+                                }
+                                else if ((k == 2 || k == 3) && (o.CompareTag("brick") || o.CompareTag("verbar") || o.CompareTag("crossbar")))
+                                {
+                                    if (oo != null && (oo.CompareTag("verbar") || oo.CompareTag("crossbar")))
+                                    {
+                                        oo.GetComponent<CollisionManager>().isConnected = true;
+                                        isUsed[y, x] = true; q.Enqueue(new KeyValuePair<int, int>(y, x));
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
+
+        for (int i = 0; i <= 20; i++)
+        {
+            for (int j = 0; j <= 15; j++)
+            {
+                if (minimap[i, j] != null && minimap[i, j].tag.Contains("bar"))
+                {
+                    if(minimap[i, j].GetComponent<CollisionManager>().isConnected)
+                    {
+                        if(minimap[i, j].CompareTag("hobar"))
+                        {
+                            minimap[i, j].GetComponent<SpriteRenderer>().sprite = HorizontalBar;
+                            minimap[i, j].transform.GetChild(0).gameObject.SetActive(true);
+                        }
+                        else if (minimap[i, j].CompareTag("verbar"))
+                        {
+                            minimap[i, j].GetComponent<SpriteRenderer>().sprite = VerticalBar;
+                            minimap[i, j].transform.GetChild(0).gameObject.SetActive(true);
+                        }
+                        else if (minimap[i, j].CompareTag("crossbar"))
+                        {
+                            minimap[i, j].GetComponent<SpriteRenderer>().sprite = CrossBar;
+                            minimap[i, j].transform.GetChild(0).gameObject.SetActive(true);
+                        }
+                    }
+                    else
+                    {
+                        minimap[i, j].GetComponent<SpriteRenderer>().sprite = minimap[i, j].GetComponent<CollisionManager>().bar;
+                        minimap[i, j].transform.GetChild(0).gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
+    }
 
 
 }

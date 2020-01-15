@@ -34,11 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        audioSource = this.gameObject.GetComponent<AudioSource>();
-
         IsCloneFirstMoved = 0; IsRobotFirstMoved = 0;
-        //colObj = new GameObject[4];
-        //IsPlayerMoved = new bool[4];
 
         for (int i = 0; i < 4; i++)
         {
@@ -54,7 +50,6 @@ public class PlayerController : MonoBehaviour
         btnleft = ME.gamebutton.transform.Find("left").GetComponent<Button>();
         btnright = ME.gamebutton.transform.Find("right").GetComponent<Button>();
 
-        //s = Camera.main.GetComponent<Stage>();
         gm = GameObject.Find("GameManager");
         sm = gm.GetComponent<sceneManager>();
 
@@ -93,12 +88,14 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         PrevPlayerPosition = this.gameObject.transform.position;
+        audioSource = this.gameObject.GetComponent<AudioSource>();
     }
     //오브젝트를 밀고가는 움직임 연산
     #region MoveCalc
 
     private void PlayerMove(int i, float d1, float d2)
     {
+        // player가 밀 수 있는 오브젝트 인 경우  
         if (colObj[i - 1] != null && (colObj[i - 1].tag.Contains("brick") || colObj[i - 1].tag.Contains("obj") || colObj[i - 1].tag.Contains("bar")))
         {
 
@@ -229,34 +226,68 @@ public class PlayerController : MonoBehaviour
     {
         if (this.enabled)
         {
-            sm.IsLastClickedButton_Undo = false;
+            //sm.IsLastClickedButton_Undo = false;
             sm.IsLastClickButton_Move = true;
+            sm.isChanged = false;
+            if(!audioSource.isPlaying) audioSource.Play();
 
             anime.SetBool("IsIdle", false);
             ButtonCoolDown(btn);
 
             if (btn.tag == btnup.tag)
             {
-                this.audioSource.Play();
                 SetMoveAnime("up", statusManager.RotateAngle);
+
+                for(int i = 0; i <= 20; i++)
+                {
+                    for (int j = 0; j <= 15; j++)
+                    {
+                        sm.minimap[i, j] = null;
+                    }
+                }
+
                 sm.dir = 1;
             }
             else if (btn.tag == btndown.tag)
             {
-                this.audioSource.Play();
                 SetMoveAnime("down", statusManager.RotateAngle);
+
+                for (int i = 0; i <= 20; i++)
+                {
+                    for (int j = 0; j <= 15; j++)
+                    {
+                        sm.minimap[i, j] = null;
+                    }
+                }
+
                 sm.dir = 2;
             }
             else if (btn.tag == btnleft.tag)
             {
-                this.audioSource.Play();
                 SetMoveAnime("left", statusManager.RotateAngle);
+
+                for (int i = 0; i <= 20; i++)
+                {
+                    for (int j = 0; j <= 15; j++)
+                    {
+                        sm.minimap[i, j] = null;
+                    }
+                }
+
                 sm.dir = 3;
             }
             else if (btn.tag == btnright.tag)
             {
-                this.audioSource.Play();
                 SetMoveAnime("right", statusManager.RotateAngle);
+
+                for (int i = 0; i <= 20; i++)
+                {
+                    for (int j = 0; j <= 15; j++)
+                    {
+                        sm.minimap[i, j] = null;
+                    }
+                }
+
                 sm.dir = 4;
             }
         }
@@ -393,12 +424,8 @@ public class PlayerController : MonoBehaviour
             anime.SetBool("IsBackIdle", true);
         }
 
-        if(this.gameObject.transform.position != PrevPlayerPosition)
-        {
-            sm.IsLastClickButton_Move = false;
-            PrevPlayerPosition = this.gameObject.transform.position;
-        }
 
+        sm.IsLastClickButton_Move = false;
         sm.dir = 0;
     }
 

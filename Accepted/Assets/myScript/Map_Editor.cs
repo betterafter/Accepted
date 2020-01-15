@@ -7,14 +7,15 @@ using UnityEngine.UI;
 public class Map_Editor : MonoBehaviour
 {
     List<List<string>> obj = new List<List<string>>();
+    sceneManager s;
 
     private Text chaptertxt, titletxt;
     private int stepCnt;
     private Stage stage;
     private bool Up, Down, Left, Right;
 
-    public GameObject gamebutton, gamebutton2;
-    public GameObject Wall;
+    public GameObject gamebutton, gamebutton2, ChapterIntroBackground;
+    public GameObject Wall, player;
     public Transform LeftBtntrans, RightBtntrans, UpBtntrans, DownBtntrans;
     public Button Leftbtn, Rightbtn, Upbtn, Downbtn;
 
@@ -25,17 +26,21 @@ public class Map_Editor : MonoBehaviour
     {
         gamebutton = GameObject.Find("gamebutton");
         gamebutton2 = GameObject.Find("gamebutton2");
+
+
     }
 
 
     private void Start()
     {
+
+        MakeWall();
         stepCnt = 0;
-        sceneManager s = GameObject.Find("GameManager").GetComponent<sceneManager>();
-        Wall = GameObject.Find("wall");
+        s = GameObject.Find("GameManager").GetComponent<sceneManager>();
         string mapName = "map/stage" + s.stageName;
 
         csvParser(mapName);
+
 
         //시작할 때 방향키 발판 및 블럭이 존재하는지 체크하기 위한 초기화 코드 
         Up = false; Down = false; Left = false; Right = false;
@@ -54,11 +59,26 @@ public class Map_Editor : MonoBehaviour
             StartCoroutine("Fadetitle");
 
             Invoke("set", 4f);
+            //Invoke("Test", 5f);
         }
 
         //재시작을 누른거라면 : 그냥 오브젝트 재배치  
-        else if (s.IsRestart == true) set();
+        else if (s.IsRestart == true) { set();  }
+
     }
+
+    void Test()
+    {
+
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        playerController.enabled = true;
+
+        Upbtn.onClick.AddListener(delegate () { playerController.Move(Upbtn); });
+        Downbtn.onClick.AddListener(delegate () { playerController.Move(Downbtn); });
+        Leftbtn.onClick.AddListener(delegate () { playerController.Move(Leftbtn); });
+        Rightbtn.onClick.AddListener(delegate () { playerController.Move(Rightbtn); });
+    }
+
 
     // 인게임 내에서의 각종 UI 활성화 
     private void set()
@@ -66,7 +86,9 @@ public class Map_Editor : MonoBehaviour
         //chapter 타이틀이 실행이 한번 되면 이제 다시 꺼지게 됨.
         GameObject.Find("chaptertext").SetActive(false);
         GameObject.Find("title").SetActive(false);
-        Wall.transform.Find("wall").gameObject.SetActive(true);
+        ChapterIntroBackground.SetActive(false);
+        //Wall.transform.Find("wall").gameObject.SetActive(true);
+
 
         //게임이 시작하면 UI 버튼 활성화 //////////////////////////////////////////////////////////////////////////////////////////////
         gamebutton2.transform.Find("retry").gameObject.SetActive(true);
@@ -106,11 +128,37 @@ public class Map_Editor : MonoBehaviour
 
         //활성화된 발판 개수 초기화  
         stage.stepCnt = stepCnt;
+
+        s.IsRestart = false;
     }
+
+    private void MakeWall()
+    {
+        GameObject wall = Resources.Load("Prefabs/obj/wall") as GameObject;
+
+        for (int i = -9; i <= 9; i++)
+        {
+            Instantiate(wall, new Vector3(i, 15), Quaternion.identity);
+            Instantiate(wall, new Vector3(i, 16), Quaternion.identity);
+            Instantiate(wall, new Vector3(i, -6), Quaternion.identity);
+            Instantiate(wall, new Vector3(i, -7), Quaternion.identity);
+        }
+
+        for (int i = -5; i <= 14; i++)
+        {
+            Instantiate(wall, new Vector3(-9, i), Quaternion.identity);
+            Instantiate(wall, new Vector3(-8, i), Quaternion.identity);
+            Instantiate(wall, new Vector3(8, i), Quaternion.identity);
+            Instantiate(wall, new Vector3(9, i), Quaternion.identity);
+        }
+    }
+
+
 
 
     private void Update()
     {
+
         //방향키 활성화 여부를 실시간으로 체크//////////////////////////////////////////////
         if (stage != null)
         {
@@ -199,10 +247,8 @@ public class Map_Editor : MonoBehaviour
         if (line.Length < 1) return obj;
         for(int i = 0; i < line.Length; i++)
         {
-            //data.Clear();
             string[] attr = Regex.Split(line[i], ATTRIBUTEPARSE);
             List<string> data = new List<string>();
-            //Debug.Log(line[i]);
             for(int j = 0; j < attr.Length; j++)
             {
                 data.Add(attr[j]);
@@ -219,7 +265,7 @@ public class Map_Editor : MonoBehaviour
 
 
 
-    public void find()
+    private void find()
     {
         sceneManager scenemanager = GameObject.Find("GameManager").GetComponent<sceneManager>();
         for(int i = 0; i < obj.Count - 1; i++)
@@ -238,7 +284,7 @@ public class Map_Editor : MonoBehaviour
 
                 GameObject o = Resources.Load(path) as GameObject;
                 GameObject b = Instantiate(o, new Vector3(x, y), Quaternion.identity);
-                b.GetComponent<SpriteRenderer>().color = new Color(R / 255f, G / 255f, B / 255f);
+                //b.GetComponent<SpriteRenderer>().color = new Color(R / 255f, G / 255f, B / 255f);
 
                 b.tag = obj[i][0];
 
@@ -257,18 +303,35 @@ public class Map_Editor : MonoBehaviour
 
                 if(obj[i][0] != "robot" && obj[i][0] != "player" && obj[i][0] != "researcher" && obj[i][0] != "CultureTube")
                 {
-                    b.GetComponent<SpriteRenderer>().color = new Color(R / 255f, G / 255f, B / 255f);
+                    //b.GetComponent<SpriteRenderer>().color = new Color(R / 255f, G / 255f, B / 255f);
                 }
 
-                if (obj[i][0] == "robot")
+                if (obj[i][0] == "robotplayer")
                 {
-                    b.GetComponent<PlayerController>().enabled = false;
-                    b.tag = obj[i][0];
+                    PlayerController playerController = b.GetComponent<PlayerController>();
+
+                    Upbtn.onClick.AddListener(delegate () { playerController.Move(Upbtn); });
+                    Downbtn.onClick.AddListener(delegate () { playerController.Move(Downbtn); });
+                    Leftbtn.onClick.AddListener(delegate () { playerController.Move(Leftbtn); });
+                    Rightbtn.onClick.AddListener(delegate () { playerController.Move(Rightbtn); });
+
+                    playerController.enabled = false;
                 }
-                else b.tag = obj[i][0];
+
+                else if(obj[i][0] == "player")
+                {
+                    player = b;
+                }
+
+                b.tag = obj[i][0];
+
+                
             }
         }
+
+        Invoke("Test", 0.5f);
     }
+
 
 
 

@@ -64,7 +64,14 @@ public class spawner : MonoBehaviour
                                     b.GetComponent<SpriteRenderer>().color = new Color(178 / 255f, 178 / 255f, 178 / 255f);
                                     b.tag = "player";
                                     b.GetComponent<PlayerController>().IsClone = 1;
-                                    b.GetComponent<PlayerController>().enabled = false;
+
+                                    PlayerController playerController = b.GetComponent<PlayerController>();
+                                    playerController.enabled = true;
+
+                                    map_Editor.Upbtn.onClick.AddListener(delegate () { playerController.Move(map_Editor.Upbtn); });
+                                    map_Editor.Downbtn.onClick.AddListener(delegate () { playerController.Move(map_Editor.Downbtn); });
+                                    map_Editor.Leftbtn.onClick.AddListener(delegate () { playerController.Move(map_Editor.Leftbtn); });
+                                    map_Editor.Rightbtn.onClick.AddListener(delegate () { playerController.Move(map_Editor.Rightbtn); });
                                 }
                             }
                         }
@@ -99,7 +106,14 @@ public class spawner : MonoBehaviour
                                         b.GetComponent<SpriteRenderer>().color = new Color(178 / 255f, 178 / 255f, 178 / 255f);
                                         b.tag = "player";
                                         b.GetComponent<PlayerController>().IsClone = 1;
-                                        b.GetComponent<PlayerController>().enabled = false;
+
+                                        PlayerController playerController = b.GetComponent<PlayerController>();
+                                        playerController.enabled = true;
+
+                                        map_Editor.Upbtn.onClick.AddListener(delegate () { playerController.Move(map_Editor.Upbtn); });
+                                        map_Editor.Downbtn.onClick.AddListener(delegate () { playerController.Move(map_Editor.Downbtn); });
+                                        map_Editor.Leftbtn.onClick.AddListener(delegate () { playerController.Move(map_Editor.Leftbtn); });
+                                        map_Editor.Rightbtn.onClick.AddListener(delegate () { playerController.Move(map_Editor.Rightbtn); });
                                     }
                                 }
                             }

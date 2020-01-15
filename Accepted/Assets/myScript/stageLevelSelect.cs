@@ -6,13 +6,37 @@ using System;
 
 public class stageLevelSelect : MonoBehaviour
 {
-    public sceneManager s;
+    Vector3 DisablePosition, EnablePosition;
+    StageSelect StageSelect;
 
-    public void StageLevelClick()
+    private void Start()
     {
-        s = GameObject.Find("GameManager").GetComponent<sceneManager>();
+        StageSelect = Camera.main.GetComponent<StageSelect>();
 
-        s.stageLevel = Convert.ToInt32(this.gameObject.name);
-        SceneManager.LoadScene(this.gameObject.name);
+        DisablePosition = new Vector3(-500, 0);
+        EnablePosition = new Vector3(0, 0);
+
+    }
+
+    private void Update()
+    {
+        EnableStage();
+    }
+
+
+    void EnableStage()
+    {
+        Vector3 TargetPosition;
+        int i = Convert.ToInt32(gameObject.name);
+
+        if (StageSelect.targetUI == i) TargetPosition = EnablePosition;
+        else TargetPosition = DisablePosition;
+
+        gameObject.GetComponent<RectTransform>().anchoredPosition = Vector3.Lerp(gameObject.GetComponent<RectTransform>().anchoredPosition, TargetPosition, 0.2f);
+        if (Vector3.Distance(gameObject.GetComponent<RectTransform>().anchoredPosition, TargetPosition) < 1)
+        {
+            gameObject.GetComponent<RectTransform>().anchoredPosition = TargetPosition;
+        }
+
     }
 }

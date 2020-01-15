@@ -103,6 +103,7 @@ public class Stage : MonoBehaviour
     public void SceneChange()
     {
         int idx = 0;
+        Debug.Log(EndStageData.StageInnerData.Length);
         while (idx < EndStageData.StageInnerData.Length)
         {
             if (s.stageName == EndStageData.StageInnerData[idx].stage)
@@ -117,10 +118,11 @@ public class Stage : MonoBehaviour
 
             idx++;
         }
+        //googleManager.SaveToCloud();
         googleManager.SaveToCloud();
 
         //게임을 클리어하면 스테이지 선택창으로 넘어가게 됨.
-        SceneManager.LoadScene(s.stageLevel.ToString());
+        SceneManager.LoadScene("stageSelect");
     }
 
 

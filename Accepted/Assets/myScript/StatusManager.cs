@@ -24,7 +24,7 @@ public class StatusManager : MonoBehaviour
     {
         sceneManager scene = GameObject.Find("GameManager").GetComponent<sceneManager>();
         int stageLevel = scene.stageLevel;
-        SceneManager.LoadScene(stageLevel.ToString());
+        SceneManager.LoadScene("stageSelect");
     }
 
     public void Click_no()

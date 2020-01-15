@@ -12,17 +12,19 @@ using System.IO;
 using System.Text;
 using System;
 
+
+
 public class GoogleManager : MonoBehaviour
 {
     private const string FILE_NAME = "saveFile";
     private Action<bool> SignInCallBack;
 
     public StageData stageData;
-    public GameObject LoadingObj;
+    //public GameObject LoadingObj;
 
     public int isReadyToLogIn;
 
-
+    public Text text;
 
     public void Awake()
     {
@@ -62,8 +64,9 @@ public class GoogleManager : MonoBehaviour
             Social.localUser.Authenticate(SignInCallBack);
             yield return new WaitForSeconds(1f);
         }
-
+        //text.text = "LOG IN";
         LoadFromCloud();
+        
     }
 
     //로그아웃
@@ -102,7 +105,7 @@ public class GoogleManager : MonoBehaviour
             LogIn();
             return;
         }
-
+        Debug.Log("LOG IN To Save Data");
         Open_SavedData(FILE_NAME, true);
     }
 
@@ -111,7 +114,7 @@ public class GoogleManager : MonoBehaviour
         if(status == SavedGameRequestStatus.Success)
         {
             //이곳에 맵 클리어 여부 데이터를 바이트로 변환한 것을 넣으면 됨 
-
+            Debug.Log("Saved Game Request Status :: Success (OPEN TO SAVE)");
             string DataString = JsonUtility.ToJson(stageData);
             byte[] DataByte = Encoding.UTF8.GetBytes(DataString);
 
@@ -120,7 +123,8 @@ public class GoogleManager : MonoBehaviour
         else
         {
             //파일열기 실패
-           // STATUS.text = "파일열기 실패1";
+            // STATUS.text = "파일열기 실패1";
+            Debug.Log("Saved Game Request Status :: Fail (OPEN TO SAVE)");
         }
     }
 
@@ -141,11 +145,13 @@ public class GoogleManager : MonoBehaviour
         if(status == SavedGameRequestStatus.Success)
         {
             //데이터 저장 완료
-           // STATUS.text = "데이터 저장 완료"; 
+            // STATUS.text = "데이터 저장 완료"; 
+            Debug.Log("Save Success");
 
         }
         else
         {
+            Debug.Log("Save Fail");
             //데이터 저장 실패 
            // STATUS.text = "데이터 저장 실패";
         }
@@ -171,6 +177,7 @@ public class GoogleManager : MonoBehaviour
 
     private void OpenToRead(SavedGameRequestStatus status, ISavedGameMetadata game)
     {
+        //text.text = "OPEN TO READ";
         if(status == SavedGameRequestStatus.Success)
         {
            //클라우드 파일 열기 성공 
@@ -194,19 +201,26 @@ public class GoogleManager : MonoBehaviour
         {
             if(data.Length == 0)
             {
-
+                Debug.Log("LoadFail");
+                //text.text = "LOAD FAIL";
                 TextAsset jsonString = Resources.Load("saveFile") as TextAsset;
                 string LocalDataString = jsonString.text;
                 stageData = JsonUtility.FromJson<StageData>(LocalDataString);
+                //SaveToCloud();
+                //text.text = LocalDataString;
             }
             else
             {
+                Debug.Log("Load");
+                //text.text = "LOAD SUCCESS";
                 string DataString = Encoding.UTF8.GetString(data);
                 stageData = JsonUtility.FromJson<StageData>(DataString);
+                Debug.Log(DataString);
+                //text.text = DataString;
             }
 
             //데이타 읽기 성공 
-            LoadingObj.SetActive(false);
+            //LoadingObj.SetActive(false);
         }
         else
         {
