@@ -1,0 +1,14 @@
+brickstep,-4,1
+brick,-2,1
+brick,-2,2
+brickstep,-4,3
+brick,-2,3
+brick,-2,4
+player,0,4
+accepted,2,4
+brickstep,-4,5
+brick,-2,5
+brick,-2,6
+brickstep,-4,7
+brick,-2,7
+chapter 1-1,어서오세요!

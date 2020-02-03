@@ -10,6 +10,7 @@ public class MoveToGame : MonoBehaviour
     StageData stageData;
     StageSelect StageSelect;
     GameObject GameManager;
+    sceneManager SceneManager;
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class MoveToGame : MonoBehaviour
         GameManager = GameObject.Find("GameManager");
         stageData = GameManager.GetComponent<GoogleManager>().stageData;
         StageSelect = Camera.main.GetComponent<StageSelect>();
+        SceneManager = GameManager.GetComponent<sceneManager>();
 
         //GameManager.GetComponent<GoogleManager>().LoadFromCloud();
 
@@ -29,9 +31,6 @@ public class MoveToGame : MonoBehaviour
             {
                 if(stageData.StageInnerData[idx].stage == gameObject.name)
                 {
-                    Debug.Log(stageData.StageInnerData[idx].stage);
-                    Debug.Log(stageData.StageInnerData[idx].enable);
-
                     if (stageData.StageInnerData[idx].enable == 1)
                     {
                         gameObject.GetComponent<Image>().sprite = StageSelect.EnableSprite;
@@ -47,5 +46,30 @@ public class MoveToGame : MonoBehaviour
             }
             idx++;
         }
+
+        if (gameObject.transform.GetChild(1) != null)
+        {
+            gameObject.transform.GetChild(1).GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 43);
+            gameObject.transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(30, 30);
+
+            if (stageData.StageInnerData[idx].point == 1)
+            {
+                gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = SceneManager.point1;
+            }
+            else if (stageData.StageInnerData[idx].point == 2)
+            {
+                gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = SceneManager.point2;
+            }
+            else if (stageData.StageInnerData[idx].point == 3)
+            {
+                gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = SceneManager.point3;
+            }
+            else if (stageData.StageInnerData[idx].point == 0)
+            {
+                gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = SceneManager.point0;
+            }
+        }
     }
+
+
 }

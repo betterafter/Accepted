@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     //private Stage s;
     private CollisionManager collisionManager;
     private sceneManager sm;
+    GameUIManager GameUIManager;
+
     private Map_Editor ME;
     private StatusManager statusManager;
 
@@ -52,38 +54,12 @@ public class PlayerController : MonoBehaviour
 
         gm = GameObject.Find("GameManager");
         sm = gm.GetComponent<sceneManager>();
+        GameUIManager = gm.GetComponent<GameUIManager>();
 
         anime = this.gameObject.GetComponent<Animator>();
         last = 0;
     }
 
-    private void Update()
-    {
-      
-        if ((int)Camera.main.transform.eulerAngles.z != 0)
-        {
-            if ((int)(Camera.main.transform.eulerAngles.z % 270) == 0)
-            {
-                this.transform.rotation = Quaternion.Euler(0, 0, 270);
-            }
-            else if ((int)(Camera.main.transform.eulerAngles.z % 180) == 0)
-            {
-                this.transform.rotation = Quaternion.Euler(0, 0, 180);
-            }
-            else if ((int)(Camera.main.transform.eulerAngles.z % 90) == 0)
-            {
-                this.transform.rotation = Quaternion.Euler(0, 0, 90);
-            }
-            else
-            {
-                this.transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
-        }
-        else
-        {
-            this.transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
-    }
 
     private void Start()
     {
@@ -229,65 +205,29 @@ public class PlayerController : MonoBehaviour
             //sm.IsLastClickedButton_Undo = false;
             sm.IsLastClickButton_Move = true;
             sm.isChanged = false;
-            if(!audioSource.isPlaying) audioSource.Play();
+            if(!audioSource.isPlaying && GameUIManager.isSoundEffectOn) audioSource.Play();
 
             anime.SetBool("IsIdle", false);
             ButtonCoolDown(btn);
 
             if (btn.tag == btnup.tag)
             {
-                SetMoveAnime("up", statusManager.RotateAngle);
-
-                for(int i = 0; i <= 20; i++)
-                {
-                    for (int j = 0; j <= 15; j++)
-                    {
-                        sm.minimap[i, j] = null;
-                    }
-                }
-
+                SetMoveAnime("up", (int)gameObject.transform.eulerAngles.z);
                 sm.dir = 1;
             }
             else if (btn.tag == btndown.tag)
             {
-                SetMoveAnime("down", statusManager.RotateAngle);
-
-                for (int i = 0; i <= 20; i++)
-                {
-                    for (int j = 0; j <= 15; j++)
-                    {
-                        sm.minimap[i, j] = null;
-                    }
-                }
-
+                SetMoveAnime("down", (int)gameObject.transform.eulerAngles.z);
                 sm.dir = 2;
             }
             else if (btn.tag == btnleft.tag)
             {
-                SetMoveAnime("left", statusManager.RotateAngle);
-
-                for (int i = 0; i <= 20; i++)
-                {
-                    for (int j = 0; j <= 15; j++)
-                    {
-                        sm.minimap[i, j] = null;
-                    }
-                }
-
+                SetMoveAnime("left", (int)gameObject.transform.eulerAngles.z);
                 sm.dir = 3;
             }
             else if (btn.tag == btnright.tag)
             {
-                SetMoveAnime("right", statusManager.RotateAngle);
-
-                for (int i = 0; i <= 20; i++)
-                {
-                    for (int j = 0; j <= 15; j++)
-                    {
-                        sm.minimap[i, j] = null;
-                    }
-                }
-
+                SetMoveAnime("right", (int)gameObject.transform.eulerAngles.z);
                 sm.dir = 4;
             }
         }

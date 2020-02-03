@@ -1,0 +1,6 @@
+accepted,-2,4
+point,-1,4
+point,0,4
+point,1,4
+player,2,4
+chapter 2-2,df

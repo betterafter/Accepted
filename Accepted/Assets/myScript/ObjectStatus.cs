@@ -20,8 +20,16 @@ public class ObjectStatus : MonoBehaviour
     private Map_Editor map_Editor;
     private Button Upbtn, Downbtn, Leftbtn, Rightbtn;
 
+    public string Currtag;
+
+    Vector3 prevPos;
+
+    public bool[] testbool = new bool[4];
+
     private void Start()
     {
+        prevPos = this.gameObject.transform.position;
+
         int cx = Mathf.RoundToInt(this.gameObject.transform.position.x);
         int cy = Mathf.RoundToInt(this.gameObject.transform.position.y);
 
@@ -40,6 +48,8 @@ public class ObjectStatus : MonoBehaviour
         StartCoroutine("PushPositionStack");
         StartCoroutine("CloneSpawnStopFirst");
         StartCoroutine("AccessRobot");
+
+        if (this.gameObject.tag.Contains("bar")) Currtag = this.gameObject.tag;
     }
 
 
@@ -51,73 +61,50 @@ public class ObjectStatus : MonoBehaviour
             sceneManager.isChanged = true;
         }
 
-        if (this.gameObject.CompareTag("accepted"))
+        if (sceneManager.rotatebool[2])
         {
-            if ((int)Camera.main.transform.eulerAngles.z != 0)
-            {
-                if ((int)(Camera.main.transform.eulerAngles.z % 270) == 0)
-                {
-                    this.transform.rotation = Quaternion.Euler(0, 0, 270);
-                }
-                else if ((int)(Camera.main.transform.eulerAngles.z % 180) == 0)
-                {
-                    this.transform.rotation = Quaternion.Euler(0, 0, 180);
-                }
-                else if ((int)(Camera.main.transform.eulerAngles.z % 90) == 0)
-                {
-                    this.transform.rotation = Quaternion.Euler(0, 0, 90);
-                }
-                else
-                {
-                    this.transform.rotation = Quaternion.Euler(0, 0, 0);
-                }
-            }
-            else
-            {
-                this.transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
+            this.transform.rotation = Quaternion.Euler(0, 0, 270);
+            if (Currtag == "hobar") this.gameObject.tag = "verbar";
+            else if (Currtag == "verbar") this.gameObject.tag = "hobar";
+        }
+        else if (sceneManager.rotatebool[1])
+        {
+            this.transform.rotation = Quaternion.Euler(0, 0, 180);
+            if (Currtag == "hobar") this.gameObject.tag = "hobar";
+            else if (Currtag == "verbar") this.gameObject.tag = "verbar";
+        }
+        else if (sceneManager.rotatebool[0])
+        {
+            this.transform.rotation = Quaternion.Euler(0, 0, 90);
+            if (Currtag == "hobar") this.gameObject.tag = "verbar";
+            else if (Currtag == "verbar") this.gameObject.tag = "hobar";
+        }
+        else 
+        { 
+            this.transform.rotation = Quaternion.Euler(0, 0, 0);
+            if (Currtag == "hobar") this.gameObject.tag = "hobar";
+            else if (Currtag == "verbar") this.gameObject.tag = "verbar";
+        }
+        
+
+        if (Vector3.Distance(prevPos, gameObject.transform.position) > 0)
+        {
+            sceneManager.minimap[(int)prevPos.y + 5, (int)prevPos.x + 7] = null;
+
         }
 
-        else if (this.gameObject.name == "gamebutton")
+        if (sceneManager.dir == 0 && !this.gameObject.tag.Contains("step") && !this.gameObject.tag.Contains("accepted") && !sceneManager.IsUndo)
         {
-            if ((int)Camera.main.transform.eulerAngles.z != 0)
-            {
-                if ((int)(Camera.main.transform.eulerAngles.z % 270) == 0)
-                {
-                    this.transform.rotation = Quaternion.Euler(0, 0, 0);
-                }
-                else if ((int)(Camera.main.transform.eulerAngles.z % 180) == 0)
-                {
-                    this.transform.rotation = Quaternion.Euler(0, 0, 0);
-                }
-                else if ((int)(Camera.main.transform.eulerAngles.z % 90) == 0)
-                {
-                    this.transform.rotation = Quaternion.Euler(0, 0, 0);
-                }
-                else
-                {
-                    this.transform.rotation = Quaternion.Euler(0, 0, 0);
-                }
-            }
-            else
-            {
-                this.transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
-        }
 
-        if(sceneManager.dir == 0 && !this.gameObject.tag.Contains("step") && !this.gameObject.tag.Contains("accepted") && !sceneManager.IsUndo)
-        {
             sceneManager.minimap[(int)(this.gameObject.transform.position.y + 5), (int)(this.gameObject.transform.position.x + 7)]
                     = this.gameObject;
-
+            prevPos = this.gameObject.transform.position;
         }
     }
 
     private void FixedUpdate()
     {
         sceneManager.IsUndo = false;
-        //sceneManager.IsLastClickedButton_Undo = false;
-       
     }
 
     private IEnumerator PositionStack()
@@ -152,8 +139,6 @@ public class ObjectStatus : MonoBehaviour
             yield return new WaitWhile(() => !sceneManager.IsLastClickButton_Move);
         }
     }
-
-
 
     private IEnumerator CloneSpawnStopFirst()
     {
@@ -213,5 +198,6 @@ public class ObjectStatus : MonoBehaviour
         }
 
     }
+
 
 }

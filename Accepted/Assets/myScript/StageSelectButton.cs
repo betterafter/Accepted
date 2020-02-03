@@ -11,10 +11,16 @@ public class StageSelectButton : MonoBehaviour
     sceneManager sceneManager;
 
     AudioSource audioSource;
+    GameObject nextScene;
+    Camera cam;
 
 
     private void Start()
     {
+        nextScene = GameObject.Find("NextSceneCanvas").transform.GetChild(0).gameObject;
+        cam = Camera.main;
+
+
         stageSelect = Camera.main.GetComponent<StageSelect>();
         sceneManager = GameObject.Find("GameManager").GetComponent<sceneManager>();
 
@@ -31,6 +37,8 @@ public class StageSelectButton : MonoBehaviour
         sceneManager.stageLevel = Convert.ToInt32(this.gameObject.name);
         stageSelect.PrevTargetUI = stageSelect.targetUI;
         stageSelect.IsTargetUIChoose = true;
+
+        stageSelect.effect[stageSelect.targetUI].SetActive(true);
     }
 
 
@@ -42,7 +50,35 @@ public class StageSelectButton : MonoBehaviour
         audioSource = GameObject.Find("SoundManager").GetComponent<AudioSource>();
         audioSource.Play();
 
-        SceneManager.LoadScene("game");
+        cam.GetComponent<CameraResolution>().color = Color.black;
 
+        Color color = nextScene.GetComponent<Image>().color;
+        color = Color.black;
+        color.a = 0;
+        nextScene.GetComponent<Image>().color = color;
+
+        stageSelect.ReadyToNextScene = true;
+        StartCoroutine("ChangeScene");
     }
+
+    IEnumerator ChangeScene()
+    {
+        if (nextScene.GetComponent<Image>().color.a < 1)
+        {
+            Color color = nextScene.GetComponent<Image>().color;
+
+            while (true)
+            {
+                color.a += 0.02f;
+
+                //Debug.Log(color);
+
+                nextScene.GetComponent<Image>().color = color;
+                if(nextScene.GetComponent<Image>().color.a >= 1) SceneManager.LoadScene("game");
+
+                yield return null;
+            }
+        }
+    }
+
 }

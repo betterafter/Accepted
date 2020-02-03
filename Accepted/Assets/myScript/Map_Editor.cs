@@ -14,10 +14,13 @@ public class Map_Editor : MonoBehaviour
     private Stage stage;
     private bool Up, Down, Left, Right;
 
-    public GameObject gamebutton, gamebutton2, ChapterIntroBackground;
+    public GameObject gamebutton, gamebutton2, ChapterIntroBackground, UIimage, uptitle;
     public GameObject Wall, player;
     public Transform LeftBtntrans, RightBtntrans, UpBtntrans, DownBtntrans;
     public Button Leftbtn, Rightbtn, Upbtn, Downbtn;
+
+    string MapName;
+    public GameObject Panel, Image, Button, InformationCanvas, subInformation;
 
     static string LINEPARSE = @"\n";
     static string ATTRIBUTEPARSE = @",";
@@ -26,24 +29,26 @@ public class Map_Editor : MonoBehaviour
     {
         gamebutton = GameObject.Find("gamebutton");
         gamebutton2 = GameObject.Find("gamebutton2");
-
-
     }
 
 
     private void Start()
     {
-
-        MakeWall();
+        MakeTile(); 
+        UIimage.SetActive(true); 
         stepCnt = 0;
         s = GameObject.Find("GameManager").GetComponent<sceneManager>();
         string mapName = "map/stage" + s.stageName;
+        MapName = s.stageName;
+        uptitle.GetComponent<Text>().text = s.stageName;
+        uptitle.SetActive(true);
 
         csvParser(mapName);
-
+        s.reload(); s.currPoint = 0;
 
         //시작할 때 방향키 발판 및 블럭이 존재하는지 체크하기 위한 초기화 코드 
         Up = false; Down = false; Left = false; Right = false;
+        //if (!s.IsRestart) Invoke("OpenInformation", 4.5f);
 
         //재시작 버튼을 눌렀는지 여부 확인
         //재시작을 누른게 아닌 처음 시작이라면 : 인트로 화면 시작 후 오브젝트 배치 
@@ -79,7 +84,6 @@ public class Map_Editor : MonoBehaviour
         Rightbtn.onClick.AddListener(delegate () { playerController.Move(Rightbtn); });
     }
 
-
     // 인게임 내에서의 각종 UI 활성화 
     private void set()
     {
@@ -99,6 +103,10 @@ public class Map_Editor : MonoBehaviour
         Button btn2 = GameObject.Find("undo").GetComponent<Button>();
         btn2.onClick.AddListener(delegate () { GameObject.Find("GameManager").GetComponent<sceneManager>().UndoClick(); });
 
+        gamebutton2.transform.Find("setting").gameObject.SetActive(true);
+        Button btn2_1 = GameObject.Find("setting").GetComponent<Button>();
+        btn2_1.onClick.AddListener(delegate () { GameObject.Find("GameManager").GetComponent<GameUIManager>().Setting(); });
+
         UpBtntrans = gamebutton.transform.Find("up");
         UpBtntrans.gameObject.SetActive(true);
         Upbtn = GameObject.Find("up").GetComponent<Button>();
@@ -115,6 +123,8 @@ public class Map_Editor : MonoBehaviour
         RightBtntrans.gameObject.SetActive(true);
         Rightbtn = GameObject.Find("right").GetComponent<Button>();
 
+
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //오브젝트 배치 함수 실행
@@ -129,6 +139,7 @@ public class Map_Editor : MonoBehaviour
         //활성화된 발판 개수 초기화  
         stage.stepCnt = stepCnt;
 
+        if(!s.IsRestart) OpenInformation();
         s.IsRestart = false;
     }
 
@@ -153,44 +164,57 @@ public class Map_Editor : MonoBehaviour
         }
     }
 
+    private void MakeTile()
+    {
+        GameObject tile = Resources.Load("Prefabs/obj/tile") as GameObject;
 
+        for(int i = -9; i <= 9; i++)
+        {
+            for(int j = -7; j <= 16; j++)
+            {
+                Instantiate(tile, new Vector3(i, j), Quaternion.identity);
+            }
+        }
+    }
+
+    public void CloseInformation()
+    {
+        Panel.SetActive(false); Image.SetActive(false); Button.SetActive(false);
+        subInformation.SetActive(false);
+    }
+
+    void OpenInformation()
+    {
+        for (int idx = 0; idx < 100; idx++)
+        {
+            if (InformationCanvas.transform.GetChild(idx + 3).gameObject.name == "stage" + MapName)
+            {
+                Panel.SetActive(true); Image.SetActive(true); Button.SetActive(true);
+                InformationCanvas.transform.GetChild(idx + 3).gameObject.SetActive(true);
+                subInformation = InformationCanvas.transform.GetChild(idx + 3).gameObject;
+
+                break;
+            }
+        }
+    }
 
 
     private void Update()
     {
-
-        //방향키 활성화 여부를 실시간으로 체크//////////////////////////////////////////////
-        if (stage != null)
+        if (UpBtntrans != null && DownBtntrans != null && LeftBtntrans != null && RightBtntrans != null)
         {
-            if (!Up) UpBtntrans.gameObject.SetActive(true);
-            else if (Up)
-            {
-                if (stage.IsUpActive > 0) UpBtntrans.gameObject.SetActive(true);
-                else UpBtntrans.gameObject.SetActive(false);
-            }
+            if (s.DirectionKeyActivation[0] || !s.isDirectionKey[0]) UpBtntrans.gameObject.SetActive(true);
+            else UpBtntrans.gameObject.SetActive(false);
 
-            if (!Down) DownBtntrans.gameObject.SetActive(true);
-            else if (Down)
-            {
-                if (stage.IsDownActive > 0) DownBtntrans.gameObject.SetActive(true);
-                else DownBtntrans.gameObject.SetActive(false);
-            }
+            if (s.DirectionKeyActivation[1] || !s.isDirectionKey[1]) DownBtntrans.gameObject.SetActive(true);
+            else DownBtntrans.gameObject.SetActive(false);
 
-            if (!Left) LeftBtntrans.gameObject.SetActive(true);
-            else if (Left)
-            {
-                if (stage.IsLeftActive > 0) LeftBtntrans.gameObject.SetActive(true);
-                else LeftBtntrans.gameObject.SetActive(false);
-            }
+            if (s.DirectionKeyActivation[2] || !s.isDirectionKey[2]) LeftBtntrans.gameObject.SetActive(true);
+            else LeftBtntrans.gameObject.SetActive(false);
 
-            if (!Right) RightBtntrans.gameObject.SetActive(true);
-            else if (Right)
-            {
-                if (stage.IsRightActive > 0) RightBtntrans.gameObject.SetActive(true);
-                else RightBtntrans.gameObject.SetActive(false);
-            }
+            if (s.DirectionKeyActivation[3] || !s.isDirectionKey[3]) RightBtntrans.gameObject.SetActive(true);
+            else RightBtntrans.gameObject.SetActive(false);
         }
-        /////////////////////////////////////////////////////////////////////////
     }
 
 

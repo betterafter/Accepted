@@ -18,12 +18,15 @@ public class StageSelect : MonoBehaviour
     GameObject[] FloorInCanvas = new GameObject[8];
     GameObject[] FloorNameInCanvas = new GameObject[8];
     GameObject[] Stage = new GameObject[8];
+   
+    public GameObject[] effect = new GameObject[8];
     public GameObject[] CanvasChild = new GameObject[8];
+
     GameObject[] Canvas = new GameObject[8];
     Vector3[] FloorOriginVectorInCanvas = new Vector3[8];
     Button[] FloorButton = new Button[8];
 
-    public GameObject left, right;
+    public GameObject left, right, nextScene;
     public Button LeftButton, RightButton;
     public int leftClick, rightClick;
 
@@ -37,14 +40,20 @@ public class StageSelect : MonoBehaviour
     public Vector3[] CurrPosition = new Vector3[8];
 
     public Sprite EnableSprite, DisableSprite;
+    public bool ReadyToNextScene = false;
+
+    public GameObject Light;
 
     //Vector3[] targetPosition = new Vector3[8];
    
 
 
-
     private void Start()
     {
+
+        StartCoroutine("Reset");
+        StartCoroutine("ThisScene");
+
         leftClick = 2; rightClick = 2;
         GameObject StageCanvas = GameObject.Find("Stage");
 
@@ -57,24 +66,24 @@ public class StageSelect : MonoBehaviour
             // canvas -> 2
             CanvasChild[i] = Canvas[i].transform.GetChild(0).gameObject;
             // canvas -> 2 -> 2(button)
-            FloorInCanvas[i] = CanvasChild[i].gameObject.transform.GetChild(0).gameObject;
+            FloorInCanvas[i] = CanvasChild[i].gameObject.transform.GetChild(1).gameObject;
             // canvas -> 2 -> 2(button) -> button(component)
             FloorButton[i] = FloorInCanvas[i].GetComponent<Button>();
             // canvas -> 2 -> text
-            FloorNameInCanvas[i] = CanvasChild[i].transform.GetChild(1).gameObject;
+            FloorNameInCanvas[i] = CanvasChild[i].transform.GetChild(2).gameObject;
             // canvas -> 2 -> position
             if(i < 5)
                 FloorOriginVectorInCanvas[i] = CanvasChild[i].GetComponent<RectTransform>().anchoredPosition;
             else if(i >= 5)
                 FloorOriginVectorInCanvas[i] = new Vector3(CanvasChild[i].GetComponent<RectTransform>().anchoredPosition.x, CanvasChild[i].GetComponent<RectTransform>().anchoredPosition.y + 1000);
 
+            effect[i] = CanvasChild[i].gameObject.transform.GetChild(0).gameObject;
             GameObject o = FloorInCanvas[i];
 
             FloorButton[i].onClick.AddListener(delegate() { o.GetComponent<StageSelectButton>().FloorClick(); });
             CurrPosition[i] = CanvasChild[i].GetComponent<RectTransform>().anchoredPosition;
             //Debug.Log(CanvasChild[i].name);
         }
-        StartCoroutine("Reset");
     }
 
     void Func1(int i)
@@ -126,6 +135,14 @@ public class StageSelect : MonoBehaviour
 
     private void Update()
     {
+        Vector3 vector = Light.GetComponent<RectTransform>().anchoredPosition;
+        Light.GetComponent<RectTransform>().anchoredPosition = new Vector3(vector.x, vector.y - 5f);
+
+        if(Light.GetComponent<RectTransform>().anchoredPosition.y <= -1000)
+        {
+            Light.GetComponent<RectTransform>().anchoredPosition = new Vector3(vector.x, 1000);
+        }
+
         if (leftClick == 2 && rightClick == 2 && CanvasChild[1].GetComponent<RectTransform>().anchoredPosition.y <= 300)
         {
             if (IsTargetUIChoose)
@@ -170,15 +187,23 @@ public class StageSelect : MonoBehaviour
             if(i == 7) { leftClick = 2; rightClick = 2; }
         }
 
+        if (leftClick != 2 || rightClick != 2)
+        {
+            right.SetActive(false); left.SetActive(false);
+        }
+        else if (leftClick == 2 && rightClick == 2)
+        {
+            if (CanvasChild[1].GetComponent<RectTransform>().anchoredPosition.y <= 300)
+            {
+                right.SetActive(true); left.SetActive(false);
+            }
+            else if (CanvasChild[1].GetComponent<RectTransform>().anchoredPosition.y <= 1300)
+            {
+                right.SetActive(false); left.SetActive(true);
+            }
+        }
 
-        if (CanvasChild[1].GetComponent<RectTransform>().anchoredPosition.y <= 300)
-        {
-            right.SetActive(true); left.SetActive(false);
-        }
-        else if(CanvasChild[1].GetComponent<RectTransform>().anchoredPosition.y < 1300)
-        {
-            right.SetActive(false); left.SetActive(true);
-        }
+       
     }
 
 
@@ -195,6 +220,11 @@ public class StageSelect : MonoBehaviour
                     {
                         IsTargetUIChoose = false;
                         targetUI = 0;
+
+                        for(int i = 1; i <= 7; i++)
+                        {
+                            effect[i].SetActive(false);
+                        }
                     }
                 }
                 yield return null;
@@ -214,6 +244,11 @@ public class StageSelect : MonoBehaviour
                         {
                             IsTargetUIChoose = false;
                             targetUI = 0;
+
+                            for (int i = 1; i <= 7; i++)
+                            {
+                                effect[i].SetActive(false);
+                            }
                         }
                     }
                 }
@@ -222,38 +257,24 @@ public class StageSelect : MonoBehaviour
         }
     }
 
+    public IEnumerator ThisScene()
+    {
+        if (!ReadyToNextScene)
+        {
+            if (nextScene.GetComponent<Image>().color.a >= 1)
+            {
+                while (true)
+                {
+                    Color color = nextScene.GetComponent<Image>().color;
+                    color.a -= 0.02f;
 
-    //private void Start()
-    //{
-    //    Button btn = gameObject.GetComponent<Button>();
-    //    btn.onClick.AddListener(delegate () { this.GetComponent<StageSelect>().StageClick(); });
+                    nextScene.GetComponent<Image>().color = color;
 
-    //    stageDataToSelect = GameObject.Find("GameManager").GetComponent<GoogleManager>().stageData;
-    //    s = GameObject.Find("GameManager").GetComponent<sceneManager>();
-
-    //    int idx = (s.stageLevel - 1) * 17, EndIdx = idx + 16;
-    //    while (idx <= EndIdx)
-    //    {
-    //        if (this.gameObject.name == stageDataToSelect.StageInnerData[idx].stage)
-    //        {
-    //            GameObject Lockobj = GameObject.Find(this.gameObject.name + "Lock");
-
-    //            if (stageDataToSelect.StageInnerData[idx].enable == 0)
-    //            {
-    //                Lockobj.SetActive(true);
-    //            }
-    //            else
-    //            {
-    //                Lockobj.SetActive(false);
-    //            }
-
-    //            break;
-    //        }
-    //        idx++;
-    //    }
-    //}
-
-
+                    yield return null;
+                }
+            }
+        }
+    }
 
 
 
@@ -266,6 +287,11 @@ public class StageSelect : MonoBehaviour
         IsTargetUIChoose = false;
         targetUI = 0;
 
+        for (int i = 1; i <= 7; i++)
+        {
+            effect[i].SetActive(false);
+        }
+
     }
 
     public void RightClick()
@@ -274,6 +300,11 @@ public class StageSelect : MonoBehaviour
         rightClick = 1;
         IsTargetUIChoose = false;
         targetUI = 0;
+
+        for (int i = 1; i <= 7; i++)
+        {
+            effect[i].SetActive(false);
+        }
     }
 
 

@@ -11,9 +11,12 @@ public class gamemain : MonoBehaviour
     public Text TapToStart;
     private Vector3 MousePosition;
 
-    public GameObject block, step, Canvas1, Canvas2, TouchText;
-    public Text AcceptedText, text1, text2, text3, text4, mainText;
+    public GameObject block, step, Canvas1, Canvas2, TouchText, nextScene, main_Loading;
+    public Text AcceptedText, text1, text2, text3, text4, mainText, loadingText;
     public Animator anime;
+    public RuntimeAnimatorController main_loadingComplete;
+
+    public bool IsReadyToNextScene = false, isLoad = true;
 
     Vector3 targetPosition = new Vector3(0, 110, 0);
 
@@ -21,7 +24,7 @@ public class gamemain : MonoBehaviour
 
     private void Update()
     {
-        if (!GameObject.Find("GameManager").GetComponent<sceneManager>().isBack)
+        if (true)
         {
             float y1 = text1.GetComponent<RectTransform>().anchoredPosition.y, y2 = text2.GetComponent<RectTransform>().anchoredPosition.y;
             float x1 = text3.GetComponent<RectTransform>().anchoredPosition.x, x2 = text4.GetComponent<RectTransform>().anchoredPosition.x;
@@ -54,36 +57,16 @@ public class gamemain : MonoBehaviour
                 Vector3.Distance(text4.GetComponent<RectTransform>().anchoredPosition, targetPosition) <= 0.01f)
 
             {
-                anime.enabled = true; isReadyToStart = true; Canvas1.SetActive(true); TouchText.SetActive(true);
+                anime.enabled = true; isReadyToStart = true; Canvas1.SetActive(true);
+                if(!isLoad) TouchText.SetActive(true);
             }
         }
-        else
-        {
-            text1.enabled = false; text2.enabled = false; text3.enabled = false; text4.enabled = false;
-            anime.enabled = true; isReadyToStart = true; Canvas1.SetActive(true); TouchText.SetActive(true);
-        }
+        //else
+        //{
+        //    text1.enabled = false; text2.enabled = false; text3.enabled = false; text4.enabled = false;
+        //    anime.enabled = true; isReadyToStart = true; Canvas1.SetActive(true); TouchText.SetActive(true);
+        //}
     }
-
-
-    //private void show()
-    //{
-    //    StartCoroutine("Accepted");
-    //}
-
-    //private IEnumerator Accepted()
-    //{
-    //    Color TextColor = AcceptedText.color;
-    //    while (TextColor.a <= 1.0f)
-    //    {
-    //        TextColor.a += 0.05f;
-    //        AcceptedText.color = TextColor;
-    //        yield return new WaitForSeconds(0.05f);
-    //    }
-
-    //    TouchText.SetActive(true);
-    //    isReadyToStart = true;
-    //}
-
 
     private void Start()
     {
@@ -103,22 +86,6 @@ public class gamemain : MonoBehaviour
     {
         audioSource.Play();
         SceneManager.LoadScene("MapCreater");
-    }
-
-    public void OnGoogleLoginClick()
-    {
-        audioSource.Play();
-    }
-
-    public void OnOptionClick()
-    {
-        audioSource.Play();
-    }
-
-    public void OnQuitClick()
-    {
-        audioSource.Play();
-        Application.Quit();
     }
 
     IEnumerator Blink()
@@ -168,8 +135,26 @@ public class gamemain : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         }
-
     }
+
+
+
+    private IEnumerator NextScene()
+    {
+        while (true)
+        {
+            IsReadyToNextScene = true;
+
+            Color color = nextScene.GetComponent<Image>().color;
+            color.a += 0.02f;
+
+            nextScene.GetComponent<Image>().color = color;
+            if (nextScene.GetComponent<Image>().color.a >= 1) OnStartClick();
+
+            yield return null;
+        }
+    }
+
 
     private IEnumerator ScreenTapToStart()
     {
@@ -179,7 +164,11 @@ public class gamemain : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    if (!EventSystem.current.IsPointerOverGameObject() && isReadyToStart) OnStartClick();
+                    if (!EventSystem.current.IsPointerOverGameObject() && isReadyToStart && !isLoad) 
+                    {
+                        if(!IsReadyToNextScene)
+                            StartCoroutine("NextScene");
+                    }
                 }
                 yield return null;
             }
@@ -194,7 +183,7 @@ public class gamemain : MonoBehaviour
                     Touch touch = Input.GetTouch(0);
                     if (touch.phase == TouchPhase.Began)
                     {
-                        if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) && isReadyToStart)
+                        if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) && isReadyToStart && !isLoad)
                         {
                             OnStartClick();
                         }

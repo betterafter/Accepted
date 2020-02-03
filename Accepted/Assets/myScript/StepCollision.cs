@@ -8,10 +8,15 @@ public class StepCollision : MonoBehaviour
     private Stage s;
     private Sprite StepOff, StepOn;
     AudioSource audioSource;
-    public AudioClip StepOnSound;
-    sceneManager SceneManager;
 
-    GameObject child;
+    public AudioClip StepOnSound;
+    public bool isStep = false, brickStepOn = false, ArrowStepOn = false, RotateStepOn = false;
+
+    sceneManager SceneManager;
+    GameUIManager GameUIManager;
+    bool isSwitch = false;
+
+    GameObject child, GameManager;
 
     private void Awake()
     {
@@ -25,46 +30,198 @@ public class StepCollision : MonoBehaviour
 
     private void Start()
     {
-        SceneManager = GameObject.Find("GameManager").GetComponent<sceneManager>();
+        GameManager = GameObject.Find("GameManager");
+        SceneManager = GameManager.GetComponent<sceneManager>();
+        GameUIManager = GameManager.GetComponent<GameUIManager>();
+        SceneManager.stepList.Add(this.gameObject);
+        StartCoroutine("StartSound");
+
+        for(int i = 0; i < 10; i++)
+        {
+            if (SceneManager.StepName[i] != null && SceneManager.StepName[i] != "" && gameObject.CompareTag(SceneManager.StepName[i]))
+            {
+                StepOn = SceneManager.StepSprite[i]; break;
+            }
+        }
+
+        for(int i = 0; i < 10; i++)
+        {
+            if (SceneManager.isSwitch[i] != null && SceneManager.isSwitch[i] != "" && gameObject.CompareTag(SceneManager.isSwitch[i]))
+            {
+                isSwitch = true; break;
+            }
+        }
     }
+
+
+    private void Update()
+    {
+
+        if (!isSwitch)
+        {
+            int y = (int)gameObject.transform.position.y, x = (int)gameObject.transform.position.x;
+
+            if (x + 8 >= 0 && x + 8 <= 15 && SceneManager.minimap[y + 5, x + 8] != null &&
+                 SceneManager.minimap[y + 5, x + 8].CompareTag("verbar") && SceneManager.minimap[y + 5, x + 8].GetComponent<CollisionManager>().isConnected)
+            {
+                isStep = true;
+                this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOn;
+                child.SetActive(true);
+            }
+            else if (x + 6 >= 0 && x + 6 <= 15 && SceneManager.minimap[y + 5, x + 6] != null &&
+                 SceneManager.minimap[y + 5, x + 6].CompareTag("verbar") && SceneManager.minimap[y + 5, x + 6].GetComponent<CollisionManager>().isConnected)
+            {
+                isStep = true;
+                this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOn;
+                child.SetActive(true);
+            }
+            else if (y + 6 >= 0 && y + 6 <= 20 && SceneManager.minimap[y + 6, x + 7] != null &&
+                 SceneManager.minimap[y + 6, x + 7].CompareTag("hobar") && SceneManager.minimap[y + 6, x + 7].GetComponent<CollisionManager>().isConnected)
+            {
+                isStep = true;
+                this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOn;
+                child.SetActive(true);
+            }
+            else if (y + 4 >= 0 && y + 4 <= 20 && SceneManager.minimap[y + 4, x + 7] != null &&
+                 SceneManager.minimap[y + 4, x + 7].CompareTag("hobar") && SceneManager.minimap[y + 4, x + 7].GetComponent<CollisionManager>().isConnected)
+            {
+                isStep = true;
+                this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOn;
+                child.SetActive(true);
+            }
+
+            else Other();
+        }
+
+        else Other();
+    }
+
+    void Other()
+    {
+        if (brickStepOn)
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOn;
+            isStep = true;
+        }
+
+        else if (ArrowStepOn)
+        {
+            isStep = true;
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOn;
+        }
+
+        else if (RotateStepOn)
+        {
+            isStep = true;
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOn;
+            child.SetActive(true);
+        }
+
+        else
+        {
+            isStep = false;
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOff;
+            child.SetActive(false);
+        }
+
+
+        //Debug.Log(this.gameObject.GetComponent<SpriteRenderer>().sprite);
+    }
+
+
+    IEnumerator StartSound()
+    {
+        while (true)
+        {
+            if (isStep)
+            {
+                if (GameUIManager.isSoundEffectOn) this.audioSource.Play();
+            }
+            yield return new WaitWhile(() => isStep);
+        }
+    }
+
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (this.gameObject.tag.Contains(collision.gameObject.tag))
         {
+            //Debug.Log(collision.gameObject.tag);
             s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
+            //s.currStepCnt++;
+            brickStepOn = true;
+            if(GameUIManager.isSoundEffectOn) this.audioSource.Play();
+            //s.currStepCnt++;
+        }
+        else if (gameObject.tag.Contains("left") && collision.gameObject.tag.Contains("left"))
+        {
+            if (GameUIManager.isSoundEffectOn) this.audioSource.Play();
+            s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
+            ArrowStepOn = true;
+            //s.currStepCnt++;
+        }
+        else if (gameObject.tag.Contains("right") && collision.gameObject.tag.Contains("right"))
+        {
+            if (GameUIManager.isSoundEffectOn) this.audioSource.Play();
+            s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
+            ArrowStepOn = true;
+            //s.currStepCnt++;
+        }
+        else if (gameObject.tag.Contains("up") && collision.gameObject.tag.Contains("up"))
+        {
+            if (GameUIManager.isSoundEffectOn) this.audioSource.Play();
+            s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
+            ArrowStepOn = true;
+            //s.currStepCnt++;
+        }
+        else if (gameObject.tag.Contains("down") && collision.gameObject.tag.Contains("down"))
+        {
+            if (GameUIManager.isSoundEffectOn) this.audioSource.Play();
+            s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
+            ArrowStepOn = true;
+            //s.currStepCnt++;
+        }
+
+        if (gameObject.CompareTag("rotatestep"))
+        {
+            RotateStepOn = true;
+        }
+    }
+
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (this.gameObject.tag.Contains(collision.gameObject.tag))
+        {
             collision.GetComponent<CollisionManager>().isStepOn = true;
-            this.audioSource.Play();
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = SceneManager.StepSprite;
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOn;
             child.SetActive(true);
-            s.currStepCnt++;
         }
         else if(gameObject.tag.Contains("left") && collision.gameObject.tag.Contains("left"))
         {
-            this.audioSource.Play();
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = SceneManager.LeftSprite;
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOn;
             child.SetActive(true);
         }
         else if (gameObject.tag.Contains("right") && collision.gameObject.tag.Contains("right"))
         {
-            this.audioSource.Play();
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = SceneManager.RightSprite;
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOn;
             child.SetActive(true);
         }
         else if (gameObject.tag.Contains("up") && collision.gameObject.tag.Contains("up"))
         {
-            this.audioSource.Play();
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = SceneManager.upSprite;
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOn;
             child.SetActive(true);
         }
         else if (gameObject.tag.Contains("down") && collision.gameObject.tag.Contains("down"))
         {
-            this.audioSource.Play();
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = SceneManager.DownSprite;
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOn;
             child.SetActive(true);
         }
-
+        if (gameObject.CompareTag("rotatestep"))
+        {
+            RotateStepOn = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -75,7 +232,9 @@ public class StepCollision : MonoBehaviour
             child.SetActive(false);
             s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
             collision.GetComponent<CollisionManager>().isStepOn = false;
-            s.currStepCnt--;
+            //s.currStepCnt--;
+            brickStepOn = false;
+            //s.currStepCnt--;
         }
         else if ((gameObject.tag.Contains("down") && collision.gameObject.tag.Contains("down")) ||
             (gameObject.tag.Contains("up") && collision.gameObject.tag.Contains("up")) ||
@@ -83,7 +242,15 @@ public class StepCollision : MonoBehaviour
             (gameObject.tag.Contains("right") && collision.gameObject.tag.Contains("right")))
         {
             this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOff;
+            s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
             child.SetActive(false);
+            ArrowStepOn = false;
+            //s.currStepCnt--;
+        }
+
+        if (gameObject.CompareTag("rotatestep"))
+        {
+            RotateStepOn = false;
         }
     }
 }

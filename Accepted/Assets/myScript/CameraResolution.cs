@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CameraResolution : MonoBehaviour
 {
-    Color color;
+    public Color color;
 
     void Start()
     {

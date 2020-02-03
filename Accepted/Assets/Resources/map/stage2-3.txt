@@ -1,0 +1,6 @@
+accepted,-2,5
+brick,0,5
+brick,1,5
+brick,2,5
+player,3,5
+chapter 2-3,ㄴㅇㄹ

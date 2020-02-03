@@ -36,8 +36,6 @@ public class Connection : MonoBehaviour
    
     }
 
-
-
     private void Update()
     {
 

@@ -7,6 +7,9 @@ TextureImporter:
     21300004: stepImg_2
     21300006: stepImg_3
     21300008: stepImg_4
+    21300010: stepImg_5
+    21300012: stepImg_6
+    21300014: stepImg_7
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -125,7 +128,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7080f8dad755c42628f77a9e943f2191
+      spriteID: b9f9c5dfbe80d491fb679fbf5cce6381
       vertices: []
       indices: 
       edges: []
@@ -145,7 +148,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29ac7217e2a594ab9922f3dcaed23ff2
+      spriteID: 4bd9caa104620401689bde4bdef9a66a
       vertices: []
       indices: 
       edges: []
@@ -165,7 +168,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6be732b235e734b2d90a63c08fe4e538
+      spriteID: 6f635e9d47e9a4917868fdce68e15ad3
       vertices: []
       indices: 
       edges: []
@@ -185,7 +188,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70f411bfb80d7460c92c9262f16a150b
+      spriteID: 5f28632257d5c4e31bcc15ca35f157a0
       vertices: []
       indices: 
       edges: []
@@ -205,7 +208,67 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c97aaef387e70403c930ad28d9cc71c0
+      spriteID: f0963e11bc9894364a9a3a97afa0da6a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stepImg_5
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5a357cf021c346e18e27663f11d3649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stepImg_6
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9e45239c508e466ea686356388ee70a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stepImg_7
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 512
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9196dd792ea324671bbfaedcde32af8a
       vertices: []
       indices: 
       edges: []

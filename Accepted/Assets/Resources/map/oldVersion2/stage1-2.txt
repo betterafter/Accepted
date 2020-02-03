@@ -1,0 +1,24 @@
+brick,-2,1
+brick,0,1
+brick,2,1
+brick,-2,3
+brick,0,3
+brick,2,3
+player,4,3
+brick,-2,5
+brick,0,5
+brick,2,5
+accepted,-2,7
+brickstep,-1,7
+brickstep,2,7
+brick,-2,8
+brick,-1,8
+brick,0,8
+brick,1,8
+brick,2,8
+brick,-2,9
+brick,-1,9
+brick,0,9
+brick,1,9
+brick,2,9
+chapter 1-2,이 방을 나가려면 눈을 아주 잘 맞춰야해요

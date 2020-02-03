@@ -51,6 +51,8 @@ TagManager:
   - CultureTube
   - detective
   - stage
+  - robotspawn
+  - point
   layers:
   - Default
   - TransparentFX
