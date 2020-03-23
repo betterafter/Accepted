@@ -46,10 +46,11 @@ public class Stage : MonoBehaviour
         {
             for(int j = 0; j < 10; j++)
             {
-                if (s.isSwitch[j] != null && s.isSwitch[j] != "" && !s.stepList[i].CompareTag(s.isSwitch[j]))
+                if (s.StepName[j] != null && s.StepName[j] != "" && s.stepList[i].CompareTag(s.StepName[j]))
                 {
                     if (!s.stepList[i].GetComponent<StepCollision>().isStep)
                     {
+                        Debug.Log(s.stepList[i].transform.position.x + "," + s.stepList[i].transform.position.y);
                         isReady = false; break;
                     }
                 }
@@ -129,6 +130,14 @@ public class Stage : MonoBehaviour
         {
             if (inObj == 1 && ReadyToClear == 1 && lastscale == 1 && last == 1)
             {
+                for (int i = 0; i < 3; i++)
+                {
+                    if (!s.Point[i].GetComponent<SpriteRenderer>().enabled)
+                    {
+                        s.currPoint++;
+                    }
+                }
+
                 GameObject.FindWithTag("Accepted").transform.GetChild(0).gameObject.SetActive(true);
                 GameObject accepted = GameObject.Find("Accepted");
 
@@ -180,6 +189,7 @@ public class Stage : MonoBehaviour
 
     public void SceneChange()
     {
+
         int idx = 0;
         while (idx < EndStageData.StageInnerData.Length)
         {
@@ -203,8 +213,6 @@ public class Stage : MonoBehaviour
         }
 
         googleManager.SaveToCloud();
-
-
     }
 
     public void NextScene()

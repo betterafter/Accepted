@@ -3205,6 +3205,21 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0.96862745
       objectReference: {fileID: 0}
+    - target: {fileID: 8258864526808192233, guid: 76a231b7053304f22a9fd3a9ff5e4bac,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8258864526808192233, guid: 76a231b7053304f22a9fd3a9ff5e4bac,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8258864526808192233, guid: 76a231b7053304f22a9fd3a9ff5e4bac,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76a231b7053304f22a9fd3a9ff5e4bac, type: 3}
 --- !u!224 &1177196117 stripped

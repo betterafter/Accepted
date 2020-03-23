@@ -61,11 +61,6 @@ public class gamemain : MonoBehaviour
                 if(!isLoad) TouchText.SetActive(true);
             }
         }
-        //else
-        //{
-        //    text1.enabled = false; text2.enabled = false; text3.enabled = false; text4.enabled = false;
-        //    anime.enabled = true; isReadyToStart = true; Canvas1.SetActive(true); TouchText.SetActive(true);
-        //}
     }
 
     private void Start()

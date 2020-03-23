@@ -297,10 +297,6 @@ public class Map_Editor : MonoBehaviour
             int x = System.Convert.ToInt32(obj[i][1]);
             int y = System.Convert.ToInt32(obj[i][2]);
 
-            int R = scenemanager.objColor[scenemanager.stageLevel, 0];
-            int G = scenemanager.objColor[scenemanager.stageLevel, 1];
-            int B = scenemanager.objColor[scenemanager.stageLevel, 2];
-
             string path = "Prefabs/obj/" + obj[i][0];
 
             if (obj[i][0].Contains("step"))
@@ -328,6 +324,22 @@ public class Map_Editor : MonoBehaviour
                 if(obj[i][0] != "robot" && obj[i][0] != "player" && obj[i][0] != "researcher" && obj[i][0] != "CultureTube")
                 {
                     //b.GetComponent<SpriteRenderer>().color = new Color(R / 255f, G / 255f, B / 255f);
+                }
+
+                if(obj[i][0] == "point")
+                {
+                    if(s.Point[0] == null)
+                    {
+                        s.Point[0] = b;
+                    }
+                    else if(s.Point[1] == null)
+                    {
+                        s.Point[1] = b;
+                    }
+                    else if(s.Point[2] == null)
+                    {
+                        s.Point[2] = b;
+                    }
                 }
 
                 if (obj[i][0] == "robotplayer")

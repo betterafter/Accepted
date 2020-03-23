@@ -216,7 +216,7 @@ public static class AndroidNativeAudio
 	/// <returns>The file ID if successful, -1 if the load fails.</returns>
 	public static int load(string audioFile, bool usePersistentDataPath = false, Action<int> callback = null)
 	{
-		Debug.Log(_logPrefix + "load(\"" + audioFile + "\", " + usePersistentDataPath + "\", " + callback + ")");
+		//Debug.Log(_logPrefix + "load(\"" + audioFile + "\", " + usePersistentDataPath + "\", " + callback + ")");
 		return 1;
 	}
 
@@ -237,7 +237,7 @@ public static class AndroidNativeAudio
 	/// <param name="streamID">The ID of the stream to pause.</param>
 	public static void pause(int streamID)
 	{
-		Debug.Log(_logPrefix + "pause(" + streamID + ")");
+		//Debug.Log(_logPrefix + "pause(" + streamID + ")");
 	}
 
 
@@ -246,7 +246,7 @@ public static class AndroidNativeAudio
 	/// </summary>
 	public static void pauseAll()
 	{
-		Debug.Log(_logPrefix + "pauseAll()");
+		//Debug.Log(_logPrefix + "pauseAll()");
 	}
 
 
@@ -262,7 +262,7 @@ public static class AndroidNativeAudio
 	/// <returns>The stream ID if successful, -1 if the play fails.</returns>
 	public static int play(int fileID, float leftVolume = 1, float rightVolume = -1, int priority = 1, int loop = 0, float rate = 1)
 	{
-		Debug.Log(_logPrefix + "play(" + fileID + ", " + leftVolume + ", " + rightVolume + ", " + priority + ", " + loop + ", " + rate + ")");
+		//Debug.Log(_logPrefix + "play(" + fileID + ", " + leftVolume + ", " + rightVolume + ", " + priority + ", " + loop + ", " + rate + ")");
 		return 1;
 	}
 
@@ -272,7 +272,7 @@ public static class AndroidNativeAudio
 	/// </summary>
 	public static void releasePool()
 	{
-		Debug.Log(_logPrefix + "releasePool()");
+		//Debug.Log(_logPrefix + "releasePool()");
 	}
 
 
@@ -282,7 +282,7 @@ public static class AndroidNativeAudio
 	/// <param name="streamID">The ID of the stream to resume.</param>
 	public static void resume(int streamID)
 	{
-		Debug.Log(_logPrefix + "resume(" + streamID + ")");
+		//Debug.Log(_logPrefix + "resume(" + streamID + ")");
 	}
 
 
@@ -291,7 +291,7 @@ public static class AndroidNativeAudio
 	/// </summary>
 	public static void resumeAll()
 	{
-		Debug.Log(_logPrefix + "resumeAll()");
+		//Debug.Log(_logPrefix + "resumeAll()");
 	}
 
 
@@ -302,7 +302,7 @@ public static class AndroidNativeAudio
 	/// <param name="loop">How many times to loop the audio. A value of 0 will play once, -1 will loop until stopped.</param>
 	public static void setLoop(int streamID, int loop)
 	{
-		Debug.Log(_logPrefix + "setLoop(" + streamID + ", " + loop + ")");
+		//Debug.Log(_logPrefix + "setLoop(" + streamID + ", " + loop + ")");
 	}
 
 
@@ -313,7 +313,7 @@ public static class AndroidNativeAudio
 	/// <param name="priority">The priority of this stream. If the number of simultaneously playing streams exceeds maxStreams in makePool, higher priority streams will play and lower priority streams will not.</param>
 	public static void setPriority(int streamID, int priority)
 	{
-		Debug.Log(_logPrefix + "setPriority(" + streamID + ", " + priority + ")");
+		//Debug.Log(_logPrefix + "setPriority(" + streamID + ", " + priority + ")");
 	}
 
 
@@ -324,7 +324,7 @@ public static class AndroidNativeAudio
 	/// <param name="rate">The rate to play at. A value of 0.5 will play at half speed, 2 will play at double speed.</param>
 	public static void setRate(int streamID, float rate)
 	{
-		Debug.Log(_logPrefix + "setRate(" + streamID + ", " + rate + ")");
+		//Debug.Log(_logPrefix + "setRate(" + streamID + ", " + rate + ")");
 	}
 
 
@@ -336,7 +336,7 @@ public static class AndroidNativeAudio
 	/// <param name="rightVolume">The right volume to play at (0.0 - 1.0). Defaults to leftVolume.</param>
 	public static void setVolume(int streamID, float leftVolume, float rightVolume = -1)
 	{
-		Debug.Log(_logPrefix + "setVolume(" + streamID + ", " + leftVolume + ", " + rightVolume + ")");
+		//Debug.Log(_logPrefix + "setVolume(" + streamID + ", " + leftVolume + ", " + rightVolume + ")");
 	}
 
 
@@ -346,7 +346,7 @@ public static class AndroidNativeAudio
 	/// <param name="streamID">The ID of the stream to stop.</param>
 	public static void stop(int streamID)
 	{
-		Debug.Log(_logPrefix + "stop(" + streamID + ")");
+		//Debug.Log(_logPrefix + "stop(" + streamID + ")");
 	}
 
 
@@ -357,7 +357,7 @@ public static class AndroidNativeAudio
 	/// <returns>True if unloaded, false if previously unloaded.</returns>
 	public static bool unload(int fileID)
 	{
-		Debug.Log(_logPrefix + "unload(" + fileID + ")");
+		//Debug.Log(_logPrefix + "unload(" + fileID + ")");
 		return true;
 	}
 

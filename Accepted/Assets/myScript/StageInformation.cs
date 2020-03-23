@@ -12,18 +12,36 @@ public class StageInformation : MonoBehaviour
 
     private void Start()
     {
-        int Pointidx = 0;
+        int Pointidx = 0, realCount = 0;
         GameObject Google = GameObject.Find("GameManager");
         stageData = stageData = Google.GetComponent<GoogleManager>().stageData;
         GoogleManager = Google.GetComponent<GoogleManager>();
 
-        while(stageData.StageInnerData[idx] != null && stageData.StageInnerData[idx].enable == 1)
+        //while(stageData.StageInnerData[idx] != null && stageData.StageInnerData[idx].enable == 1 && realCount < TotalStage)
+        //{
+        //    Pointidx += stageData.StageInnerData[idx].point;
+        //    idx++; realCount++;
+        //}
+
+        for(int i = idx; i < TotalStage; i++)
         {
-            Pointidx += stageData.StageInnerData[idx].point;
-            idx++;
+            if(stageData.StageInnerData[i] != null)
+            {
+                Pointidx += stageData.StageInnerData[idx].point;
+
+                if (stageData.StageInnerData[i].enable == 1)
+                {
+                    realCount++;
+                }
+            }
         }
 
-        StageText.GetComponent<Text>().text = idx + " / " + TotalStage;
-        PointText.GetComponent<Text>().text = Pointidx + " / " + TotalStage * 3;
+        if (realCount == 0) realCount = 1;
+        if (realCount == TotalStage) realCount = TotalStage + 1;
+
+        StageText.GetComponent<Text>().text = realCount - 1 + " / " + (TotalStage - idx);
+        PointText.GetComponent<Text>().text = Pointidx + " / " + (TotalStage - idx) * 3;
+
+        
     }
 }

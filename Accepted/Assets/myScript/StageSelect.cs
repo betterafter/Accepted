@@ -242,6 +242,8 @@ public class StageSelect : MonoBehaviour
                     {
                         if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
                         {
+                            Debug.Log("Touch Screen");
+
                             IsTargetUIChoose = false;
                             targetUI = 0;
 

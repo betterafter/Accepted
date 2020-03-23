@@ -24,7 +24,7 @@ public class StageSelectButton : MonoBehaviour
         stageSelect = Camera.main.GetComponent<StageSelect>();
         sceneManager = GameObject.Find("GameManager").GetComponent<sceneManager>();
 
-        if(gameObject.CompareTag("stage"))
+        if (gameObject.CompareTag("stage"))
             gameObject.GetComponent<Button>().onClick.AddListener(delegate () { gameObject.GetComponent<StageSelectButton>().StageClick(); });
     }
 

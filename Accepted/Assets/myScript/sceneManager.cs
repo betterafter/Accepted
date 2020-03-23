@@ -1,23 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Advertisements;
 using System.Text.RegularExpressions;
+using System.Collections;
 
 public class sceneManager : MonoBehaviour
 {
 
     // map
     public GameObject[ , ] minimap = new GameObject[30, 20];
+    public GameObject[] Point = new GameObject[3];
 
     public bool[,] isUsed = new bool[30, 20];
     public bool[] DirectionKeyActivation = new bool[4];
     public bool[] isDirectionKey = new bool[4];
     public bool[] rotatebool = new bool[3];
 
-    public string[] isSwitch = new string[3];
+    public string[] isSwitch = new string[4];
     public string[] StepName = new string[6];
     public Sprite[] StepSprite = new Sprite[10];
 
@@ -30,10 +31,12 @@ public class sceneManager : MonoBehaviour
     public int dir, currPoint;
     static int RestartButtonClickCnt = 0;
 
+
     public bool isChanged = false;
 
 
     public int[,] objColor = new int[5, 3];
+    public int[] StepSound = new int[3];
 
     public bool IsRestart;
     public bool IsUndo;
@@ -58,23 +61,6 @@ public class sceneManager : MonoBehaviour
         }
     }
 
-    private void colorSave()
-    {
-
-        string ColorPath = "map/mapColor";
-        TextAsset mapColor = Resources.Load(ColorPath) as TextAsset;
-
-        string[] txt = Regex.Split(mapColor.text, @"\n");
-        if (txt.Length < 1) return;
-        for(int i = 0; i < txt.Length; i++)
-        {
-            string[] lineTxt = Regex.Split(txt[i], @",");
-            for(int j = 0; j < lineTxt.Length; j++)
-            {
-                objColor[i + 1, j] = System.Convert.ToInt32(lineTxt[j]);
-            }
-        }
-    }
 
     private void Start()
     {
@@ -100,33 +86,46 @@ public class sceneManager : MonoBehaviour
         }
 
         IsUndo = false;
-        colorSave();
     }
 
 
     void Awake()
     {
-        int w = Screen.width, h = Screen.height;
 
-        rect = new Rect(0, 0, w, h * 4 / 100);
+        AndroidNativeAudio.makePool();
+        StepSound[0] = AndroidNativeAudio.load("sound/186856__nickgoa__pipe.wav");
+        AndroidNativeAudio.setRate(StepSound[0], 2f);
 
-        style = new GUIStyle();
-        style.alignment = TextAnchor.UpperLeft;
-        style.fontSize = h * 4 / 400;
-        style.normal.textColor = Color.cyan;
+        StepSound[1] = AndroidNativeAudio.load("sound/472112__claymorexx__23-roce-ropa2.wav");
 
-        StartCoroutine("worstReset");
+
+        //int w = Screen.width, h = Screen.height;
+
+        //rect = new Rect(0, 0, w, h * 4 / 100);
+
+        //style = new GUIStyle();
+        //style.alignment = TextAnchor.UpperLeft;
+        //style.fontSize = h * 4 / 400;
+        //style.normal.textColor = Color.cyan;
+
+        //StartCoroutine("worstReset");
 
 
         Application.targetFrameRate = 60;
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
         StepName[0] = "brickstep"; StepName[1] = "upstep"; StepName[2] = "downstep";
-        StepName[3] = "leftstep"; StepName[4] = "rightstep"; StepName[5] = "rotatestep";
+        StepName[3] = "leftstep"; StepName[4] = "rightstep";
+        isSwitch[0] = "rotatestep"; isSwitch[1] = "accepted"; isSwitch[2] = "clonespawner"; isSwitch[3] = "robotspawner";
 
-        isSwitch[0] = "rotatestep"; isSwitch[1] = "accepted"; isSwitch[2] = "clonespawner";
-        //stepList.Clear();
-        Advertisement.Initialize("3382566", false);
+        Debug.Log("Before Advertisement");
+
+        if (Application.internetReachability != NetworkReachability.NotReachable)
+        {
+            Advertisement.Initialize("3382566", false);
+        }
+
+        Debug.Log("After Advertisement");
 
         //재시작 버튼 관련. 처음엔 chapter 명이 나오는 텍스트가 나오고 재시작 버튼을 눌렀을 땐 이게 나오면 안되서 설정.
         IsRestart = false;
@@ -153,7 +152,6 @@ public class sceneManager : MonoBehaviour
     public void RestartClick()
     {
         SceneManager.LoadScene("game");
-
         stepList = new List<GameObject>();
         if (RestartButtonClickCnt < 4) RestartButtonClickCnt++;
         else if(RestartButtonClickCnt == 4)
@@ -169,38 +167,16 @@ public class sceneManager : MonoBehaviour
         IsUndo = true;
     }
 
-
-
     private void Update()
     {
-        deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
-        // 스마트폰 뒤로가기 버튼 클릭  
-        //if (Application.platform == RuntimePlatform.Android)
-        //{
-        //    if (SceneManager.GetActiveScene().name != "game")
-        //    {
-        //        if (Input.GetKey(KeyCode.Escape))
-        //        {
-        //            QuitUI.SetActive(true);
-        //        }
-        //    }
-        //    else if (SceneManager.GetActiveScene().name == "game")
-        //    {
-        //        if (Input.GetKey(KeyCode.Escape))
-        //        {
-        //            StageQuitUI.SetActive(true);
-        //        }
-        //    }
-        //}
-         
+        //deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+
         if (SceneManager.GetActiveScene().name == "game")
         {
             BarDisconnection();
             BarConnection();
             DirectionButtonActivation();
             RotateStepActivation();
-
-
         }
     }
 
@@ -331,14 +307,25 @@ public class sceneManager : MonoBehaviour
 
                             if (x >= 0 && x <= 15 && y >= 0 && y <= 20 && !isUsed[y, x] && minimap[y, x] != null)
                             {
+                                // o : 현재 블록,  oo : o의 주변에 있는 블록
                                 GameObject o = minimap[first, second], oo = minimap[y, x];
 
                                 if((k == 0 || k == 1) && o.CompareTag("brick"))
                                 {
                                     if (oo != null && oo.CompareTag("hobar"))
                                     {
-                                        oo.GetComponent<CollisionManager>().isConnected = true;
-                                        isUsed[y, x] = true; q.Enqueue(new KeyValuePair<int, int>(y, x));
+                                        for(int n = 0; n < stepList.Count; n++)
+                                        {
+                                            if((int)stepList[n].transform.position.y == y - 5  && (int)stepList[n].transform.position.x == x - 7)
+                                            {
+                                                break;
+                                            }
+                                            if(n == stepList.Count - 1)
+                                            {
+                                                oo.GetComponent<CollisionManager>().isConnected = true;
+                                                isUsed[y, x] = true; q.Enqueue(new KeyValuePair<int, int>(y, x));
+                                            }
+                                        }
                                     }
                                 }
 
@@ -346,8 +333,18 @@ public class sceneManager : MonoBehaviour
                                 {
                                     if (oo != null && oo.CompareTag("verbar"))
                                     {
-                                        oo.GetComponent<CollisionManager>().isConnected = true;
-                                        isUsed[y, x] = true; q.Enqueue(new KeyValuePair<int, int>(y, x));
+                                        for (int n = 0; n < stepList.Count; n++)
+                                        {
+                                            if ((int)stepList[n].transform.position.y == y - 5 && (int)stepList[n].transform.position.x == x - 7)
+                                            {
+                                                break;
+                                            }
+                                            if (n == stepList.Count - 1)
+                                            {
+                                                oo.GetComponent<CollisionManager>().isConnected = true;
+                                                isUsed[y, x] = true; q.Enqueue(new KeyValuePair<int, int>(y, x));
+                                            }
+                                        }
                                     }
                                 }
 
@@ -355,23 +352,41 @@ public class sceneManager : MonoBehaviour
                                 {
                                     if (oo != null && (oo.CompareTag("hobar") || oo.CompareTag("brick")))
                                     {
-                                        oo.GetComponent<CollisionManager>().isConnected = true;
-                                        isUsed[y, x] = true; q.Enqueue(new KeyValuePair<int, int>(y, x));
+                                        for (int n = 0; n < stepList.Count; n++)
+                                        {
+                                            if ((int)stepList[n].transform.position.y == y - 5 && (int)stepList[n].transform.position.x == x - 7)
+                                            {
+                                                break;
+                                            }
+                                            if (n == stepList.Count - 1)
+                                            {
+                                                oo.GetComponent<CollisionManager>().isConnected = true;
+                                                isUsed[y, x] = true; q.Enqueue(new KeyValuePair<int, int>(y, x));
+                                            }
+                                        }
                                     }
                                 }
                                 else if ((k == 2 || k == 3) && (o.CompareTag("verbar")))
                                 {
                                     if (oo != null && (oo.CompareTag("verbar") || oo.CompareTag("brick")))
                                     {
-                                        oo.GetComponent<CollisionManager>().isConnected = true;
-                                        isUsed[y, x] = true; q.Enqueue(new KeyValuePair<int, int>(y, x));
+                                        for (int n = 0; n < stepList.Count; n++)
+                                        {
+                                            if ((int)stepList[n].transform.position.y == y - 5 && (int)stepList[n].transform.position.x == x - 7)
+                                            {
+                                                break;
+                                            }
+                                            if (n == stepList.Count - 1)
+                                            {
+                                                oo.GetComponent<CollisionManager>().isConnected = true;
+                                                isUsed[y, x] = true; q.Enqueue(new KeyValuePair<int, int>(y, x));
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-
-
                 }
             }
         }
@@ -384,6 +399,8 @@ public class sceneManager : MonoBehaviour
                 {
                     if(minimap[i, j].GetComponent<CollisionManager>().isConnected)
                     {
+                        minimap[i, j].GetComponent<SpriteRenderer>().color = new Color(0 / 255f, 255 / 255f, 255 / 255f);
+
                         if(minimap[i, j].GetComponent<ObjectStatus>().Currtag == "hobar")
                         {
                             minimap[i, j].GetComponent<SpriteRenderer>().sprite = HorizontalBar;
@@ -397,6 +414,7 @@ public class sceneManager : MonoBehaviour
                     }
                     else
                     {
+                        minimap[i, j].GetComponent<SpriteRenderer>().color = Color.black;
                         minimap[i, j].GetComponent<SpriteRenderer>().sprite = minimap[i, j].GetComponent<CollisionManager>().bar;
                         minimap[i, j].transform.GetChild(0).gameObject.SetActive(false);
                     }
@@ -407,43 +425,37 @@ public class sceneManager : MonoBehaviour
 
 
 
-    float deltaTime = 0.0f;
+    //float deltaTime = 0.0f;
 
-    GUIStyle style;
-    Rect rect;
-    float msec;
-    float fps;
-    float worstFps = 100f;
-    string text;
-
-
-
-    IEnumerator worstReset() //코루틴으로 15초 간격으로 최저 프레임 리셋해줌.
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(15f);
-            worstFps = 100f;
-        }
-    }
+    //GUIStyle style;
+    //Rect rect;
+    //float msec;
+    //float fps;
+    //float worstFps = 100f;
+    //string text;
 
 
-    //void Update()
+
+    //private IEnumerator worstReset() //코루틴으로 15초 간격으로 최저 프레임 리셋해줌.
     //{
-    //    deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+    //    while (true)
+    //    {
+    //        yield return new WaitForSeconds(15f);
+    //        worstFps = 100f;
+    //    }
     //}
 
-    void OnGUI()//소스로 GUI 표시.
-    {
+    //void OnGUI()//소스로 GUI 표시.
+    //{
 
-        msec = deltaTime * 1000.0f;
-        fps = 1.0f / deltaTime;  //초당 프레임 - 1초에
+    //    msec = deltaTime * 1000.0f;
+    //    fps = 1.0f / deltaTime;  //초당 프레임 - 1초에
 
-        if (fps < worstFps)  //새로운 최저 fps가 나왔다면 worstFps 바꿔줌.
-            worstFps = fps;
-        text = msec.ToString("F1") + "ms (" + fps.ToString("F1") + ") //worst : " + worstFps.ToString("F1");
-        GUI.Label(rect, text, style);
-    }
+    //    if (fps < worstFps)  //새로운 최저 fps가 나왔다면 worstFps 바꿔줌.
+    //        worstFps = fps;
+    //    text = msec.ToString("F1") + "ms (" + fps.ToString("F1") + ") //worst : " + worstFps.ToString("F1");
+    //    GUI.Label(rect, text, style);
+    //}
 }
 
 

@@ -134,7 +134,7 @@
     },
     {
       "stage": "2-1",
-      "enable": 1,
+      "enable": 0,
       "point": 0
     },
     {
@@ -198,8 +198,53 @@
       "enable": 0,
       "point": 0 },
     {
+      "stage": "2-17",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "2-18",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "2-19",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "2-20",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "2-21",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "2-22",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "2-23",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "2-24",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "2-25",
+      "enable": 0,
+      "point": 0
+    },
+    {
       "stage": "3-1",
-      "enable": 1,
+      "enable": 0,
       "point": 0 },
     {
       "stage": "3-2",
@@ -262,8 +307,78 @@
       "enable": 0,
       "point": 0 },
     {
+      "stage": "3-17",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "3-18",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "3-19",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "3-20",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "3-21",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "3-22",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "3-23",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "3-24",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "3-25",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "3-26",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "3-27",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "3-28",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "3-29",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "3-30",
+      "enable": 0,
+      "point": 0
+    },
+    {
       "stage": "4-1",
-      "enable": 1,
+      "enable": 0,
       "point": 0 },
     {
       "stage": "4-2",
@@ -336,8 +451,78 @@
       "point": 0
     },
     {
+      "stage": "4-17",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "4-18",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "4-19",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "4-20",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "4-21",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "4-22",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "4-23",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "4-24",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "4-25",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "4-26",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "4-27",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "4-28",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "4-29",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "4-30",
+      "enable": 0,
+      "point": 0
+    },
+    {
       "stage": "5-1",
-      "enable": 1,
+      "enable": 0,
       "point": 0
     },
     {
@@ -411,137 +596,154 @@
       "point": 0
     },
     {
-      "stage": "5-16",
+      "stage": "6-1",
       "enable": 0,
       "point": 0
     },
     {
-      "stage": "6-1",
-      "enable": 1
-    },
-    {
       "stage": "6-2",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "6-3",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "6-4",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "6-5",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "6-6",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "6-7",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "6-8",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "6-9",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "6-10",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "6-11",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "6-12",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "6-13",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "6-14",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "6-15",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "6-16",
-      "enable": 0
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "6-17",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "6-18",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "6-19",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "6-20",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "6-21",
+      "enable": 0,
+      "point": 0
+    },
+    {
+      "stage": "6-22",
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "7-1",
-      "enable": 1
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "7-2",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "7-3",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "7-4",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "7-5",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "7-6",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "7-7",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     },
     {
       "stage": "7-8",
-      "enable": 0
-    },
-    {
-      "stage": "7-9",
-      "enable": 0
-    },
-    {
-      "stage": "7-10",
-      "enable": 0
-    },
-    {
-      "stage": "7-11",
-      "enable": 0
-    },
-    {
-      "stage": "7-12",
-      "enable": 0
-    },
-    {
-      "stage": "7-13",
-      "enable": 0
-    },
-    {
-      "stage": "7-14",
-      "enable": 0
-    },
-    {
-      "stage": "7-15",
-      "enable": 0
-    },
-    {
-      "stage": "7-16",
-      "enable": 0
+      "enable": 0,
+      "point": 0
     }
   ]
  }

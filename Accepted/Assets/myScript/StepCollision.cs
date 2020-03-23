@@ -9,6 +9,8 @@ public class StepCollision : MonoBehaviour
     private Sprite StepOff, StepOn;
     AudioSource audioSource;
 
+    public AudioClip AudioClip;
+
     public AudioClip StepOnSound;
     public bool isStep = false, brickStepOn = false, ArrowStepOn = false, RotateStepOn = false;
 
@@ -18,23 +20,25 @@ public class StepCollision : MonoBehaviour
 
     GameObject child, GameManager;
 
+    int PlayStepSound;
+
     private void Awake()
-    {
-        StepOff = gameObject.GetComponent<SpriteRenderer>().sprite;
-        StepOn = Resources.Load<Sprite>(gameObject.tag);
-
-        audioSource = this.gameObject.GetComponent<AudioSource>();
-        child = transform.GetChild(0).gameObject;
-
-    }
-
-    private void Start()
     {
         GameManager = GameObject.Find("GameManager");
         SceneManager = GameManager.GetComponent<sceneManager>();
         GameUIManager = GameManager.GetComponent<GameUIManager>();
+
+        StepOff = gameObject.GetComponent<SpriteRenderer>().sprite;
+        //StepOn = Resources.Load<Sprite>(gameObject.tag);
+
+        audioSource = this.gameObject.GetComponent<AudioSource>();
+        child = transform.GetChild(0).gameObject;
+    }
+
+    private void Start()
+    {
+
         SceneManager.stepList.Add(this.gameObject);
-        StartCoroutine("StartSound");
 
         for(int i = 0; i < 10; i++)
         {
@@ -48,7 +52,7 @@ public class StepCollision : MonoBehaviour
         {
             if (SceneManager.isSwitch[i] != null && SceneManager.isSwitch[i] != "" && gameObject.CompareTag(SceneManager.isSwitch[i]))
             {
-                isSwitch = true; break;
+                isSwitch = true; StepOn = SceneManager.StepSprite[i + 5]; break;
             }
         }
     }
@@ -123,22 +127,6 @@ public class StepCollision : MonoBehaviour
             this.gameObject.GetComponent<SpriteRenderer>().sprite = StepOff;
             child.SetActive(false);
         }
-
-
-        //Debug.Log(this.gameObject.GetComponent<SpriteRenderer>().sprite);
-    }
-
-
-    IEnumerator StartSound()
-    {
-        while (true)
-        {
-            if (isStep)
-            {
-                if (GameUIManager.isSoundEffectOn) this.audioSource.Play();
-            }
-            yield return new WaitWhile(() => isStep);
-        }
     }
 
 
@@ -147,40 +135,33 @@ public class StepCollision : MonoBehaviour
     {
         if (this.gameObject.tag.Contains(collision.gameObject.tag))
         {
-            //Debug.Log(collision.gameObject.tag);
+            if (GameUIManager.isSoundEffectOn) PlayStepSound = AndroidNativeAudio.play(SceneManager.StepSound[0]);
             s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
-            //s.currStepCnt++;
             brickStepOn = true;
-            if(GameUIManager.isSoundEffectOn) this.audioSource.Play();
-            //s.currStepCnt++;
         }
         else if (gameObject.tag.Contains("left") && collision.gameObject.tag.Contains("left"))
         {
-            if (GameUIManager.isSoundEffectOn) this.audioSource.Play();
+            if (GameUIManager.isSoundEffectOn) PlayStepSound = AndroidNativeAudio.play(SceneManager.StepSound[0]);
             s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
             ArrowStepOn = true;
-            //s.currStepCnt++;
         }
         else if (gameObject.tag.Contains("right") && collision.gameObject.tag.Contains("right"))
         {
-            if (GameUIManager.isSoundEffectOn) this.audioSource.Play();
+           if (GameUIManager.isSoundEffectOn) PlayStepSound = AndroidNativeAudio.play(SceneManager.StepSound[0]);
             s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
             ArrowStepOn = true;
-            //s.currStepCnt++;
         }
         else if (gameObject.tag.Contains("up") && collision.gameObject.tag.Contains("up"))
         {
-            if (GameUIManager.isSoundEffectOn) this.audioSource.Play();
+            if (GameUIManager.isSoundEffectOn) PlayStepSound = AndroidNativeAudio.play(SceneManager.StepSound[0]);
             s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
             ArrowStepOn = true;
-            //s.currStepCnt++;
         }
         else if (gameObject.tag.Contains("down") && collision.gameObject.tag.Contains("down"))
         {
-            if (GameUIManager.isSoundEffectOn) this.audioSource.Play();
+           if (GameUIManager.isSoundEffectOn) PlayStepSound = AndroidNativeAudio.play(SceneManager.StepSound[0]);
             s = GameObject.FindWithTag("accepted").GetComponent<Stage>();
             ArrowStepOn = true;
-            //s.currStepCnt++;
         }
 
         if (gameObject.CompareTag("rotatestep"))

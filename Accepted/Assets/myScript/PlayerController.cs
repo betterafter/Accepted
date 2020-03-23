@@ -31,7 +31,9 @@ public class PlayerController : MonoBehaviour
     private Animator anime;
     private Button btnup, btndown, btnleft, btnright;
 
+    int PlayStepSound;
     AudioSource audioSource;
+    public AudioClip AudioClip;
 
 
     private void Awake()
@@ -200,12 +202,16 @@ public class PlayerController : MonoBehaviour
 
     public void Move(Button btn)
     {
+
         if (this.enabled)
         {
             //sm.IsLastClickedButton_Undo = false;
             sm.IsLastClickButton_Move = true;
             sm.isChanged = false;
-            if(!audioSource.isPlaying && GameUIManager.isSoundEffectOn) audioSource.Play();
+            if(!audioSource.isPlaying && GameUIManager.isSoundEffectOn)
+                PlayStepSound = AndroidNativeAudio.play(sm.StepSound[1]);
+
+            //if (!audioSource.isPlaying && GameUIManager.isSoundEffectOn) audioSource.PlayOneShot(AudioClip);
 
             anime.SetBool("IsIdle", false);
             ButtonCoolDown(btn);

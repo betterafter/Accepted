@@ -41,6 +41,15 @@ public class MoveToGame : MonoBehaviour
                         gameObject.GetComponent<Image>().sprite = StageSelect.DisableSprite;
                         gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().color = Color.white;
                     }
+                    if(stageData.StageInnerData[idx].enable == 1 && stageData.StageInnerData[idx + 1] != null
+                         && stageData.StageInnerData[idx + 1].enable == 0)
+                    {
+                        gameObject.GetComponent<Image>().sprite = StageSelect.EnableSprite;
+                        gameObject.GetComponent<Image>().color = new Color(119 / 255f, 255 / 255f, 165 / 255f);
+                        gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().color = Color.black;
+
+                    }
+
                     break;
                 }
             }
