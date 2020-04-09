@@ -39,6 +39,8 @@ it's a game "accepted" repository
 
 
 
+혹시라도 이 프로젝트를 이어간다면..
 
-
-sample download : https://drive.google.com/drive/folders/1BvacPWqT9N90Nc2wEyZTMNfkrHwHE1NU?usp=sharing
+1.build시 sdk나 ndk 문제는 본인의 pc에 맞게 설정되어있어서 재다운로드해서 사용하길 바람
+2.keystore key : otk30dmg5c
+3.sample download : https://drive.google.com/drive/folders/1BvacPWqT9N90Nc2wEyZTMNfkrHwHE1NU?usp=sharing
