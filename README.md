@@ -34,3 +34,11 @@ it's a game "accepted" repository
 
 
 자잘한 오류가 워낙 많아서 다른 문제가 발생하면 그때 확인해서 해결해봐야할 듯
+
+
+
+
+
+
+
+sample download : https://drive.google.com/drive/folders/1BvacPWqT9N90Nc2wEyZTMNfkrHwHE1NU?usp=sharing
